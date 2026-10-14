@@ -248,11 +248,8 @@ nav#side li.l2 a{padding-left:22px;font-size:12.8px;color:var(--muted)}
         <button data-pane="t-today" class="on">Today</button>
         <button data-pane="t-daily">Daily Plan</button>
         <button data-pane="t-topics">Topics</button>
-        <button data-pane="t-review">Review Queue</button>
         <button data-pane="t-mc">Master Checklist</button>
         <button data-pane="t-pyq">PYQ Tracker</button>
-        <button data-pane="t-weekly">Weekly Review</button>
-        <button data-pane="t-mocks">Mock Tests</button>
         <button data-pane="t-time">Time Structure</button>
         <button data-pane="t-guide">Guide</button>
       </nav>
@@ -260,11 +257,8 @@ nav#side li.l2 a{padding-left:22px;font-size:12.8px;color:var(--muted)}
       <section class="tpane on" id="t-today"></section>
       <section class="tpane" id="t-daily"></section>
       <section class="tpane" id="t-topics"></section>
-      <section class="tpane" id="t-review"></section>
       <section class="tpane" id="t-mc"></section>
       <section class="tpane" id="t-pyq"></section>
-      <section class="tpane" id="t-weekly"></section>
-      <section class="tpane" id="t-mocks"></section>
       <section class="tpane" id="t-time"></section>
       <section class="tpane" id="t-guide"></section>
     </div>
@@ -4009,8 +4003,6 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#modal").hidden
 function showPane(id){
   $$(".ttabs button").forEach(b=>b.classList.toggle("on",b.dataset.pane===id));
   $$(".tpane").forEach(p=>p.classList.toggle("on",p.id===id));
-  if(id==="t-review")renderReview();     // fresh dates every visit
-  if(id==="t-weekly")renderWeekly();     // picks up ticks made elsewhere
 }
 $$("#ttabs button").forEach(b=>b.onclick=()=>{showPane(b.dataset.pane);scrollTo({top:0});});
 function setView(v){
@@ -4102,7 +4094,7 @@ $("#top").onclick=()=>scrollTo({top:0,behavior:"smooth"});
 addEventListener("scroll",()=>$("#top").style.display=scrollY>700?"block":"none",{passive:true});
 
 /* ---------------- boot ---------------- */
-renderToday();renderDaily();renderTopics();renderReview();renderCheck();renderPyq();renderWeekly();renderMocks();renderTime();renderGuide();
+renderToday();renderDaily();renderTopics();renderCheck();renderPyq();renderTime();renderGuide();
 updateOverall();
 </script>
 </body>
