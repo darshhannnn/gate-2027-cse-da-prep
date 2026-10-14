@@ -1,0 +1,4552 @@
+{
+ "groups": [
+  {
+   "name": "1. Engineering Mathematics & Discrete Mathematics",
+   "note": "Common to both papers (~13-mark block in CS; feeds DA maths)",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Propositional Logic and First-Order Logic",
+     "subs": [
+      {
+       "n": "Truth tables, connectives, tautologies",
+       "p": "Warm-up 1-mark material; rarely alone"
+      },
+      {
+       "n": "Validity, satisfiability, counter-models",
+       "p": "Near-yearly: decide whether a formula set is valid/satisfiable"
+      },
+      {
+       "n": "Equivalences, CNF/DNF, logical consequence",
+       "p": "Feeds resolution questions and digital-logic minimisation"
+      },
+      {
+       "n": "FOL: quantifiers, negation, translation",
+       "p": "Alternate years; 2026 CSE and DA both had FOL validity questions"
+      }
+     ],
+     "freq": "7/10 years · 1–2 Qs",
+     "patterns": [
+      "Decide validity/satisfiability of given formulas",
+      "Translate English statements into FOL and negate them",
+      "Count truth assignments / models"
+     ],
+     "tests": [
+      "20-min topic quiz after first pass (mix NAT+MSQ) — target 90%",
+      "Add to Sunday mixed set until two clean passes"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": 1,
+       "q": "The statement (¬p) ⇒ (¬q) is logically equivalent to which of the statements below? I. p → q  II. q → p  III. (¬q) ∨ p  IV. (¬p) ∨ q",
+       "u": "https://gateoverflow.in/118698/gate-cse-2017-set-1-question-01"
+      },
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the first-order logic sentence φ ≡ ∃s ∃t ∃u ∀v ∀w ∀x ∀y ψ(s,t,u,v,w,x,y), where ψ is a quantifier-free first-order logic formula using only predicate symbols, and possibly equality, but no function symbols. Suppose φ has a model with a universe containing 7 elements. Which one of the following statements is necessarily true?",
+       "u": "https://questions.examside.com/past-years/gate/question/consider-the-first-order-logic-sentence-varphi-equiv-2018-marks-2-yfuispiqzndy1yjm.htm"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "[MSQ] Choose the correct choice(s) regarding the following propositional logic assertion S: S: ((P ∧ Q) → R) → ((P ∧ Q) → (Q → R))",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/mathematical-logic"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "Let p and q be the following propositions: p: Fail grade can be given. q: Student scores more than 50% marks. The CORRECT representation in propositional logic of the statement 'Fail grade cannot be given when student scores more than 50% marks' is:",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/mathematical-logic"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Sets, Relations, Functions, Partial Orders and Lattices",
+     "subs": [
+      {
+       "n": "Set operations and counting on sets",
+       "p": "Basic 1-mark fodder inside combinatorics"
+      },
+      {
+       "n": "Relations: closures, equivalence classes",
+       "p": "Number of equivalence relations / class sizes recur"
+      },
+      {
+       "n": "Functions: injective, surjective, composition",
+       "p": "Counting functions with constraints (DA 2026: f(f(n))=n bijections)"
+      },
+      {
+       "n": "POSETs, Hasse diagrams, LUB/GLB",
+       "p": "Hasse-diagram questions alternate years"
+      },
+      {
+       "n": "Lattices, monoids, groups (axioms)",
+       "p": "Group-axiom checks appear as quick 1-markers"
+      }
+     ],
+     "freq": "6/10 years · 1–2 Qs",
+     "patterns": [
+      "Hasse diagram reading",
+      "Classify relation properties",
+      "Count functions/relations with constraints"
+     ],
+     "tests": [
+      "Include in the weekly sectional rotation"
+     ],
+     "pyqs": [
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 1,
+       "q": "[MSQ] Let G be an arbitrary group. Consider the following relations on G: R1: ∀a,b ∈ G, aR1b iff there exists g ∈ G such that a = g^(-1) b g; R2: ∀a,b ∈ G, aR2b iff a = b^(-1). Which of the above is/are equivalence relation(s)?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/set-theory-and-algebra"
+      },
+      {
+       "y": 2020,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Let R be the set of all binary relations on the set {1,2,3}. Suppose a relation is chosen from R at random. The probability that the chosen relation is reflexive (round off to 3 decimal places) is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/set-theory-and-algebra"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] Let S be a set consisting of 10 elements. The number of tuples of the form (A, B) such that A and B are subsets of S, and A ⊆ B, is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/set-theory-and-algebra"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Let A and B be non-empty finite sets such that there exist one-to-one and onto functions (i) from A to B, and (ii) from A × A to A ∪ B. The number of possible values of |A| is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/set-theory-and-algebra"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Graphs — Connectivity, Matching, Colouring",
+     "subs": [
+      {
+       "n": "Handshaking, degree sequences, walks",
+       "p": "Degree-sum numericals are quick marks"
+      },
+      {
+       "n": "Connectivity, Euler and Hamiltonian",
+       "p": "Existence-style concept questions"
+      },
+      {
+       "n": "Bipartite graphs and matching (Hall's)",
+       "p": "Matching-size questions appear with DA graph theory"
+      },
+      {
+       "n": "Chromatic number and colouring bounds",
+       "p": "Chromatic number of standard graphs — recurring 1-mark"
+      },
+      {
+       "n": "Trees and basic properties",
+       "p": "n−1 edges, leaf counts — feeds DS tree questions"
+      }
+     ],
+     "freq": "6/10 years · 1–2 Qs",
+     "patterns": [
+      "Chromatic/connectivity properties",
+      "Matching in bipartite graphs",
+      "Counting labelled structures"
+     ],
+     "tests": [
+      "Weekly sectional inclusion"
+     ],
+     "pyqs": [
+      {
+       "y": 2020,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] Graph G is obtained by adding vertex s to K3,4 and making s adjacent to every vertex of K3,4. The minimum number of colours required to edge-colour G is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/graph-theory"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Consider a simple undirected graph of 10 vertices. If the graph is disconnected, then the maximum number of edges it can have is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/graph-theory"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] The number of edges present in the forest generated by the DFS traversal of an undirected graph G with 100 vertices is 40. The number of connected components in G is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/graph-theory"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] Let G be an undirected graph, which is a path on 8 vertices. The number of matchings in G is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/graph-theory"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Combinatorics — Counting, Recurrence Relations, Generating Functions",
+     "subs": [
+      {
+       "n": "Permutations/combinations with constraints",
+       "p": "Every year somewhere (CSE math or DA P&S)"
+      },
+      {
+       "n": "Pigeonhole and inclusion–exclusion",
+       "p": "Standard small numericals"
+      },
+      {
+       "n": "Stars-and-bars / integer solutions",
+       "p": "DA 2026 asked it directly"
+      },
+      {
+       "n": "Linear recurrences (characteristic roots)",
+       "p": "Solve-the-recurrence appears most years"
+      },
+      {
+       "n": "Generating functions, coefficient extraction",
+       "p": "Alternate years; the classic differentiator"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Count with constraints",
+      "Solve recurrences",
+      "Extract coefficients from generating functions"
+     ],
+     "tests": [
+      "Timed 10-question counting drill weekly in Phase 1"
+     ],
+     "pyqs": [
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": 2,
+       "q": "Which one of the following is a closed form expression for the generating function of the sequence {a_n}, where a_n = 2n + 3 for all n = 0, 1, 2, ...?",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-matrix-p-p-rleftbegin-gate-cse-discrete-mathematics-xh8bx1z4mvvitvkz"
+      },
+      {
+       "y": 2020,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] The number of permutations of the characters in LILAC so that no character appears in its original position, if the two L's are indistinguishable, is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/combinatorics"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] The number of arrangements of six identical balls in three identical bins is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/combinatorics"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Let T be the set of all ternary strings defined over the alphabet {a, b, c}. Consider all strings in T that contain at least one occurrence of two consecutive identical symbols (such as 'aa', 'bb' or 'cc'). The number of such strings of length 5 is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/combinatorics"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Linear Algebra — Matrices, Determinants, Systems of Linear Equations",
+     "subs": [
+      {
+       "n": "Rank and consistency of linear systems",
+       "p": "Consistency/parametric solutions recur in both papers"
+      },
+      {
+       "n": "Determinants and their properties",
+       "p": "Trick determinants (DA 2024: det(M²+12M))"
+      },
+      {
+       "n": "Special matrices: idempotent, orthogonal, I+uvᵀ",
+       "p": "DA 2025: rank of I+xxᵀ; shortcut family worth memorising"
+      },
+      {
+       "n": "Gaussian elimination",
+       "p": "DA 2025 asked its operation count"
+      }
+     ],
+     "freq": "8/10 years · 2 Qs",
+     "patterns": [
+      "Solve/characterise systems",
+      "Determinant shortcuts",
+      "Rank arguments without full computation"
+     ],
+     "tests": [
+      "20-min quiz after first pass; re-solve misses at day 7"
+     ],
+     "pyqs": [
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 1,
+       "q": "Let X be a square matrix. Consider the following two statements on X: I. X is invertible. II. Determinant of X is non-zero. Which one of the following is TRUE?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/linear-algebra"
+      },
+      {
+       "y": 2020,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] Let A and B be two n×n matrices over real numbers. Let rank(M) and det(M) denote the rank and determinant of a matrix M. Consider the following statements: I. rank(AB) = rank(A) rank(B); II. det(AB) = det(A) det(B); III. rank(A+B) = rank(A) + rank(B); IV. det(A+B) = det(A) + det(B). Which of the above statements is/are TRUE?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/linear-algebra"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider the following two statements with respect to the matrices A_(m×n), B_(n×m), C_(n×n) and D_(n×n): Statement 1: tr(AB) = tr(BA). Statement 2: tr(CD) = tr(DC). Which one of the following holds?",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-two-statements-with-respect-to-the-gate-cse-theory-of-computation-finite-automata-and-regular-language-6xepr5taxgioyojw"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] Let A be an n×n matrix over the set of all real numbers ℝ. Let B be a matrix obtained from A by swapping two rows. Which of the following statements is/are TRUE?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/linear-algebra"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Linear Algebra — Eigenvalues and Eigenvectors",
+     "subs": [
+      {
+       "n": "Computing eigenvalues (2×2/3×3)",
+       "p": "Direct computation almost every year across both papers"
+      },
+      {
+       "n": "Diagonalization and powers Aⁿ",
+       "p": "DA 2026: rotation matrix M^2026"
+      },
+      {
+       "n": "Trace/det = sum/product of eigenvalues",
+       "p": "Shortcut used inside many numericals"
+      },
+      {
+       "n": "Eigen-structure of projections/stochastic matrices",
+       "p": "Ties into PCA (DA ML) questions"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Compute eigen-pairs fast",
+      "Aⁿ without multiplying",
+      "Eigen-based arguments about rank/invertibility"
+     ],
+     "tests": [
+      "Include in Saturday mixed set"
+     ],
+     "pyqs": [
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Consider a matrix A = u v^T where u = (1, 2)^T and v = (1, 1)^T. Note that v^T denotes the transpose of v. The largest eigenvalue of A is _________.",
+       "u": "https://gateoverflow.in/204091/gate-cse-2018-question-17"
+      },
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider a matrix P whose only eigenvectors are the multiples of [1, 4]^T. Consider the following statements: I. P does not have an inverse. II. P has a repeated eigenvalue. III. P cannot be diagonalized. Which one of the following options is correct?",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-matrix-p-p-rleftbegin-gate-cse-discrete-mathematics-xh8bx1z4mvvitvkz"
+      },
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] Consider the following matrix R = [[1, 2, 4, 8], [1, 3, 9, 27], [1, 4, 16, 64], [1, 5, 25, 125]]. The absolute value of the product of Eigen values of R is _________.",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-matrix-p-p-rleftbegin-gate-cse-discrete-mathematics-xh8bx1z4mvvitvkz"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] The largest eigenvalue of the matrix [[0, 1, 1, 1], [1, 0, 1, 1], [1, 1, 0, 1], [1, 1, 1, 0]] is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/linear-algebra"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Linear Algebra — LU Decomposition, Rank, Nullity",
+     "subs": [
+      {
+       "n": "LU decomposition steps",
+       "p": "Mechanical; know the count of operations"
+      },
+      {
+       "n": "Rank–nullity theorem",
+       "p": "Direct application numericals"
+      },
+      {
+       "n": "Subspace dimensions in R³",
+       "p": "DA 2024 and 2026 both asked subspace identification"
+      }
+     ],
+     "freq": "4/10 years · 1 Q",
+     "patterns": [
+      "Dimension counting",
+      "Decomposition mechanics"
+     ],
+     "tests": [
+      "Fold into the Linear Algebra topic quiz"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Suppose that P is a 4 × 5 matrix such that every solution of the equation Px = 0 is a scalar multiple of [2 5 4 3 1]^T. The rank of P is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/linear-algebra"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider solving the following system of simultaneous equations using LU decomposition: x1 + x2 − 2x3 = 4; x1 + 3x2 − x3 = 7; 2x1 + x2 − 5x3 = 7, where L and U are the matrices of the LU factorization of the coefficient matrix. Which one of the following is the correct combination of values for L32, U33, and x1?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/linear-algebra"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] Let A be any n × m matrix, where m > n. Which of the following statements is/are TRUE about the system of linear equations Ax = 0?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/linear-algebra"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Probability — Conditional Probability and Bayes Theorem",
+     "subs": [
+      {
+       "n": "Conditional probability and independence",
+       "p": "Foundation for nearly every probability question"
+      },
+      {
+       "n": "Bayes theorem (boxes, disease tests)",
+       "p": "DA 2025 3-boxes; DA 2026 disease testing; CSE recurring"
+      },
+      {
+       "n": "Law of total probability",
+       "p": "Inside most Bayes numericals"
+      },
+      {
+       "n": "Joint, marginal, conditional probability",
+       "p": "DA asks marginal/conditional nearly every year"
+      }
+     ],
+     "freq": "9/10 years · 2–3 Qs",
+     "patterns": [
+      "Bayes with base rates",
+      "Independence factorisation checks (DA 2024)",
+      "Total-probability partitions"
+     ],
+     "tests": [
+      "This is the highest-ROI quiz in the plan — 20-min drill weekly"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": 2,
+       "q": "P and Q are considering to apply for a job. The probability that P applies for the job is 1/4, the probability that P applies for the job given that Q applies for the job is 1/2, and the probability that Q applies for the job given that P applies for the job is 1/3. Then the probability that Q does not apply for the job given that P does not apply for the job is:",
+       "u": "https://questions.examside.com/past-years/gate/question/p-and-q-are-considering-to-apply-for-a-job-the-probability-t-gate-cse-2017-set-2-marks-2-uwvgi9einxdo1vyg.htm"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] A sender (S) transmits a signal, which can be one of the two kinds: H and L with probabilities 0.1 and 0.9 respectively, to a receiver (R). In the given graph, the probability of receiving H when H is sent is 0.3 (and L when H is sent is 0.7), while the probability of receiving H when L is sent is 0.8 (and L when L is sent is 0.2). If H is received, the probability that H was transmitted (round off to 2 decimal places) is _________.",
+       "u": "https://questions.examside.com/past-years/gate/question/pa-sender-s-transmits-a-signal-which-can-be-one-of-the-gate-cse-theory-of-computation-finite-automata-and-regular-language-trqsqeo5eulonsyh"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "[MSQ] Let A and B be two events in a probability space with P(A) = 0.3, P(B) = 0.5, and P(A ∩ B) = 0.1. Which of the following statements is/are TRUE?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] A bag contains 10 red balls and 15 blue balls. Two balls are drawn randomly without replacement. Given that the first ball drawn is red, the probability that the second ball drawn is red (rounded off to the correct number of decimal places) is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Probability Distributions — Uniform, Normal, Exponential, Poisson, Binomial",
+     "subs": [
+      {
+       "n": "Bernoulli and binomial",
+       "p": "Estimator-style questions (DA 2025 unbiased p̂)"
+      },
+      {
+       "n": "Poisson: mean=variance, merging, limits",
+       "p": "DA 2024 identity; DA 2026 Poisson-limit sum"
+      },
+      {
+       "n": "Exponential and memorylessness",
+       "p": "DA 2026: P(X>10|X>5) — the classic trap"
+      },
+      {
+       "n": "Normal and standard normal",
+       "p": "Standardisation numericals; ties into CLT"
+      },
+      {
+       "n": "Uniform (discrete/continuous)",
+       "p": "Baseline for conditional-uniform questions (DA 2026)"
+      }
+     ],
+     "freq": "9/10 years · 2–3 Qs",
+     "patterns": [
+      "Recognise the distribution, then compute",
+      "Memorylessness and merging properties",
+      "Standardisation"
+     ],
+     "tests": [
+      "Distribution-recognition drill: 15 mixed questions weekly"
+     ],
+     "pyqs": [
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] Suppose Y is distributed uniformly in the open interval (1, 6). The probability (rounded off to 1 decimal place) that the polynomial 3x^2 + 6xY + 3Y + 6 has only real roots is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] The lifetime of a component of a certain type is a random variable whose probability density function is exponentially distributed with parameter 2. The probability (rounded to 2 decimal places) that the lifetime of the component exceeds its expected value is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] Suppose a 5-bit message is transmitted from a source to a destination through a noisy channel. The probability that a bit of the message gets flipped during transmission is 0.01. The probability (rounded off to 3 decimal places) that the message arrives at the destination without any error is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Mean, Median, Mode, Standard Deviation, Variance",
+     "subs": [
+      {
+       "n": "Descriptive statistics computation",
+       "p": "Quick 1-markers in both papers"
+      },
+      {
+       "n": "Variance identities: E[X²], ΣΣ(xᵢ−xⱼ)²",
+       "p": "DA 2026 used the pairwise-sum identity"
+      },
+      {
+       "n": "Correlation and covariance basics",
+       "p": "DA 2024 and 2026 correlation questions"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Compute/compare moments",
+      "Variance identity shortcuts"
+     ],
+     "tests": [
+      "Fold into probability drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Let X be a Gaussian random variable with mean 0 and variance σ^2. Let Y = max(X, 0), where max(a, b) is the maximum of a and b. The median of Y is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] For a given biased coin, the probability that the outcome of a toss is a head is 0.4. This coin is tossed 1,000 times. Let X denote the total number of heads. The standard deviation of X (rounded to 2 decimal places) is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] Consider the following statements: S1: There exist random variables X and Y such that (E[(X − E(X))(Y − E(Y))])^2 > Var[X] · Var[Y]. S2: For all random variables X and Y, Cov[X, Y] = E[|X − E[X]| · |Y − E[Y]|]. Which of the following combinations is correct?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/probability"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "Let x and y be random variables, not necessarily independent, that take real values in the interval [0, 1]. Let z = xy and let the mean values of x, y, z be x̄, ȳ, z̄ respectively. Which one of the following statements is TRUE?",
+       "u": "https://questions.examside.com/past-years/year-wise/gate/gate-cse/gate-cse-2024-set-2/lwug6pui"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Calculus — Limits, Continuity, Differentiability, Maxima and Minima",
+     "subs": [
+      {
+       "n": "Algebraic limits and expansions",
+       "p": "DA 2025: lim(√(t²+t)−t); CSE lighter"
+      },
+      {
+       "n": "Piecewise continuity/differentiability",
+       "p": "DA 2024 piecewise continuity; 2025 product/composition"
+      },
+      {
+       "n": "Maxima/minima via second-derivative test",
+       "p": "DA all three years (quartic/cubic/cubic)"
+      },
+      {
+       "n": "Mean value theorem (use, not proof)",
+       "p": "Occasional concept question"
+      }
+     ],
+     "freq": "5/10 years (CS) · heavier in DA",
+     "patterns": [
+      "Critical points and classification",
+      "Differentiability checks at joints"
+     ],
+     "tests": [
+      "Fold into Calculus & Optimisation quiz (DA group 12)"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": 2,
+       "q": "The value of lim(x→1) (x^7 − 2x^5 + 1)/(x^3 − 3x^2 + 2) is:",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/calculus"
+      },
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Compute lim(x→3) (x^4 − 81)/(x − 3).",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/calculus"
+      },
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 1,
+       "q": "[MSQ] Let f(x) = x^3 + 15x^2 − 33x − 36 be a real-valued function. Which of the following statements is/are TRUE? (A) f(x) does not have a local maximum (B) f(x) has a local maximum (C) f(x) does not have a local minimum (D) f(x) has a local minimum",
+       "u": "https://gateoverflow.in/399293/gate-cse-2023-question-18"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Calculus — Mean Value Theorem, Integration",
+     "subs": [
+      {
+       "n": "Definite integral properties",
+       "p": "Occasional 1-mark"
+      },
+      {
+       "n": "Area under simple curves",
+       "p": "Rare direct; supports probability densities"
+      },
+      {
+       "n": "MVT applications",
+       "p": "Statement-level questions only"
+      }
+     ],
+     "freq": "3/10 years · ≤1 Q",
+     "patterns": [
+      "Integral properties",
+      "Density-based areas"
+     ],
+     "tests": [
+      "Low priority: solve PYQs once, no drill needed"
+     ],
+     "pyqs": [
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] The value of the integral ∫(0 to π/4) x · cos(x^2) dx, correct to three decimal places, is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/calculus"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] Let f be a continuous function on the interval [−3, 3] and differentiable in the open interval (−3, 3), such that for every x in the interval, f′(x) ≤ 2. If f(−3) = 7, then f(3) is at most _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/calculus"
+      },
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] The value of the definite integral ∫(−3 to 3) ∫(−2 to 2) ∫(−1 to 1) (4x^2 y − z^3) dz dy dx, rounded off to the nearest integer, is _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/discrete-mathematics/calculus"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "2. Programming, Data Structures and Algorithms",
+   "note": "Common core — highest return for both papers (~16–18 marks in CS)",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Programming in C (and Python for the DA paper) — Recursion",
+     "subs": [
+      {
+       "n": "C: pointers, arrays, parameter passing, scope",
+       "p": "C output-tracing is asked every single year (3–5 Qs)"
+      },
+      {
+       "n": "C: dynamic memory, structs, sizeof traps",
+       "p": "sizeof array-vs-pointer and malloc patterns recur"
+      },
+      {
+       "n": "Recursion: call trees, counting calls",
+       "p": "Call-count and return-value tracing every year"
+      },
+      {
+       "n": "Python: closures, mutable default arguments",
+       "p": "DA 2026: mutable default — the classic trap"
+      },
+      {
+       "n": "Python: list/set/dict behaviour, slicing",
+       "p": "2–4 Python output questions per DA paper"
+      }
+     ],
+     "freq": "10/10 years · 3–5 Qs",
+     "patterns": [
+      "Trace the exact output",
+      "Count recursive calls",
+      "Spot aliasing/mutation effects"
+     ],
+     "tests": [
+      "Daily 30-min tracing drill through Phase 1–2 (this tab's single best habit)"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider an ANSI C program with a recursive function foo(x, y, q) that returns q when both x and y are non-positive; otherwise it recurses by subtracting q from y, or from x, or returns the sum of two recursive calls. What is the output of foo(15, 15, 10)? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-ansi-c-programp-pinclude-l-gate-cse-theory-of-computation-finite-automata-and-regular-language-otrpnaexaywuelmg"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider a C program in which a recursive function fX() reads characters one by one using getchar(), recursing until a newline is read, then outputs the characters using putchar() after the recursion unwinds. For the input 1234, which statement about the output is correct? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-c-programp-precode-includ-gate-cse-algorithms-nmxmcajlxgz7xa0x"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the recursive functions: int bar(int n){ if(n==1) return 0; else return 1 + bar(n/2); } and int foo(int n){ if(n==1) return 1; else return 1 + foo(bar(n)); }. What is the smallest positive integer n for which foo(n) returns 5? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/precodeconsider-the-recursive-functions-represented-by-t-gate-cse-theory-of-computation-finite-automata-and-regular-language-23p9m4fahwns8d41"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Arrays, Stacks, Queues, Linked Lists",
+     "subs": [
+      {
+       "n": "Multi-dimensional array addressing",
+       "p": "Row/column-major address numericals, alternate years"
+      },
+      {
+       "n": "Stack applications: expression evaluation",
+       "p": "Postfix/infix evaluation and stack traces"
+      },
+      {
+       "n": "Circular queues and deques",
+       "p": "DA 2024 asked deque operation sequences"
+      },
+      {
+       "n": "Linked-list pointer manipulation",
+       "p": "Pointer-swap/output questions alternate years"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Trace data-structure operation sequences",
+      "Address calculation",
+      "Spot pointer bugs"
+     ],
+     "tests": [
+      "Include in the weekly programming drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the queues Q1 containing four elements and Q2 containing none (there are four operations: dequeue from Q1 and enqueue into Q2). What is the minimum number of Enqueue operations on Q1 required so that the elements get reversed into Q2, without using additional storage? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-queues-qsub1sub-containing-four-element-gate-cse-theory-of-computation-finite-automata-and-regular-language-sozflytewkqwhc7j"
+      },
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider a sequence a of elements a0, a1, ..., an-1. A series of operations (I to X) is performed on an empty stack S and an empty queue Q (push/pop/enqueue/dequeue of sequence elements). What is the top element of the stack after all operations? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-a-sequence-a-of-elements-a01a15a27a3-gate-cse-theory-of-computation-finite-automata-and-regular-language-vzfpwarpsb9ezhcd"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "Let S1 and S2 be two stacks. S1 has capacity 4 elements and S2 has capacity 2 elements. Using PushToS2, PushToS1 and GenerateOutput operations, which of the given output sequences can/cannot be generated? [MSQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-bs1b-and-bs2b-be-two-stacks-bs1b-has-gate-cse-theory-of-computation-eljwi2h1wsla8sdy"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Trees — Binary Trees, Binary Search Trees",
+     "subs": [
+      {
+       "n": "Traversals (pre/in/post/level)",
+       "p": "Every year in some form across both papers"
+      },
+      {
+       "n": "BST insert/delete/search",
+       "p": "Comparison counts and resulting shapes"
+      },
+      {
+       "n": "Construction from pre+in / post+in",
+       "p": "DA 2026 asked reconstruction"
+      },
+      {
+       "n": "Full/complete binary tree relations",
+       "p": "DA 2024: height vs internal vs leaf counts"
+      },
+      {
+       "n": "Heaps as trees (bridge to next topic)",
+       "p": "Feeds priority-queue questions"
+      }
+     ],
+     "freq": "9/10 years · 1–2 Qs",
+     "patterns": [
+      "Reconstruct trees from orders",
+      "Count comparisons/nodes",
+      "Identify valid BST sequences"
+     ],
+     "tests": [
+      "Topic quiz after first pass; add to Sunday mixed set"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": 1,
+       "q": "Let T be a binary search tree with 15 nodes. The minimum and maximum possible heights of T are (note: the height of a tree with a single node is 0): [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-t-be-a-binary-search-tree-with-15-nodes-the-minimu-gate-cse-data-structures-4jrcie0x60puxxah"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "Suppose the values 10, 4, 15, 30, 20, 5, 60, 19 are inserted in that order into an initially empty binary search tree. What is the number of edges from the node containing 19 to the root? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/psuppose-the-values-10-415302056019-are-inserted-gate-cse-theory-of-computation-finite-automata-and-regular-language-zp8oje3lrlvkgubr"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider a binary tree T in which every node has either zero or two children. Let n be the number of nodes in T. Which one of the options gives the number of nodes in T that have exactly two children? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-a-binary-tree-t-in-which-every-node-has-either-gate-cse-theory-of-computation-finite-automata-and-regular-language-bptvzpg0vrkkksj3"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Heaps and Priority Queues",
+     "subs": [
+      {
+       "n": "Heapify, insert, delete-min",
+       "p": "Element-comparison counting recurs"
+      },
+      {
+       "n": "Build-heap complexity",
+       "p": "O(n) vs O(n log n) distinction — classic MCQ"
+      },
+      {
+       "n": "Heapsort and k-largest elements",
+       "p": "Conceptual frequency"
+      },
+      {
+       "n": "d-heaps / k-way merge (light)",
+       "p": "Rare; know the idea"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Trace heap operations",
+      "Count comparisons",
+      "Complexity distinctions"
+     ],
+     "tests": [
+      "Include in DS sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 2,
+       "q": "Let A be a priority queue for maintaining a set of elements. EXTRACT-MAX(A) extracts and deletes the maximum element from A; INSERT(A, key) inserts a new element key into A. Which one of the statements about the worst-case running times of these operations is TRUE? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-a-be-a-priority-queue-for-maintaining-a-set-of-elemen-gate-cse-theory-of-computation-finite-automata-and-regular-language-gxi66lprcms6xxqp"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "Suppose a Min-Heap H stores 32 keys. The height of H is ________ (answer in integer). [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/pthe-height-of-any-rooted-tree-is-defined-as-the-maximum-n-gate-cse-theory-of-computation-finite-automata-and-regular-language-gg4mhb72hubrpuhi"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "Which one of the following sequences, when stored in an array at locations 1..n, forms a max-heap? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pwhich-one-of-the-following-sequences-when-stored-in-an-ar-gate-cse-general-aptitude-verbal-ability-gg0xs5pnweniba49"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Graphs — Representation, Traversals (BFS, DFS)",
+     "subs": [
+      {
+       "n": "Adjacency matrix vs list trade-offs",
+       "p": "1-mark property questions"
+      },
+      {
+       "n": "BFS/DFS mechanics and complexity",
+       "p": "DA 2024 DFS properties; DA 2026 DFS question"
+      },
+      {
+       "n": "Connected components, cycles, bipartiteness",
+       "p": "Applications appear as twist questions"
+      },
+      {
+       "n": "Topological sort of DAGs",
+       "p": "DA 2024: count valid orderings"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Trace traversal orders",
+      "Count orderings/components",
+      "Complexity under both representations"
+     ],
+     "tests": [
+      "Graph drill fortnightly"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "Let G be a directed graph and T a depth-first-search (DFS) spanning tree in G that is rooted at a vertex v. Suppose T is also a breadth-first-search (BFS) tree in G, rooted at v. Which of the given statements is/are TRUE? [MSQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-g-be-a-directed-graph-and-t-a-depth-first-search-dfs-gate-cse-algorithms-g9ut2yn1zhhm8mfb"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "Which of the following statements regarding Breadth First Search (BFS) and Depth First Search (DFS) on an undirected simple graph G is/are TRUE? [MSQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pwhich-of-the-following-statements-regarding-breadth-first-gate-cse-theory-of-computation-finite-automata-and-regular-language-pgle7ne3mdatlxub"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "Let G(V, E) be an undirected and unweighted graph with 100 vertices, in which the length of the shortest path between any two vertices is at most 30. Let T be any breadth-first-search tree of G. Which ONE of the given options is CORRECT for every such graph? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-gv-e-be-an-undirected-and-unweighted-graph-with-gate-cse-theory-of-computation-finite-automata-and-regular-language-cqzy0u5tu2d1ms0p"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the given pseudocode for Depth-First Search (DFS) with an Explore function. Suppose the input directed graph is a DAG. For an edge (u, v) of the graph, which of the given options (about discovery/finishing times) will NEVER be correct? [MSQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-pseudocode-for-depth-first-search-gate-cse-theory-of-computation-finite-automata-and-regular-language-brkrlpwhugv5bnrk"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Hashing",
+     "subs": [
+      {
+       "n": "Chaining and load factor",
+       "p": "Expected search cost numericals"
+      },
+      {
+       "n": "Open addressing: linear/double/uniform probing",
+       "p": "DA 2024 uniform hashing; DA 2025 linear-probing trace"
+      },
+      {
+       "n": "Hash function properties",
+       "p": "Simple 1-markers"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Count probes exactly",
+      "Load-factor formulas"
+     ],
+     "tests": [
+      "Trace 20 probe-sequence problems across prep"
+     ],
+     "pyqs": [
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "In a double hashing scheme, h1(k) = k mod 11 and h2(k) = (given second auxiliary hash function); the probe sequence is h(k, i) = (h1(k) + i * h2(k)) mod 11. The keys are inserted in the given order into a hash table of size 11. In which slot is the key 24 stored? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/pin-a-double-hashing-scheme-h1kk-bmod-11-and-h2-gate-cse-theory-of-computation-finite-automata-and-regular-language-swigjz09eijhxz3a"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 1,
+       "q": "The keys 52, 8, 19, 15, 26, 33, 12, 17, 10 are inserted into a hash table (of given size, hash function given) with chaining used for collision resolution. What is the length of the longest chain after all insertions? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/pthe-keys-52819152633121710-are-inserted-into-a-gate-cse-theory-of-computation-finite-automata-and-regular-language-zfcpf30k43ej6isx"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider a hash table 0..10 that is initially empty, maintained using open addressing with linear probing. After the given sequence of insertions (and deletions, if any), which of the listed slots remain empty? [MSQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-a-hash-table-p01-ldots-10-that-is-initia-gate-cse-general-aptitude-verbal-ability-92bm4hy7zyff6pe7"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Searching and Sorting Algorithms",
+     "subs": [
+      {
+       "n": "Binary search variants and comparison counts",
+       "p": "DA 2025: array vs linked-list binary search"
+      },
+      {
+       "n": "Insertion/selection/bubble counts",
+       "p": "DA 2025: insertion-sort swap count; DA 2026 bubble vs insertion"
+      },
+      {
+       "n": "Merge sort and quicksort behaviour",
+       "p": "DA 2026: first-element-pivot quicksort; 2024 in-place quicksort"
+      },
+      {
+       "n": "Stability and in-place properties",
+       "p": "DA 2024 sort-stability question; recurring MCQ"
+      }
+     ],
+     "freq": "9/10 years · 1–2 Qs",
+     "patterns": [
+      "Count comparisons/swaps exactly",
+      "Match algorithm to property",
+      "Trace one partition pass"
+     ],
+     "tests": [
+      "Sorting-property flashcards + fortnightly drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 1,
+       "q": "An array of 25 distinct elements is to be sorted using quicksort. Assume the pivot is always chosen uniformly at random. The probability that the pivot chosen in the first partitioning round lands in the worst possible position is ________ (rounded off to 2 decimal places). [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/an-array-of-25-distinct-elements-is-to-be-sorted-using-quick-gate-cse-algorithms-searching-and-sorting-vuzxyj3kdxpmvpnq"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider the following array: 23, 32, 45, 69, 72, 73, 89, 97. Which algorithm among the given options uses the least number of comparisons (among array elements) to sort this array in ascending order? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-arrayp-table-border1-cell-gate-cse-theory-of-computation-finite-automata-and-regular-language-skhbz106huwbo1od"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "The pseudocode of a function fun() (a bubble-sort-style nested loop with a swap of adjacent out-of-order elements) is given. The number of swap operations performed when fun() is called with an array of 30 distinct integers in descending order as argument is ________. [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/ptext--the-pseudocode-of-a-function-fun--is-given-be-gate-cse-theory-of-computation-finite-automata-and-regular-language-zzn7ypqmy9yjdx7i"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider an array A[10] = 78, 19, 41, 35, 2, 5, 31 (given array). Suppose the merge sort algorithm is executed on A to sort it in increasing order; it carries out a total of 7 merge operations. How many of these are void merge operations (merges where one side is empty/no movement needed)? [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-an-array-a10781941352531-suppose-th-gate-cse-theory-of-computation-finite-automata-and-regular-language-ncjwf8yzk7hmvatf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Asymptotic Worst-Case Time and Space Complexity",
+     "subs": [
+      {
+       "n": "O/Ω/Θ comparisons of functions",
+       "p": "Near-every-year ranking question"
+      },
+      {
+       "n": "Running time of code snippets",
+       "p": "Loop-analysis 1–2 markers"
+      },
+      {
+       "n": "Best vs worst vs average case",
+       "p": "Sorting/algorithm-specific cases"
+      }
+     ],
+     "freq": "9/10 years · 1–2 Qs",
+     "patterns": [
+      "Rank functions by growth",
+      "Analyse nested loops",
+      "Identify amortised twists"
+     ],
+     "tests": [
+      "Flashcards + include in every sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider functions from positive integers to positive reals given in a table (involving expressions like n^log n, 2^n, n^(3/2), etc.). Which of the options is the CORRECT arrangement of these functions in increasing order of asymptotic complexity? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-functions-from-positive-integers-t-gate-cse-algorithms-cgwfxzfm7rqi7hr5"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider three functions f1(n) = 10^n, f2(n) = n^(log n), f3(n) = n^(sqrt(n)). Which option arranges them in increasing order of asymptotic growth rate? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-three-functionsp-pfsub1-gate-cse-theory-of-computation-finite-automata-and-regular-language-qhlxdna08aguuxff"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 1,
+       "q": "Which one of the following statements is TRUE for all positive functions f(n)? (options compare f(n), f(n^2), f(n)^2, log f(n) growth relations) [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pwhich-one-of-the-following-statements-is-true-for-all-pos-gate-cse-theory-of-computation-finite-automata-and-regular-language-jk2tlrmv8tah1fwy"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "Given an integer array of size n, we want to check if the array is sorted in either ascending or descending order, making a single pass and comparing each element only with its adjacent element. The worst-case time complexity of the best algorithm for this is: [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/p-given-an-integer-array-of-size-n-we-want-to-check-if-gate-cse-algorithms-njxo5gpqyuk0uwxn"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Algorithm Design — Divide and Conquer",
+     "subs": [
+      {
+       "n": "Merge sort recurrence",
+       "p": "Standard Master-theorem application"
+      },
+      {
+       "n": "Master theorem cases",
+       "p": "Recurrence questions most years"
+      },
+      {
+       "n": "Recursion-tree/substitution methods",
+       "p": "When Master theorem doesn't apply — CSE 2026 favourite"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Solve recurrences",
+      "Recognise non-standard forms"
+     ],
+     "tests": [
+      "Fold into complexity drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider a sequence of 14 elements: A = [-5, -10, 6, 3, -1, -2, 13, 4, -9, -1, 4, 12, -3, 0]. Let S(i, j) be the sum of elements from index i to j. Find the maximum of S(i, j) over 0 <= i <= j < 14 (a divide-and-conquer approach is suggested). Answer: ________. [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/consider-a-sequence-of-14-elements-a---5-10-6-3-1-gate-cse-algorithms-divide-and-conquer-method-tzcylqgfgp3jxyhm"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "What is the worst-case number of arithmetic operations performed by recursive binary search on a sorted array of size n? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/what-is-the-worst-case-number-of-arithmetic-operations-perfo-gate-cse-theory-of-computation-finite-automata-and-regular-language-69dekm4rzggdipua"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider the following recurrence relations (several recurrences given for running times of divide-and-conquer style algorithms). Which one of the given options correctly characterizes/solves them? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-recurrence-relationsp-pfor-a-gate-cse-general-aptitude-verbal-ability-akm2ijpjm5fppfc5"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Algorithm Design — Greedy Algorithms",
+     "subs": [
+      {
+       "n": "Huffman coding cost",
+       "p": "Huffman tree construction numericals recur"
+      },
+      {
+       "n": "Activity selection / interval scheduling",
+       "p": "Conceptual exchange-argument questions"
+      },
+      {
+       "n": "Greedy correctness intuition",
+       "p": "2026 CSE-style: when greedy fails"
+      },
+      {
+       "n": "Greedy basis of MST",
+       "p": "Bridge to graph algorithms"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Build Huffman trees",
+      "Spot greedy counter-examples"
+     ],
+     "tests": [
+      "Include in algorithms sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": 1,
+       "q": "Consider the following table: (P) Kruskal's algorithm, (Q) Quicksort, (R) Floyd-Warshall algorithm — match the algorithms to the design paradigms they are based on (Greedy, Divide and Conquer, Dynamic Programming). [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-following-table-p-table-border1-cell-gate-cse-algorithms-gcgttgctswnuwqop"
+      },
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the weights and values of items listed below (weights 10, 7, 4, 2 and values 60, 28, 20, 24; knapsack capacity 11). Let opt be the max total value of a 0/1 knapsack solution and greedy the value obtained by the greedy algorithm that picks items in decreasing value-to-weight ratio. The value of opt - greedy is ________. [NAT]",
+       "u": "https://questions.examside.com/past-years/gate/question/consider-the-weights-and-values-of-items-listed-below-note-2018-marks-2-sbb0x3em9p2dbqyq.htm"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the string abbccddeee. Each letter in the string must be assigned a binary code satisfying the prefix property (as in Huffman coding). The minimum possible length of the encoded string (in bits) is: [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-the-string-abbccddeee-each-letter-in-the-string-gate-cse-theory-of-computation-finite-automata-and-regular-language-oi9alyruzyflk5lj"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Algorithm Design — Dynamic Programming",
+     "subs": [
+      {
+       "n": "Standard DP problems (knapsack family)",
+       "p": "Conceptual state-design questions"
+      },
+      {
+       "n": "Counting with DP",
+       "p": "Number-of-ways formulations"
+      },
+      {
+       "n": "DP vs greedy vs divide-conquer",
+       "p": "2026 CSE asked a non-standard DP — the separator"
+      },
+      {
+       "n": "Memoisation mechanics",
+       "p": "Subdependency tracing"
+      }
+     ],
+     "freq": "5/10 years · 1–2 Qs",
+     "patterns": [
+      "Define states correctly",
+      "Count solutions",
+      "Prove optimal substructure informally"
+     ],
+     "tests": [
+      "Solve 30 classic DP PYQs topic-wise; no cramming"
+     ],
+     "pyqs": [
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": 2,
+       "q": "Assume that multiplying a matrix G1 of dimension p1 x q1 with a matrix G2 of dimension p2 x q2 requires p1*q1*q2 scalar multiplications. In the parenthesization of a matrix-chain product that minimizes the total number of scalar multiplications, which of the listed pairs is/are explicitly computed? [MSQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/assume-that-multiplying-a-matrix-g1-of-dimension-p-2018-marks-2-h4adxg2q90ceo3gj.htm"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "Define Rn to be the maximum amount earned by cutting a rod of length n meters into one or more pieces of integer length and selling them (a price table for lengths 1..n is given). Which of the given statements about R7 (and how it is computed) is/are CORRECT? [MSQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pdefine-rsubnsub-to-be-the-maximum-amount-earned-by-c-gate-cse-theory-of-computation-finite-automata-and-regular-language-c5138ke2i8eezhjn"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider a table T where the elements T[i, j] represent the cost of optimal solutions of different subproblems of a problem being solved with dynamic programming. Two algorithms compute the table entries in different orders using only already-computed entries; which statement about the two algorithms is TRUE? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/pconsider-a-table-t-where-the-elements-pi-ij-0-l-gate-cse-theory-of-computation-finite-automata-and-regular-language-c2tehoyjemoogdaa"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Graph Algorithms — Minimum Spanning Tree, Shortest Paths",
+     "subs": [
+      {
+       "n": "Prim and Kruskal traces",
+       "p": "MST edge-selection and uniqueness questions"
+      },
+      {
+       "n": "Dijkstra",
+       "p": "2026 CSE: modified Dijkstra — hardest question of the paper"
+      },
+      {
+       "n": "Dijkstra with negative edges",
+       "p": "Why-it-fails conceptual staple"
+      },
+      {
+       "n": "Bellman-Ford and unweighted BFS shortest paths",
+       "p": "Property comparisons recur"
+      },
+      {
+       "n": "Topological shortest paths (DAG)",
+       "p": "Occasional twist"
+      }
+     ],
+     "freq": "9/10 years · 1–2 Qs",
+     "patterns": [
+      "Trace algorithms step-by-step",
+      "Prove/disprove properties",
+      "Modified-algorithm analysis"
+     ],
+     "tests": [
+      "The single most important algorithms quiz — fortnightly full drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 1,
+       "q": "Let G be a connected undirected weighted graph. Consider: S1: There exists a minimum-weight edge in G which is present in every minimum spanning tree of G. S2: If every edge has a distinct weight, G has a unique minimum spanning tree. Which of the options about S1 and S2 is correct? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-g-be-a-connected-undirected-weighted-graph-consider-gate-cse-theory-of-computation-finite-automata-and-regular-language-qd2qtt5pwd15krhi"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "Let G be any undirected graph with positive edge weights, and T be a minimum spanning tree of G. For any two vertices u, v of G, compare the distance between u and v in T with the shortest-path distance between u and v in G. Which ONE of the options is CORRECT for all possible G and T? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-g-be-any-undirected-graph-with-positive-edge-weight-gate-cse-theory-of-computation-finite-automata-and-regular-language-kfl2ehpwhlwurqma"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 2,
+       "q": "Let G(V, E) be an undirected, edge-weighted graph with integer weights. Consider statements S1 and S2 about shortest-path weights and the weights of subpaths of shortest paths (subpaths of shortest paths are shortest paths / shortest path weights satisfy given bounds). Which option is correct? [MCQ]",
+       "u": "https://questions.examside.com/past-years/gate/question/plet-gv-e-be-an-undirected-edge-weighted-graph-with-gate-cse-theory-of-computation-finite-automata-and-regular-language-evm4zhvovluldnr0"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "3. Computer Organization and Architecture",
+   "note": "Mainly Computer Science paper (~9 marks; the rank-decider)",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Machine Instructions and Addressing Modes",
+     "subs": [
+      {
+       "n": "Instruction formats and encoding",
+       "p": "Instruction-size/field numericals"
+      },
+      {
+       "n": "Addressing modes and effective addresses",
+       "p": "Identify mode / compute EA — recurring"
+      },
+      {
+       "n": "Instruction counts and CPI",
+       "p": "Program-mix CPI numericals"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Compute effective addresses",
+      "CPI from instruction mix"
+     ],
+     "tests": [
+      "Topic quiz after first pass"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": null,
+       "q": "Variable-sized opcodes are permitted. There are three different types of instructions: M-type, R-type, and C-type. Each M-type instruction has 2 register operands and a 6-bit immediate field.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/computer-organization/machine-instructions-and-addressing-modes"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": null,
+       "q": "An instruction format consists of an opcode field, an addressing mode field, two register operand fields, and a 16-bit scalar field (question on the instruction encoding).",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/computer-organization/machine-instructions-and-addressing-modes"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Arithmetic Logic Unit, Datapath and Control Unit",
+     "subs": [
+      {
+       "n": "Ripple-carry vs carry-lookahead adders",
+       "p": "Delay-comparison numericals"
+      },
+      {
+       "n": "ALU operations and flags",
+       "p": "Occasional 1-mark"
+      },
+      {
+       "n": "Hardwired vs microprogrammed control",
+       "p": "Microinstruction sequencing appears alternate years"
+      }
+     ],
+     "freq": "4/10 years · 1 Q",
+     "patterns": [
+      "Adder delay arithmetic",
+      "Micro-program sequencing"
+     ],
+     "tests": [
+      "Light drill; fold into COA sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": null,
+       "q": "Question involving the width of the control memory of a horizontal micro-programmed control unit.",
+       "u": "https://gateoverflow.in/tag/control-unit"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": null,
+       "q": "[MSQ] A partial data path of a processor is given in the figure, where RA, RB, and RZ are 32-bit registers. Which option(s) is/are correct?",
+       "u": "https://gateoverflow.in/qa/co-and-architecture"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Instruction Pipelining and Pipeline Hazards",
+     "subs": [
+      {
+       "n": "Ideal speedup and stage balancing",
+       "p": "Speedup numericals nearly every year"
+      },
+      {
+       "n": "Data hazards, forwarding, stalls",
+       "p": "The signature COA question — ~9/10 years"
+      },
+      {
+       "n": "Control hazards and branch handling",
+       "p": "Branch-penalty calculations"
+      },
+      {
+       "n": "Structural hazards and multi-cycle units",
+       "p": "Occasional twist"
+      },
+      {
+       "n": "Operand forwarding vs register-file write",
+       "p": "Exact-cycle tracing in 2026-style questions"
+      }
+     ],
+     "freq": "9/10 years · 2 Qs",
+     "patterns": [
+      "Count exact cycles with/without forwarding",
+      "Compute throughput/speedup",
+      "Reorder code to avoid stalls"
+     ],
+     "tests": [
+      "COA's must-drill: 25 numericals topic-wise, re-solve misses weekly"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": null,
+       "q": "Consider a pipelined processor with 5 stages: Instruction Fetch (IF), Instruction Decode (ID), Execute (EX), Memory Access (MEM), and Write Back (WB).",
+       "u": "https://gateoverflow.in/tag/pipelining"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": null,
+       "q": "The EX stage of a pipelined processor performs the memory read operations for LOAD instructions, and the operations for the arithmetic and logic instructions.",
+       "u": "https://gateoverflow.in/tag/pipelining"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Memory Hierarchy — Cache Memory",
+     "subs": [
+      {
+       "n": "Direct/set-associative mapping and fields",
+       "p": "Tag/index/offset split — near-every-year"
+      },
+      {
+       "n": "Hit/miss, AMAT, multi-level caches",
+       "p": "2026 CSE: multi-level cache numerical"
+      },
+      {
+       "n": "Replacement and write policies",
+       "p": "Write-through vs write-back effects"
+      },
+      {
+       "n": "Cache vs virtual-memory interplay",
+       "p": "2026 cross-subject: cache + multi-level paging"
+      }
+     ],
+     "freq": "9/10 years · 2 Qs",
+     "patterns": [
+      "Compute AMAT exactly",
+      "Split address fields",
+      "Count misses for access patterns"
+     ],
+     "tests": [
+      "Second must-drill: 25 numericals + formula card"
+     ],
+     "pyqs": [
+      {
+       "y": 2017,
+       "p": "CS",
+       "m": null,
+       "q": "In a two-level cache system, the access times of L1 and L2 caches are 1 and 8 clock cycles, respectively. The miss penalty...",
+       "u": "https://gateoverflow.in/tag/cache-memory"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": null,
+       "q": "Consider a memory system with 1 M bytes of main memory and 16 K bytes of cache memory. Assume that the processor generates 20-bit memory addresses, and the cache...",
+       "u": "https://questions.examside.com"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Main Memory and Secondary Storage",
+     "subs": [
+      {
+       "n": "DRAM vs SRAM organisation",
+       "p": "Occasional 1-mark"
+      },
+      {
+       "n": "Memory interfacing and chip selection",
+       "p": "Rare direct"
+      },
+      {
+       "n": "Disk geometry, access time",
+       "p": "Disk-parameters numericals alternate years"
+      }
+     ],
+     "freq": "3/10 years · 1 Q",
+     "patterns": [
+      "Access-time decomposition",
+      "Bandwidth calculations"
+     ],
+     "tests": [
+      "PYQs once; skip deep drilling"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": null,
+       "q": "Consider a disk with the following specifications: rotation speed of 6000 RPM, average seek time of 5 milliseconds, 500 sectors/track, and 512-byte sectors.",
+       "u": "https://gateoverflow.in/qa/co-and-architecture"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "I/O Interface — Interrupt and DMA",
+     "subs": [
+      {
+       "n": "Interrupt-driven I/O and overhead",
+       "p": "Cycle-count numericals alternate years"
+      },
+      {
+       "n": "DMA cycle stealing",
+       "p": "Transfer-time numericals"
+      },
+      {
+       "n": "Polling vs vectored interrupts",
+       "p": "Conceptual 1-mark"
+      }
+     ],
+     "freq": "4/10 years · 1 Q",
+     "patterns": [
+      "Count I/O cycles",
+      "Compare polling/interrupt/DMA overhead"
+     ],
+     "tests": [
+      "Fold into COA sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 1,
+       "q": "[NAT] A keyboard connected to a computer is used at a rate of 1 keystroke per second. The computer system polls the keyboard...",
+       "u": "https://practicepaper.in"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": null,
+       "q": "Which one of the following statements is FALSE? (One option: In the cycle stealing mode of DMA, one word of data is transferred between an I/O device and main memory in a stolen cycle.)",
+       "u": "https://gateoverflow.in/qa/co-and-architecture"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "4. Operating Systems",
+   "note": "Mainly Computer Science paper (~8–9 marks, consistently high)",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Processes, Threads and Inter-Process Communication",
+     "subs": [
+      {
+       "n": "Process states and transitions",
+       "p": "State-diagram questions occasionally"
+      },
+      {
+       "n": "fork() and process trees",
+       "p": "fork-output counting is a recurring favourite"
+      },
+      {
+       "n": "Threads: user vs kernel, shared state",
+       "p": "Conceptual 1–2 marks"
+      },
+      {
+       "n": "System calls and IPC primitives",
+       "p": "Light conceptual"
+      }
+     ],
+     "freq": "5/10 years · 1 Q",
+     "patterns": [
+      "Count fork-created processes",
+      "Identify shared vs private memory"
+     ],
+     "tests": [
+      "Fold into OS sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 1,
+       "q": "[MSQ] On a context switch between threads T1 and T2 of the same process, which of the following must be saved/restored?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/process-concepts-and-cpu-scheduling"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] A fork() loop runs for i < 3 where the child continues the loop and the parent breaks out; the printf statement is executed in the loop. The total number of times the printf statement gets executed is ___",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/process-concepts-and-cpu-scheduling"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "CPU Scheduling Algorithms",
+     "subs": [
+      {
+       "n": "FCFS, SJF, SRTF, Priority, Round-Robin",
+       "p": "Gantt-chart numericals nearly every year"
+      },
+      {
+       "n": "Waiting/turnaround/response time",
+       "p": "Always part of the above"
+      },
+      {
+       "n": "Preemption effects and convoy avoidance",
+       "p": "Comparison questions"
+      },
+      {
+       "n": "Context switches and quantum choice",
+       "p": "Counting context switches — trap-rich"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Build exact Gantt charts",
+      "Compute all three time metrics",
+      "RR quantum effects"
+     ],
+     "tests": [
+      "Scheduling drill: 20 numericals topic-wise"
+     ],
+     "pyqs": [
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "Processes P, Q, R, S are scheduled under round robin with quantum 4, and specified context-switch counts are given. Which one of the burst-time combinations is NOT possible?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/process-concepts-and-cpu-scheduling"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "Processes A(0,10), B(2,6), C(4,3), D(6,7) arrive as (arrival, burst). Which option gives the average waiting times under SRTF (preemptive) versus non-preemptive SJF?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/process-concepts-and-cpu-scheduling"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Concurrency, Synchronisation and Deadlock",
+     "subs": [
+      {
+       "n": "Critical-section requirements",
+       "p": "Property-checking questions"
+      },
+      {
+       "n": "Semaphores and classical problems",
+       "p": "Producer-consumer/reader-writer variants recur"
+      },
+      {
+       "n": "Race-condition analysis",
+       "p": "2026 CSE: interleaving analysis"
+      },
+      {
+       "n": "Deadlock conditions and RAG",
+       "p": "RAG cycle questions alternate years"
+      },
+      {
+       "n": "Banker's algorithm, safe sequences",
+       "p": "Safe-sequence numericals; 'safe ≠ all orders' trap"
+      }
+     ],
+     "freq": "9/10 years · 2 Qs",
+     "patterns": [
+      "Trace semaphore-guided executions",
+      "Detect race conditions",
+      "Banker's safe-sequence check"
+     ],
+     "tests": [
+      "Sync drill: 20 problems + trap list review"
+     ],
+     "pyqs": [
+      {
+       "y": 2015,
+       "p": "CS",
+       "m": 2,
+       "q": "Three programs each need three tape units for the duration of their execution. What is the minimum number of tape units required so that deadlock never occurs?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/file-system-io-and-protection"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] With respect to deadlocks in an OS, which statement(s) is/are FALSE? (Includes the claim that Banker's algorithm prevents deadlocks, though it is a deadlock avoidance method.)",
+       "u": "https://gateoverflow.in/523061/gate-cse-2026-set-1-question-19"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Memory Management and Virtual Memory",
+     "subs": [
+      {
+       "n": "Paging and address translation",
+       "p": "Page-number/offset split numericals"
+      },
+      {
+       "n": "Page replacement: FIFO/LRU/Optimal, Belady",
+       "p": "Reference-string traces nearly every year"
+      },
+      {
+       "n": "TLB, EMAT, multi-level paging",
+       "p": "2026 CSE: multi-level paging + cache combined"
+      },
+      {
+       "n": "Segmentation and fragmentation",
+       "p": "Conceptual + small numericals"
+      },
+      {
+       "n": "Demand paging and thrashing",
+       "p": "Working-set concept questions"
+      }
+     ],
+     "freq": "8/10 years · 2 Qs",
+     "patterns": [
+      "EMAT with TLB hit ratios (don't double-count!)",
+      "Replacement traces",
+      "Multi-level translation"
+     ],
+     "tests": [
+      "Paired with COA cache drill — same formula family"
+     ],
+     "pyqs": [
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] Four initially empty frames use LRU page replacement with reference string 7, 2, 7, 3, 2, 5, 3, 4, 6, 7, 7, 1, 5, 6, 1. The page fault rate (rounded to one decimal place) is ___",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/memory-management"
+      },
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] int D[128][128] is stored row-major; each frame holds 512 array elements and LRU replacement is used; 30 frames are allocated. Code accesses D[j][i] in a nested loop (column-major traversal). The number of page faults is ___",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/memory-management"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "File Systems",
+     "subs": [
+      {
+       "n": "Allocation: contiguous, linked, indexed",
+       "p": "Max-file-size indexed numericals"
+      },
+      {
+       "n": "Unix inodes",
+       "p": "Inode pointer-structure questions — rising trend"
+      },
+      {
+       "n": "Directories and free-space management",
+       "p": "Light conceptual"
+      }
+     ],
+     "freq": "5/10 years · 1 Q",
+     "patterns": [
+      "Compute max file sizes",
+      "Count disk accesses for a path lookup"
+     ],
+     "tests": [
+      "Rising topic: solve all decade PYQs here"
+     ],
+     "pyqs": [
+      {
+       "y": 2019,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] A Unix-like file system uses an inode with 12 direct pointers, one single-indirect and one double-indirect pointer; disk block size is 4 kB and block addresses are 32-bit. The maximum file size in GB (one decimal place) is ___",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/file-system-io-and-protection"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] A disk rotates at 6000 RPM with 5 ms average seek time, 500 sectors/track of 512 bytes each; a file spans 3000 randomly placed sectors. Assuming average rotational latency, the total time to read the file in seconds (two decimals) is ___",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/operating-systems/file-system-io-and-protection"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "5. Computer Networks",
+   "note": "Mainly Computer Science paper (~8 marks); 2027 syllabus trimmed — follow this list",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Layering and Protocol Principles",
+     "subs": [
+      {
+       "n": "OSI vs TCP/IP layering",
+       "p": "1-mark conceptual; know what each layer does"
+      },
+      {
+       "n": "Encapsulation and header overhead",
+       "p": "Small efficiency numericals"
+      },
+      {
+       "n": "Circuit vs packet vs virtual-circuit switching",
+       "p": "Delay-comparison numericals alternate years"
+      }
+     ],
+     "freq": "4/10 years · 1 Q",
+     "patterns": [
+      "Map functions to layers",
+      "Switching delay comparisons"
+     ],
+     "tests": [
+      "Fold into CN sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2014,
+       "p": "CS",
+       "m": 1,
+       "q": "In which one of the following pairs of OSI protocol layer/sub-layer and its functionality is the pair incorrectly matched?",
+       "u": "https://questions.examside.com"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "IP Addressing, CIDR and NAT",
+     "subs": [
+      {
+       "n": "Subnetting and host counts",
+       "p": "The perennial quick-mark numerical"
+      },
+      {
+       "n": "CIDR aggregation/supernetting",
+       "p": "Prefix-merging questions"
+      },
+      {
+       "n": "Fragmentation and MTU",
+       "p": "Fragment-offset/size numericals"
+      },
+      {
+       "n": "NAT translation basics",
+       "p": "Light; in 2027 syllabus explicitly"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Subnet math without a calculator",
+      "Aggregate prefixes",
+      "Fragment reassembly sizing"
+     ],
+     "tests": [
+      "30-problem subnetting drill until 100% automatic"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "Which one of the following CIDR prefixes exactly represents the range of IP addresses 10.12.2.0 to 10.12.3.255?",
+       "u": "https://questions.examside.com"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] Which of the following fields is/are modified in the IP header of a packet going out of a NAT device from an internal network to an external network?",
+       "u": "https://questions.examside.com"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Routing — Distance Vector and Link State",
+     "subs": [
+      {
+       "n": "DV table updates",
+       "p": "Distance-vector iteration questions"
+      },
+      {
+       "n": "Count-to-infinity and fixes",
+       "p": "Classic conceptual"
+      },
+      {
+       "n": "Link-state + Dijkstra",
+       "p": "Overlaps algorithms; cost numericals"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "One DV exchange trace",
+      "LS vs DV property comparison"
+     ],
+     "tests": [
+      "Fold into CN sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2011,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider a network with five nodes N1 to N5 that uses a Distance Vector Routing protocol. Once the routes have stabilized, how are the distance vectors exchanged/updated?",
+       "u": "https://gateoverflow.in"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider a network with three routers P, Q, R where all links have cost of unity. The routers exchange distance vector routing information; what are the resulting distance vectors?",
+       "u": "https://db.gateoverflow.in"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "TCP and UDP — Flow Control and Congestion Control",
+     "subs": [
+      {
+       "n": "Sliding window and sequence numbers",
+       "p": "Window-size/throughput numericals; SYN/FIN counting trap"
+      },
+      {
+       "n": "Slow start and AIMD traces",
+       "p": "2026 CSE: congestion-window tracing"
+      },
+      {
+       "n": "RTT, timeouts, retransmission",
+       "p": "RTO arithmetic numericals"
+      },
+      {
+       "n": "TCP connection management",
+       "p": "Handshake sequence-number trap"
+      },
+      {
+       "n": "UDP basics",
+       "p": "Trimmed in 2027 syllabus — light prep"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Trace cwnd evolution",
+      "Window/throughput math",
+      "Seq/ack number accounting"
+     ],
+     "tests": [
+      "TCP drill: 20 numericals; pair with subnetting drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2015,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the following statements: I. TCP connections are full duplex. II. TCP has no option for selective acknowledgment. III. TCP connections are message-oriented. Which of the statements is/are TRUE?",
+       "u": "https://questions.examside.com"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Data Link Layer — Framing, Error Detection, MAC",
+     "subs": [
+      {
+       "n": "Framing, byte/bit stuffing",
+       "p": "Stuffing-count questions alternate years"
+      },
+      {
+       "n": "CRC and checksum division",
+       "p": "CRC-polynomial division numericals"
+      },
+      {
+       "n": "Hamming distance and codes",
+       "p": "Min-distance/parity questions"
+      },
+      {
+       "n": "Ethernet CSMA-CD and backoff",
+       "p": "Backoff-window conceptual numericals"
+      }
+     ],
+     "freq": "5/10 years · 1 Q",
+     "patterns": [
+      "CRC division without errors",
+      "Hamming-distance arguments"
+     ],
+     "tests": [
+      "Fold into CN sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the cyclic redundancy check (CRC) based error detecting scheme having the generator polynomial X^3 + X + 1; for a given transmitted bit sequence, what is/are the conclusion(s) about error detection?",
+       "u": "https://www.geeksforgeeks.org"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Application Layer — DNS, HTTP, SMTP, FTP",
+     "subs": [
+      {
+       "n": "DNS resolution flow",
+       "p": "1-mark conceptual"
+      },
+      {
+       "n": "HTTP basics and pipelining",
+       "p": "Object-fetch time numericals occasionally"
+      },
+      {
+       "n": "SMTP/FTP/email flow",
+       "p": "Trimmed in 2027 syllabus — skim only"
+      }
+     ],
+     "freq": "4/10 years · ≤1 Q",
+     "patterns": [
+      "Resolution order",
+      "HTTP timing basics"
+     ],
+     "tests": [
+      "PYQs once; no drilling"
+     ],
+     "pyqs": [
+      {
+       "y": 2013,
+       "p": "CS",
+       "m": 1,
+       "q": "The transport layer protocols used for real time multimedia, file transfer, DNS and email, respectively, are:",
+       "u": "https://gateoverflow.in"
+      },
+      {
+       "y": 2016,
+       "p": "CS",
+       "m": 1,
+       "q": "Which one of the following protocols is NOT used to resolve one form of address to another one?",
+       "u": "https://freeatzeal.com"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "6. Database Management Systems",
+   "note": "Common — extra warehousing for the DA paper; DA's fastest-rising section (8→18 marks)",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Entity Relationship Model",
+     "subs": [
+      {
+       "n": "Entities, attributes, key constraints",
+       "p": "Foundational for mapping questions"
+      },
+      {
+       "n": "Cardinality and participation",
+       "p": "DA 2026: referential-integrity question"
+      },
+      {
+       "n": "ER-to-relational mapping",
+       "p": "DA 2026: ER→3NF with multivalued attribute"
+      },
+      {
+       "n": "Weak entities and ISA hierarchies",
+       "p": "Occasional conceptual"
+      }
+     ],
+     "freq": "5/10 years · 1 Q",
+     "patterns": [
+      "Convert ER → tables correctly",
+      "Handle multivalued/weak constructs"
+     ],
+     "tests": [
+      "Fold into DBMS sectional"
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Relational Model — Relational Algebra, Tuple Calculus, SQL",
+     "subs": [
+      {
+       "n": "Relational algebra operators",
+       "p": "Both papers nearly every year; DA 2025 division"
+      },
+      {
+       "n": "Tuple relational calculus",
+       "p": "DA 2026 TRC count question"
+      },
+      {
+       "n": "SQL joins and nested/correlated subqueries",
+       "p": "Every year; DA 2026 correlated COUNT"
+      },
+      {
+       "n": "Aggregation, GROUP BY, HAVING",
+       "p": "Combined with joins in most SQL questions"
+      },
+      {
+       "n": "NULL semantics and DDL",
+       "p": "DA 2025: DDL/keys/NULL question"
+      }
+     ],
+     "freq": "9/10 years · 2 Qs",
+     "patterns": [
+      "Translate SQL ↔ algebra",
+      "Evaluate correlated subqueries row-by-row",
+      "NULL three-valued logic"
+     ],
+     "tests": [
+      "SQL drill weekly — write every query by hand"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "A relation r(A, B) has 1200 tuples; attribute A has integer values from 6 to 20 and attribute B has integer values in a given range. How many tuples does the given relational algebra expression return?",
+       "u": "https://questions.examside.com"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Integrity Constraints and Normal Forms",
+     "subs": [
+      {
+       "n": "PK/FK/CHECK constraints",
+       "p": "Quick conceptual marks"
+      },
+      {
+       "n": "FDs and Armstrong closure",
+       "p": "Closure arithmetic — where silly marks die"
+      },
+      {
+       "n": "Candidate keys",
+       "p": "Key-finding under partial FDs — every year"
+      },
+      {
+       "n": "2NF/3NF/BCNF decomposition",
+       "p": "Lossless + dependency-preserving checks; DA 2025 JOIN decomposition"
+      },
+      {
+       "n": "Multivalued dependencies / 4NF (light)",
+       "p": "Rare; know the definition"
+      }
+     ],
+     "freq": "9/10 years · 2 Qs",
+     "patterns": [
+      "Compute closures fast and clean",
+      "Find all candidate keys",
+      "Judge decompositions"
+     ],
+     "tests": [
+      "Normalization drill: 25 problems; show every closure step"
+     ],
+     "pyqs": [
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider a relation R(A, B, C, D, E) with the functional dependencies AB -> C, BC -> D, and C -> E. Which of the given options about keys/normal form of R is correct?",
+       "u": "https://gateoverflow.in"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Indexing — B Trees and B+ Trees",
+     "subs": [
+      {
+       "n": "Order, max keys/pointers",
+       "p": "DA 2026 asked two B+ tree questions"
+      },
+      {
+       "n": "Height and occupancy",
+       "p": "Height-bound numericals"
+      },
+      {
+       "n": "B+ tree insert/delete and splits",
+       "p": "Structure-tracing questions"
+      },
+      {
+       "n": "Index vs scan cost",
+       "p": "Query-cost comparison occasionally"
+      }
+     ],
+     "freq": "6/10 years · 1–2 Qs",
+     "patterns": [
+      "Order/height arithmetic",
+      "Trace insertions with splits"
+     ],
+     "tests": [
+      "Include in DBMS sectional"
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Transactions and Concurrency Control",
+     "subs": [
+      {
+       "n": "ACID properties",
+       "p": "1-mark conceptual"
+      },
+      {
+       "n": "Conflict and view serializability",
+       "p": "Schedule analysis nearly every year"
+      },
+      {
+       "n": "Recoverability, cascadeless schedules",
+       "p": "Classification questions"
+      },
+      {
+       "n": "2PL and lock variants",
+       "p": "2PL-strictness comparisons"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Build precedence graphs",
+      "Classify schedules",
+      "Spot blind writes"
+     ],
+     "tests": [
+      "Serializability drill: 20 schedules"
+     ],
+     "pyqs": [
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] Which of the schedule(s) is/are conflict serializable? Schedule: R2(x), R3(x), R1(y), W1(y), W2(x), W3(y), R4(y); also asks whether S is recoverable if T3 commits before T1 finishes.",
+       "u": "https://questions.examside.com"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "File Organisation",
+     "subs": [
+      {
+       "n": "Heap/sorted/hash file organisation",
+       "p": "Light conceptual"
+      },
+      {
+       "n": "Records, blocking factor",
+       "p": "Occasional small numerical"
+      },
+      {
+       "n": "Unspanned vs spanned records",
+       "p": "1-mark"
+      }
+     ],
+     "freq": "3/10 years · ≤1 Q",
+     "patterns": [
+      "Blocking-factor arithmetic"
+     ],
+     "tests": [
+      "PYQs once"
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Data Warehousing — Multidimensional Models (DA paper)",
+     "subs": [
+      {
+       "n": "Star and snowflake schemas",
+       "p": "Schema-identification questions"
+      },
+      {
+       "n": "Concept hierarchies and cuboid counts",
+       "p": "DA 2026: number of data cuboids"
+      },
+      {
+       "n": "OLAP: ROLLUP/CUBE",
+       "p": "DA 2025: GROUP BY CUBE tuple count"
+      },
+      {
+       "n": "Measures: categorisation and computation",
+       "p": "Additive/semi-additive distinctions"
+      }
+     ],
+     "freq": "2/3 DA years · 2–4 Qs and rising",
+     "patterns": [
+      "Count cuboids from hierarchies",
+      "Predict CUBE output sizes"
+     ],
+     "tests": [
+      "DA-specific: make a 1-page cuboid-formula card"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "7. Theory of Computation",
+   "note": "Mainly Computer Science paper (~8 marks; most stable subject)",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Regular Expressions and Finite Automata",
+     "subs": [
+      {
+       "n": "RE ↔ NFA ↔ DFA conversions",
+       "p": "Design questions nearly every year"
+      },
+      {
+       "n": "DFA minimisation",
+       "p": "Minimum-state questions alternate years"
+      },
+      {
+       "n": "Closure properties of regular languages",
+       "p": "Closure-trap MCQs (complement/intersection)"
+      },
+      {
+       "n": "Language descriptions from REs",
+       "p": "Which-language-is-this MCQs"
+      },
+      {
+       "n": "Number of states / Myhill-Nerode intuition",
+       "p": "Occasional counting question"
+      }
+     ],
+     "freq": "9/10 years · 2 Qs",
+     "patterns": [
+      "Convert and minimise quickly",
+      "Apply closure rules correctly"
+     ],
+     "tests": [
+      "TOC drill: 30 design problems topic-wise"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "Which one of the following regular expressions is equivalent to the language accepted by the given finite automaton?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/theory-of-computation/finite-automata-and-regular-language"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] A regular language L is accepted by a non-deterministic finite automaton (NFA) with n states. Which of the statement(s) about equivalent automata/language size is/are FALSE?",
+       "u": "https://questions.examside.com/past-years/gate/question/pa-regular-language-l-is-accepted-by-a-non-deterministic-gate-cse-theory-of-computation-finite-automata-and-regular-language-jvilnjyg58vsihgx"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Context-Free Grammars and Push-Down Automata",
+     "subs": [
+      {
+       "n": "Derivations, parse trees, ambiguity",
+       "p": "Ambiguity demonstration recurs"
+      },
+      {
+       "n": "CFG simplification and CNF",
+       "p": "Conversion numericals"
+      },
+      {
+       "n": "PDA design and acceptance modes",
+       "p": "Design + language matching"
+      },
+      {
+       "n": "DPDA vs NPDA, DCFLs",
+       "p": "Property MCQs"
+      },
+      {
+       "n": "Closure properties of CFLs",
+       "p": "The complement/intersection trap — recurring"
+      }
+     ],
+     "freq": "8/10 years · 2 Qs",
+     "patterns": [
+      "Design grammars for languages",
+      "Check ambiguity",
+      "Apply CFL closures correctly"
+     ],
+     "tests": [
+      "Pair with regular-language drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the context-free grammar G: S -> aSb | X, X -> aX | Xb | a | b. Which one of the options correctly describes the language generated by G?",
+       "u": "https://gateoverflow.in"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Pumping Lemma",
+     "subs": [
+      {
+       "n": "Regular pumping lemma proofs",
+       "p": "Non-regularity proofs alternate years"
+      },
+      {
+       "n": "CFL pumping lemma",
+       "p": "Same trap structure for CFLs"
+      },
+      {
+       "n": "Logic-direction pitfalls",
+       "p": "The lemma disproves, never proves — classic trap"
+      }
+     ],
+     "freq": "5/10 years · 1 Q",
+     "patterns": [
+      "Choose the right decomposition",
+      "Contradiction structure"
+     ],
+     "tests": [
+      "Do all decade pumping-lemma PYQs once"
+     ],
+     "pyqs": [
+      {
+       "y": 2020,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the language L = {a^n | n >= 0} union {a^n b^n | n >= 0}. Which of the given statements about L (regular / context-free, and what the pumping lemma implies) is correct?",
+       "u": "https://gateoverflow.in/337669/gate-cse-2020-question-10"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "Consider the languages L1 = {ww | w in {a,b}*} and L2 = {a^n b^n c^m | m, n >= 0}. Which of the given statements about L1 and L2 (context-free / not context-free) is correct?",
+       "u": "https://gateoverflow.in/371898/gate-cse-2022-question-38"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Turing Machines and Undecidability",
+     "subs": [
+      {
+       "n": "TM model, RE vs recursive languages",
+       "p": "Language-class membership MCQs"
+      },
+      {
+       "n": "Decidability and reductions",
+       "p": "Rising trend in the last 5 years"
+      },
+      {
+       "n": "Rice's theorem",
+       "p": "2026 CSE: direct Rice's theorem question"
+      },
+      {
+       "n": "Closure of language classes",
+       "p": "Decidable/recognizable closure traps"
+      }
+     ],
+     "freq": "6/10 years · 1 Q and rising",
+     "patterns": [
+      "Classify languages",
+      "Build simple reductions",
+      "Apply Rice's theorem correctly"
+     ],
+     "tests": [
+      "Don't skip this — it's the modern differentiator"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": 2,
+       "q": "For a Turing machine M, <M> denotes its encoding. Consider L1 = {<M> | M takes more than 2021 steps on every input} and L2 = {<M> | M takes more than 2021 steps on some input}. Which of L1, L2 is/are decidable?",
+       "u": "https://gateoverflow.in"
+      },
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": 2,
+       "q": "[MSQ] Which of the following is/are undecidable? (Decidability questions about recursively enumerable languages, decided via Rice's theorem.)",
+       "u": "https://questions.examside.com"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "8. Compiler Design",
+   "note": "Mainly Computer Science paper (~5–6 marks; parsing carries most of it)",
+   "rows": [
+    {
+     "tier": 3,
+     "topic": "Lexical Analysis",
+     "subs": [
+      {
+       "n": "Tokens, lexemes, patterns",
+       "p": "1-mark conceptual"
+      },
+      {
+       "n": "Regex → NFA (Thompson construction)",
+       "p": "Overlaps TOC; occasional construction question"
+      },
+      {
+       "n": "Symbol table and buffering",
+       "p": "Skim-level"
+      }
+     ],
+     "freq": "4/10 years · ≤1 Q",
+     "patterns": [
+      "Tokenise a snippet",
+      "Recognise lexical vs syntax errors"
+     ],
+     "tests": [
+      "PYQs once"
+     ],
+     "pyqs": [
+      {
+       "y": 2018,
+       "p": "CS",
+       "m": null,
+       "q": "A lexical analyzer uses the following patterns to recognize three tokens T1, T2, and T3 over the alphabet {a, b, c}: T1: a?(b|c)*a, where x? means 0 or 1 occurrence of x (with two similar patterns given for T2 and T3).",
+       "u": "https://testbook.com/question-answer/a-lexical-analyzer-uses-the-following-patterns-to--5a967e6d94799d41cdaf43c1"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": null,
+       "q": "Match Set X (P. Lexical Analyzer, Q. Syntax Analyzer, R. Intermediate Code Generator) with Set Y (1. Abstract Syntax Tree, 2. Token, 3. Parse tree).",
+       "u": "https://gateoverflow.in/422886/gate-cse-2024-set-2-question-11"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Parsing — Top-Down and Bottom-Up",
+     "subs": [
+      {
+       "n": "FIRST/FOLLOW computation",
+       "p": "Feeds every parsing question — arithmetic must be clean"
+      },
+      {
+       "n": "LL(1) conditions and tables",
+       "p": "2026 CSE: LL(1) preconditions question"
+      },
+      {
+       "n": "LR(0) items and SLR tables",
+       "p": "Item-set construction numericals"
+      },
+      {
+       "n": "CLR(1)/LALR construction and conflicts",
+       "p": "2026 CSE: LALR conflict question; conflict counting recurs"
+      },
+      {
+       "n": "Shift-reduce mechanics",
+       "p": "Handle-pricing traces occasionally"
+      }
+     ],
+     "freq": "8/10 years · 1–2 Qs",
+     "patterns": [
+      "Build tables without arithmetic slips",
+      "Count and classify conflicts"
+     ],
+     "tests": [
+      "Parsing drill: 20 table problems — CD's marks live here"
+     ],
+     "pyqs": [
+      {
+       "y": 2022,
+       "p": "CS",
+       "m": null,
+       "q": "Which one of the following statements is TRUE? (One option: The LALR(1) parser for a grammar G cannot have reduce-reduce conflicts.)",
+       "u": "https://gateoverflow.in/tag/compiler-design"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Intermediate Code Generation",
+     "subs": [
+      {
+       "n": "Three-address code, quadruples",
+       "p": "Translate-snippet questions alternate years"
+      },
+      {
+       "n": "Assignment/loop translation",
+       "p": "Standard forms"
+      },
+      {
+       "n": "Boolean expression code",
+       "p": "Backpatching idea occasionally"
+      }
+     ],
+     "freq": "5/10 years · 1 Q",
+     "patterns": [
+      "Emit 3-address code by hand"
+     ],
+     "tests": [
+      "PYQs once + one practice set"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": null,
+       "q": "[MSQ] In the context of compilers, which of the following is/are NOT an intermediate representation of the source program? (Options include: Three address code, Abstract Syntax Tree, Control Flow Graph.)",
+       "u": "https://gateoverflow.in/tag/compiler-design"
+      },
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": null,
+       "q": "Consider the following statements about the use of backpatching in a compiler for intermediate code generation.",
+       "u": "https://gateoverflow.in/tag/compiler-design"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Runtime Environments",
+     "subs": [
+      {
+       "n": "Activation records and call stacks",
+       "p": "Activation-tree questions occasionally"
+      },
+      {
+       "n": "Parameter passing conventions",
+       "p": "Value vs reference effects — ties to C tracing"
+      },
+      {
+       "n": "Heap management basics",
+       "p": "Skim"
+      }
+     ],
+     "freq": "3/10 years · ≤1 Q",
+     "patterns": [
+      "Track activation records across calls"
+     ],
+     "tests": [
+      "PYQs once"
+     ],
+     "pyqs": [
+      {
+       "y": 2020,
+       "p": "CS",
+       "m": null,
+       "q": "Consider the following statements: I. Symbol table is accessed only during the lexical analysis phase. (statements about symbol table usage in compilation)",
+       "u": "https://gateoverflow.in/tag/compiler-design"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Data Flow Analysis — Liveness, Constant Propagation",
+     "subs": [
+      {
+       "n": "Liveness and live ranges",
+       "p": "New explicit syllabus item — expect growth"
+      },
+      {
+       "n": "Constant propagation",
+       "p": "Same"
+      },
+      {
+       "n": "Available expressions / CSE",
+       "p": "Same"
+      },
+      {
+       "n": "Reaching definitions (idea)",
+       "p": "Foundation for the above"
+      }
+     ],
+     "freq": "2/10 years · new in syllabus",
+     "patterns": [
+      "Compute IN/OUT sets on small CFGs"
+     ],
+     "tests": [
+      "Learn the framework once; do whatever PYQs exist"
+     ],
+     "pyqs": [
+      {
+       "y": 2021,
+       "p": "CS",
+       "m": null,
+       "q": "For a statement S in a program, in the context of liveness analysis, the sets USE(S) (the set of variables used in S) and IN(S) are defined, and statements about these sets are to be evaluated.",
+       "u": "https://gateoverflow.in/tag/compiler-design"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": null,
+       "q": "Which ONE of the following techniques used in compiler code optimization uses live variable analysis? (Options include: Run-time function call management, Register assignment to variables.)",
+       "u": "https://gateoverflow.in/tag/compiler-design"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "9. Digital Logic",
+   "note": "Mainly Computer Science paper (~5 marks; highest marks-per-hour in the paper)",
+   "rows": [
+    {
+     "tier": 3,
+     "topic": "Boolean Algebra and Minimisation",
+     "subs": [
+      {
+       "n": "Algebraic simplification",
+       "p": "Warm-up for K-map questions"
+      },
+      {
+       "n": "K-maps with don't-cares",
+       "p": "Nearly every year — fast marks"
+      },
+      {
+       "n": "SOP/POS forms and tabulation idea",
+       "p": "Occasional direct question"
+      }
+     ],
+     "freq": "7/10 years · 1 Q",
+     "patterns": [
+      "Minimise 3–4 variable functions",
+      "Handle don't-cares correctly"
+     ],
+     "tests": [
+      "Speed drill: 15 K-maps"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": null,
+       "q": "[MSQ] For a Boolean variable X, which of the following statements is/are FALSE?",
+       "u": "https://gateoverflow.in/tag/digital-logic"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Combinational and Sequential Circuits",
+     "subs": [
+      {
+       "n": "Adders, MUX, decoders",
+       "p": "MUX-implementation-of-function questions"
+      },
+      {
+       "n": "Flip-flops and excitation tables",
+       "p": "State-tracing foundations"
+      },
+      {
+       "n": "Counters and sequence generators",
+       "p": "Counter-state tracing alternate years"
+      },
+      {
+       "n": "State machines and diagrams",
+       "p": "FSM design occasionally"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Trace flip-flop outputs cycle-by-cycle",
+      "Implement functions with MUXes"
+     ],
+     "tests": [
+      "Include in DL sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": null,
+       "q": "Consider a sequential digital circuit consisting of T flip-flops and D flip-flops as shown in the figure (figure-based). CLKIN is the clock input.",
+       "u": "https://gateoverflow.in/tag/sequential-circuit"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": null,
+       "q": "Consider the given sequential circuit designed using D flip-flops (figure-based). The circuit is initialized with some value (initial state). The number of distinct states...",
+       "u": "https://gateoverflow.in/tag/sequential-circuit"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Number Representations and Computer Arithmetic",
+     "subs": [
+      {
+       "n": "1's/2's complement and ranges",
+       "p": "Range/overflow numericals nearly every year"
+      },
+      {
+       "n": "Overflow detection",
+       "p": "Signed-arithmetic trap questions"
+      },
+      {
+       "n": "IEEE-754 single/double",
+       "p": "Bias, normalisation, denormals — recurring numerical"
+      },
+      {
+       "n": "Fixed-point representation",
+       "p": "Occasional"
+      }
+     ],
+     "freq": "6/10 years · 1 Q",
+     "patterns": [
+      "Convert/represent exactly",
+      "IEEE-754 encode-decode both ways"
+     ],
+     "tests": [
+      "Make the IEEE-754 formula card — it always pays"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": null,
+       "q": "Question on the format of a single-precision floating-point number (IEEE 754 representation).",
+       "u": "https://gateoverflow.in/tag/floating-point-representation"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "10. Probability and Statistics",
+   "note": "Extra depth for the DA paper (~16–19 marks — its anchor section); also helps CS",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Random Variables — Discrete and Continuous",
+     "subs": [
+      {
+       "n": "PMF/PDF/CDF and their properties",
+       "p": "DA 2026: CDF property statements"
+      },
+      {
+       "n": "Expectation and variance",
+       "p": "Core of most DA probability numericals"
+      },
+      {
+       "n": "Transformations of RVs",
+       "p": "DA 2025: floor of exponential → geometric"
+      },
+      {
+       "n": "Functions of RVs (Z=X+Y etc.)",
+       "p": "Moment computations recur"
+      }
+     ],
+     "freq": "3/3 DA years · 3–4 Qs",
+     "patterns": [
+      "Switch between PMF/PDF/CDF fluidly",
+      "Compute moments of transformed RVs"
+     ],
+     "tests": [
+      "The DA anchor drill: 20 problems weekly until Phase 3"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Consider the statements: (i) The mean and variance of a Poisson random variable are equal; (ii) For a standard normal random variable, the mean is zero and the variance is one. Which ONE of the following options is correct?",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Let X be a random variable exponentially distributed with parameter λ > 0, with pdf f_X(x) = λe^(-λx) for x ≥ 0 and 0 otherwise. If 5E(X) = Var(X), where E(X) and Var(X) indicate the expectation and variance of X, the value of λ is ______ (rounded off to one decimal place).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "The cumulative distribution function of a random variable X is F_X(x) = 0 for x ≤ -1, (x+1)^2/4 for -1 ≤ x ≤ 1, and 1 for x ≥ 1. The value of P(X^2 ≤ 0.25) is: (A) 0.625 (B) 0.25 (C) 0.5 (D) 0.5625.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "Let Y = ⌊X⌋ (floor), where X is an exponentially distributed random variable with mean 1/ln 10. For any positive integer ℓ, the probability of the event Y = ℓ can be written as P(Y = ℓ) = q^ℓ(1 - q). The value of q is: (A) 0.1 (B) 0.01 (C) 0.5 (D) 0.434.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let X be a discrete valued random variable with cumulative distribution function F(x). Which of the following statements is/are correct? (A) F(x) is always a positive function (B) F(x) is a non-decreasing function (C) F(x) has jump discontinuity (D) F(x) is a left continuous function.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Joint, Marginal and Conditional Distributions",
+     "subs": [
+      {
+       "n": "Joint PMF/PDF tables and functions",
+       "p": "Normalisation numericals"
+      },
+      {
+       "n": "Marginalisation",
+       "p": "Always part of joint questions"
+      },
+      {
+       "n": "Conditional distributions and PDFs",
+       "p": "DA 2024: E[Y|X] from joint pdf"
+      },
+      {
+       "n": "Independence verification",
+       "p": "Factorisation checks (DA 2024)"
+      }
+     ],
+     "freq": "3/3 DA years · 2–3 Qs",
+     "patterns": [
+      "Marginalise correctly",
+      "Condition and renormalise"
+     ],
+     "tests": [
+      "Include in the DA anchor drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] X is a random variable uniformly distributed in the interval [1, 3] and Y is a random variable uniformly distributed in the interval [2, 4]; X and Y are independent of each other. The probability P(X ≥ Y) is ______ (rounded off to three decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Consider two events T and S, where T̄ denotes the complement of event T. Given P(T̄) = 0.6, P(S|T) = 0.3 and P(S|T̄) = 0.6, the value of P(T|S) is ______ (rounded off to two decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] A Bayesian network consists of four Bernoulli random variables with structure U → V, U → W, V → Z, W → Z and CPTs: P(U=1) = 0.5; P(V=1|U=0) = P(V=1|U=1) = 0.5; P(W=1|U=0) = 0 and P(W=1|U=1) = 1; P(Z=1|V=0,W=0) = 0.5, P(Z=1|V=0,W=1) = 0, P(Z=1|V=1,W=0) = 0, P(Z=1|V=1,W=1) = 0.5. The value of P(U=1, V=1, W=1, Z=1) is ______ (rounded off to three decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "[NAT] Box-1 (containing 2 black and 1 white ball) is selected with probability 1/2, Box-2 (1 black, 2 white) with probability 1/6, and Box-3 (3 black, 3 white) with probability 1/3; a ball is then drawn at random from the selected box. Given that the ball drawn is white, the probability that it was drawn from Box-2 is ______ (rounded off to two decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] In a clinic, a person suffering from disease D tests positive 80% of the time, a person not suffering from D tests positive 10% of the time, and 30% of the general population suffers from D. If a person tests positive for D at that clinic, the probability that he/she actually suffers from the disease is ______ (rounded off to two decimal places).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Correlation, Covariance, Conditional Expectation",
+     "subs": [
+      {
+       "n": "Covariance and correlation computation",
+       "p": "DA 2024 coin-RV correlation; DA 2026 conditional-uniform correlation"
+      },
+      {
+       "n": "Tower rule: E[E[X|Y]]",
+       "p": "DA 2025 direct question"
+      },
+      {
+       "n": "Conditional variance",
+       "p": "Pairs with tower rule"
+      },
+      {
+       "n": "Variance identities",
+       "p": "DA 2026 ΣΣ(xᵢ−xⱼ)² identity"
+      }
+     ],
+     "freq": "3/3 DA years · 2 Qs",
+     "patterns": [
+      "Apply tower rule cleanly",
+      "Expand variances via identities"
+     ],
+     "tests": [
+      "Add to anchor drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] The joint probability density function of two random variables X and Y is f_X,Y(x, y) = 2xy for 0 < x < 2 and 0 < y < x (0 otherwise). Then E[Y | X = 1.5] is ______.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Two fair coins are tossed independently. X is a random variable that takes the value 1 if both tosses are heads and 0 otherwise; Y takes the value 1 if at least one of the tosses is heads and 0 otherwise. The value of the covariance of X and Y is ______ (rounded off to three decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "The conditional expectation of X given Y is denoted by E[X|Y]. Then E[E[X|Y]] equals: (A) E[X|Y] (B) E[X]E[Y] (C) E[X] (D) E[Y].",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "Let X = aZ + b, where Z is a standard normal random variable and a, b are two unknown constants. It is given that E[X] = 1, E[(X - E[X])Z] = -2 and E[(X - E[X])^2] = 4. The values of a, b are: (A) a = -2, b = 1 (B) a = 2, b = -1 (C) a = -2, b = -1 (D) a = 1, b = 1.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] X follows Uniform(-1, 1) and the conditional distribution of Y given X = x is Uniform(x^2 - 0.1, x^2 + 0.1). The value of correlation(X, Y) is ______ (answer in integer).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Central Limit Theorem",
+     "subs": [
+      {
+       "n": "Sums and means of i.i.d. RVs",
+       "p": "DA 2025: CLT for a Bernoulli(0.25) sum"
+      },
+      {
+       "n": "Normal approximation validity",
+       "p": "n-too-small trap"
+      },
+      {
+       "n": "Sample-mean distribution",
+       "p": "DA 2026: distribution of the sample mean"
+      }
+     ],
+     "freq": "2/3 DA years · 1 Q",
+     "patterns": [
+      "Standardise sums/means",
+      "Judge when CLT applies"
+     ],
+     "tests": [
+      "Include in anchor drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "Let Y = Σ_{i=1}^{300} X_i, where X_i ~ Bernoulli(θ) are independent and identically distributed with θ = 0.25. The value of P(60 ≤ Y ≤ 90), after approximation through the Central Limit Theorem, is given by (φ denotes the standard normal CDF): (A) φ(2) - φ(-2) (B) φ(1) - φ(-1) (C) φ(3) - φ(-3) (D) φ(90) - φ(60).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Confidence Intervals and Hypothesis Testing",
+     "subs": [
+      {
+       "n": "z and t intervals",
+       "p": "Syllabus-explicit; expect growth"
+      },
+      {
+       "n": "One/two-tailed tests, p-values",
+       "p": "Direction traps"
+      },
+      {
+       "n": "Type I/II errors",
+       "p": "Conceptual 1-markers"
+      },
+      {
+       "n": "Choosing the right test",
+       "p": "z vs t vs χ² decision rule"
+      }
+     ],
+     "freq": "2/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Pick test and df correctly",
+      "Read p-value direction"
+     ],
+     "tests": [
+      "Make a test-selection decision card"
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "t-distribution and Chi-squared Distribution",
+     "subs": [
+      {
+       "n": "t distribution shape and use cases",
+       "p": "Small-sample tests"
+      },
+      {
+       "n": "χ² goodness-of-fit and independence",
+       "p": "df rules are the trap"
+      },
+      {
+       "n": "Sampling distributions (idea)",
+       "p": "Underpins the above"
+      }
+     ],
+     "freq": "1/3 DA years · ≤1 Q",
+     "patterns": [
+      "df arithmetic",
+      "Match distribution to scenario"
+     ],
+     "tests": [
+      "Fold into hypothesis-testing drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "[MSQ] Z follows Normal(μ = 0, σ^2 = 1) with probability density function g(z) and CDF G(z); Y follows t_1 distribution with pdf h(y) and CDF H(y). Let c be the positive real number for which g(c) = h(c). Which of the following statements is/are correct? (A) G(0) = H(0) (B) G(c) < H(c) (C) G(-c) < H(-c) (D) g(0) = h(0).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] X1, X2, ..., Xn are n independent Normal(μ = 0, σ^2 = 1) random variables and X̄ = (1/n) Σ_{i=1}^{n} X_i. Which of the following statements is/are correct? (A) Σ X_i^2 follows Chi-square distribution with n degrees of freedom (B) Σ (X_i - X̄)^2 follows Chi-square distribution with (n-1) degrees of freedom (C) X1^2 + Xn^2 follows exponential distribution with mean 2 (D) (√n · X̄)^2 follows Chi-square distribution with 2 degrees of freedom.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "11. Linear Algebra",
+   "note": "Extra depth for the DA paper (~8–11 marks); shared with CS maths",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Vector Spaces, Subspaces, Linear Dependence and Independence",
+     "subs": [
+      {
+       "n": "Subspaces of R³",
+       "p": "DA 2024 and 2026 both asked subspace identification"
+      },
+      {
+       "n": "Spanning sets and bases",
+       "p": "DA 2025: orthonormal bases"
+      },
+      {
+       "n": "Rank–nullity and dimension counting",
+       "p": "Direct numericals"
+      },
+      {
+       "n": "Row-stochastic matrices and systems",
+       "p": "DA 2025: Bx=0 structure question"
+      }
+     ],
+     "freq": "3/3 DA years · 2 Qs",
+     "patterns": [
+      "Test subspace axioms fast",
+      "Count dimensions"
+     ],
+     "tests": [
+      "20-problem drill after first pass"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Select all choices that are subspaces of R^3: (A) {x = α[1,1,0]^T + β[1,0,0]^T : α, β ∈ R} (B) {x = α^2[1,2,0]^T + β^2[1,0,1]^T : α, β ∈ R} (C) {x ∈ R^3 : 5x1 + 2x3 = 0, 4x1 - 2x2 + 3x3 = 0} (D) {x ∈ R^3 : 5x1 + 2x3 + 4 = 0}.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "[MSQ] Which of the following statements is/are correct? (A) R^n has a unique set of orthonormal basis vectors (B) R^n does not have a unique set of orthonormal basis vectors (C) Linearly independent vectors in R^n are orthonormal (D) Orthonormal vectors in R^n are linearly independent.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "Let {x1, x2, ..., xn} be a set of linearly independent vectors in R^n, and let the (i, j)-th element of the matrix A ∈ R^{n×n} be given by A_ij = x_i^T x_j for 1 ≤ i, j ≤ n. Which one of the following statements is correct? (A) A is invertible (B) 0 is a singular value of A (C) Determinant of A is 0 (D) z^T A z = 0 for some non-zero z ∈ R^n.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "Consider the set S1 = {x = (x1, x2, x3)^T ∈ R^3 : x^T x ≤ 16}. Let S2 be another set which is a subspace of R^3 with dimension two. Which of the following gives the area of S1 ∩ S2? (A) 16π (B) 4π (C) 4π^2 (D) 16π^2.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Eigenvalues, Eigenvectors, Determinant",
+     "subs": [
+      {
+       "n": "Eigen computation and properties",
+       "p": "DA eigen questions every year"
+      },
+      {
+       "n": "Powers via diagonalization",
+       "p": "DA 2026: rotation matrix M^2026"
+      },
+      {
+       "n": "Determinant tricks",
+       "p": "DA 2024: det(M²+12M)"
+      },
+      {
+       "n": "Polynomial constraints on A",
+       "p": "DA 2025: A³=A structure"
+      },
+      {
+       "n": "Gram matrices and quadratic forms",
+       "p": "DA 2025/2026; Rayleigh quotient 2026"
+      }
+     ],
+     "freq": "3/3 DA years · 2–3 Qs",
+     "patterns": [
+      "Shortcut eigen-arguments",
+      "Avoid full computation where possible"
+     ],
+     "tests": [
+      "Make the special-matrices card (rotation/idempotent/orthogonal/projection)"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Consider the matrix M = [[2, -1], [3, 1]]. Which ONE of the following statements is TRUE? (A) The eigenvalues of M are non-negative and real (B) The eigenvalues of M are complex conjugate pairs (C) One eigenvalue of M is positive and real, and another eigenvalue of M is zero (D) One eigenvalue of M is non-negative and real, and another eigenvalue of M is negative and real.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "[NAT] Consider the 3 × 3 matrix M = [[1,2,3],[3,1,3],[4,3,6]]. The determinant of (M^2 + 12M) is ______.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "Let A ∈ R^{n×n} be such that A^3 = A. Which one of the following statements is ALWAYS correct? (A) A is invertible (B) Determinant of A is 0 (C) The sum of the diagonal elements of A is 1 (D) A and A^2 have the same rank.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "Let γ1, γ2, γ3 be the eigenvalues of the matrix [[1,0,0],[0,cos t, sin t],[0,-sin t, cos t]], where t ∈ [-π, π] is in radians. Which one of the following options lists all the possible values of t satisfying γ1 + γ2 + γ3 = 1 + √2? (A) {π/3, -π/4} (B) {π/4, -π/3} (C) {π/4, -π/4} (D) {π/3, -π/3}.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Let A = I_n - (1/n)11^T, where 1 = (1, 1, ..., 1)^T ∈ R^n and I_n is the identity matrix of order n. The value of max over S of x^T A x, where S = {x ∈ R^n : x^T x = 1}, is ______ (answer in integer).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Singular Value Decomposition and Projections",
+     "subs": [
+      {
+       "n": "Singular values",
+       "p": "DA 2024: rank-1 uuᵀ; DA 2025: singular values of a projection"
+      },
+      {
+       "n": "Projection matrices and least squares",
+       "p": "Bridge into regression"
+      },
+      {
+       "n": "Norm-preservation and orthogonality",
+       "p": "DA 2025: norm-preserving ⟹ orthogonal"
+      },
+      {
+       "n": "Quadratic forms and Rayleigh quotient",
+       "p": "DA 2026: max xᵀAx"
+      }
+     ],
+     "freq": "2/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Compute singular values of small matrices",
+      "Project vectors correctly"
+     ],
+     "tests": [
+      "Include in LA drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let U be a subspace of R^3 and M ∈ R^{3×3} be the matrix corresponding to the projection onto the subspace U. Which of the following statements is/are TRUE? (A) If U is a 1-dimensional subspace of R^3, then the null space of M is a 1-dimensional subspace (B) If U is a 2-dimensional subspace of R^3, then the null space of M is a 1-dimensional subspace (C) M^2 = M (D) M^3 = M.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Let u = [1, 2, 3, 4, 5]^T, and let σ1, σ2, σ3, σ4, σ5 be the singular values of the matrix M = u u^T (where u^T is the transpose of u). The value of Σ_{i=1}^{5} σ_i is ______.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let x1, x2, x3, x4, x5 be a system of orthonormal vectors in R^10, and consider the matrix A = x1x1^T + x2x2^T + x3x3^T + x4x4^T + x5x5^T. Which of the following statements is/are correct? (A) Singular values of A are also its eigenvalues (B) Singular values of A are either 0 or 1 (C) Determinant of A is 1 (D) A is invertible.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let M = I_n - (1/n)11^T, where 1 = (1, 1, ..., 1)^T ∈ R^n and I_n is the identity matrix of order n. Which of the following options is/are correct? (A) M^T = M (B) M^2 = I_n (C) Trace(M) = n (D) M is a projection matrix.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "12. Calculus and Optimisation",
+   "note": "Data Science paper (~5–9 marks, shrinking — cap your time here)",
+   "rows": [
+    {
+     "tier": 2,
+     "topic": "Functions of a Single Variable — Limits, Continuity, Differentiability",
+     "subs": [
+      {
+       "n": "Algebraic limits and expansions",
+       "p": "DA 2025: lim(√(t²+t)−t)"
+      },
+      {
+       "n": "Piecewise continuity",
+       "p": "DA 2024 continuity question"
+      },
+      {
+       "n": "Differentiability of products/compositions",
+       "p": "DA 2025 statement question"
+      },
+      {
+       "n": "Lipschitz-style statements",
+       "p": "DA 2025: |f(x)−f(y)|≤(x−y)²"
+      }
+     ],
+     "freq": "3/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Expand near the point",
+      "Check joints piecewise"
+     ],
+     "tests": [
+      "Fold into the optimisation quiz"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "Let f: R → R be the function f(x) = -x if x < -2, ax^2 + bx + c if x ∈ [-2, 2], and x if x > 2. Which ONE of the following choices of a, b, c makes the function f continuous and differentiable? (A) a = 1/4, b = 0, c = 1 (B) a = 1/2, b = 0, c = 0 (C) a = 0, b = 0, c = 0 (D) a = 1, b = 1, c = -4.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Evaluate the following limit: lim_{x→0} ln((x^2 + 1) cos x) / x^2 = ______.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "[MSQ] Consider two functions f: R → R and g: R → (1, ∞), both differentiable at a point c. Which of the following functions is/are ALWAYS differentiable at c? (A) f ± g (B) f · g (C) f/g (D) f ∘ g + g ∘ f.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "[NAT] Evaluate: lim_{t→+∞} (√(t^2 + t) - t) = ______ (rounded off to one decimal place).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Let f: R → R be such that |f(x) - f(y)| ≤ (x - y)^2 for all x, y ∈ R. Then f(1) - f(0) = ______ (answer in integer).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Taylor Series",
+     "subs": [
+      {
+       "n": "Standard expansions (eˣ, sin, cos, sinh, ln)",
+       "p": "DA 2025: 10th derivative of sinh"
+      },
+      {
+       "n": "nth-derivative-at-a-point tricks",
+       "p": "Read coefficients off the series"
+      },
+      {
+       "n": "Derivatives of ML functions",
+       "p": "DA 2024: sigmoid derivative at a point"
+      }
+     ],
+     "freq": "1–2/3 DA years · 1 Q",
+     "patterns": [
+      "Know 6 expansions cold",
+      "Match coefficient ↔ derivative"
+     ],
+     "tests": [
+      "Flashcard the expansions"
+     ],
+     "pyqs": [
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "Let f(x) = (e^x - e^(-x))/2 for x ∈ R, and let f^(k)(a) denote the kth derivative of f evaluated at a. What is the value of f^(10)(0)? (A) 0 (B) 1 (C) 1/10! (D) 2/10!.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Maxima, Minima and Optimisation of Single-Variable Functions",
+     "subs": [
+      {
+       "n": "Critical points and second-derivative test",
+       "p": "DA all three years (quartic/cubic/cubic)"
+      },
+      {
+       "n": "Convexity and global minima",
+       "p": "DA 2025: at-most-one-global-min statement"
+      },
+      {
+       "n": "ReLU/non-smooth differentiability",
+       "p": "DA 2025: ReLU differentiability question"
+      }
+     ],
+     "freq": "3/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Classify stationary points",
+      "Argue convexity when asked"
+     ],
+     "tests": [
+      "Topic quiz after PYQ pass"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "For any twice differentiable function f: R → R, if at some x* ∈ R, f'(x*) = 0 and f''(x*) > 0, then the function f necessarily has a ______ at x = x*. (A) local minimum (B) global minimum (C) local maximum (D) global maximum.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Consider the function f: R → R defined by f(x) = x^4/4 - 2x^3/3 - 3x^2/2 + 1. Which of the following statements is/are TRUE? (A) x = 0 is a local maximum of f (B) x = 3 is a local minimum of f (C) x = -1 is a local maximum of f (D) x = 0 is a local minimum of f.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Consider the function f(x) = x^3/3 + (7/2)x^2 + 10x + 133/2 on the interval [-8, 0]. Which of the following statements is/are correct? (A) The maximum value of f is attained at x = -5 (B) The minimum value of f is attained at x = -2 (C) The maximum value of f is 133/2 (D) The minimum value of the derivative of f is attained at x = -7/2.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let f: R → R be a twice-differentiable function and suppose its second derivative satisfies f''(x) > 0 for all x ∈ R. Which of the following statements is/are ALWAYS correct? (A) f has a local minima (B) There does not exist x and y, x ≠ y, such that f'(x) = f'(y) = 0 (C) f has at most one global minimum (D) f has at most one local minimum.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "[MSQ] Let f(x) = x^3 - 3x^2 + 2 be a function defined on (-1, 3]. Which of the following statements is/are correct? (A) f(x) has exactly two roots in [-0.9, 0] (B) f(x) has a minimum at 2 only (C) f(x) has maximum at 0 only (D) f(x) has a root at 1.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "13. Machine Learning",
+   "note": "Data Science paper (~11–14 marks, steady top-3 section)",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Simple and Multiple Linear Regression, Ridge Regression",
+     "subs": [
+      {
+       "n": "Least squares closed form",
+       "p": "DA 2025: y=wx fitting"
+      },
+      {
+       "n": "Multiple regression interpretation",
+       "p": "Coefficient meaning questions"
+      },
+      {
+       "n": "Ridge regression: λ effect and solution",
+       "p": "DA 2026 asked Ridge twice (incl. MAE objective)"
+      },
+      {
+       "n": "Residuals and assumptions",
+       "p": "Light conceptual"
+      }
+     ],
+     "freq": "3/3 DA years · 2 Qs",
+     "patterns": [
+      "Derive/apply closed forms",
+      "Reason about λ and shrinkage"
+     ],
+     "tests": [
+      "Regression drill: 15 numericals"
+     ],
+     "pyqs": [
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "[NAT] Given data {(-1, 1), (2, -5), (3, 5)} of the form (x, y), fit a model y = wx using linear least-squares regression. The optimal value of w is ____ (rounded off to three decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "[NAT] For a supervised learning task, the objective function being minimized is f_w(x) = wx, where x is the input and w is the parameter. Stochastic Gradient Descent with learning rate 0.10 is used for updates. At the end of iteration i, w = 10.00. Taking x = 10.00 as the input for iteration (i+1), the value of w at the end of iteration (i+1) is ____ (rounded off to two decimal places).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Linear Ridge Regression learns y_pred = w^T x (w, x in R^2) with Mean Absolute Error as the prediction error and regularizer weight 0.20. At an intermediate training step w = [-3.00, 4.00]^T. For the next input x = [1.00, 2.00]^T, the true relation is y_true = x1 + x2. The value of the overall regularized loss function for this instance is ____ (rounded off to two decimal places).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Logistic Regression",
+     "subs": [
+      {
+       "n": "Sigmoid and log-odds",
+       "p": "Threshold/boundary questions"
+      },
+      {
+       "n": "Decision boundary geometry",
+       "p": "Linearity of the boundary"
+      },
+      {
+       "n": "Loss and gradient (idea)",
+       "p": "Conceptual"
+      }
+     ],
+     "freq": "2/3 DA years · 1 Q",
+     "patterns": [
+      "Compute probabilities at thresholds"
+     ],
+     "tests": [
+      "Fold into classification drill"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Match the items in Column 1 with Column 2: (p) Principal Component Analysis, (q) Naive Bayes Classification, (r) Logistic Regression with (i) Discriminative Model, (ii) Dimensionality Reduction, (iii) Generative Model. Options: (A) p-iii, q-i, r-ii (B) p-ii, q-i, r-iii (C) p-ii, q-iii, r-i (D) p-iii, q-ii, r-i.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "[NAT] Let f: R -> R be the sigmoid function f(x) = 1/(1 + e^(-x)). The value of the derivative of f at the x where f(x) = 0.4 is ____ (rounded off to two decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "k-Nearest Neighbours, Naive Bayes, Linear Discriminant Analysis",
+     "subs": [
+      {
+       "n": "kNN classification and distances",
+       "p": "DA 2024 kNN question"
+      },
+      {
+       "n": "Naive Bayes parameter counts",
+       "p": "DA 2024: parameter count for K binary attributes"
+      },
+      {
+       "n": "Naive Bayes misclassification",
+       "p": "DA 2025: which-class prediction"
+      },
+      {
+       "n": "LDA and nearest-mean classifiers",
+       "p": "DA 2025: linearity of nearest-mean classifier"
+      }
+     ],
+     "freq": "3/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Count NB parameters",
+      "Apply kNN by hand"
+     ],
+     "tests": [
+      "Include in ML sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Given a dataset with K binary-valued attributes (where K > 2) for a two-class classification task, the number of parameters to be estimated for learning a naive Bayes classifier is: (A) 2K + 1 (B) 2^K + 1 (C) 2^(K+1) + 1 (D) K^2 + 1.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "For a binary classification dataset, let S_B and S_W (both in R^(d x d)) be the between-class and within-class scatter (covariance) matrices. The Fisher linear discriminant u* maximizes J(u) = (u^T S_B u)/(u^T S_W u). If lambda = J(u*), S_W is non-singular and S_B is non-zero, then (u*, lambda) must satisfy: (A) S_W^(-1) S_B u* = lambda u* (B) S_W u* = lambda S_B u* (C) S_B S_W u* = lambda u* (D) u*^T u* = lambda^2.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] A two-dimensional dataset of 5 labelled data points from two classes (circles and squares) is given, along with a diamond-shaped query point; Euclidean distance measures the distance between points. The minimum odd value of k in the k-nearest neighbour algorithm for which the diamond-shaped point is assigned the label 'square' is ____.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "[NAT] A naive Bayes classifier solves a two-class problem with class labels y1, y2 and priors P(y1) = 1/3, P(y2) = 2/3. For a specific feature vector x in a discrete feature space, P(x|y1) = 3/4 and P(x|y2) = 1/4. The probability of misclassifying x is ____ (rounded off to two decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "[MSQ] Match each Task with the Algorithm that solves it: T1 Clustering, T2 Classification, T3 Sampling, T4 Feature Extraction with A1 Markov Chain Monte Carlo, A2 K-Medoid, A3 Linear Discriminant Analysis, A4 Naive Bayes. Which of the following options is/are correct matching(s)? (A) T1:A4, T2:A3, T3:A1, T4:A2 (B) T1:A2, T2:A4, T3:A1, T4:A3 (C) T1:A3, T2:A4, T3:A1, T4:A2 (D) T1:A4, T2:A2, T3:A1, T4:A3.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Support Vector Machine",
+     "subs": [
+      {
+       "n": "Hard margin, support vectors",
+       "p": "DA 2025: margin √2, identify SVs"
+      },
+      {
+       "n": "Margin = 2/‖w‖",
+       "p": "The core formula"
+      },
+      {
+       "n": "Kernels (idea only)",
+       "p": "Not heavily asked — know the concept"
+      }
+     ],
+     "freq": "1–2/3 DA years · 1 Q",
+     "patterns": [
+      "Find SVs and compute margins"
+     ],
+     "tests": [
+      "Make the SVM formula card"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Dataset of six points: x1=[1,0], x2=[0,1], x3=[0,-1], x4=[-1,0], x5=[2,2], x6=[-2,-2], with labels y1=y2=y5=1 and y3=y4=y6=-1. A hard margin linear support vector machine is trained on this dataset. Which ONE of the following sets is a possible set of support vectors? (A) {x1, x2, x5} (B) {x3, x4, x5} (C) {x4, x5} (D) {x1, x2, x3, x4}.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Four figures (i)-(iv) show datasets of two-dimensional features with two classes denoted by circles and squares. Which of the following is/are TRUE? (A) (i) is linearly separable (B) (ii) is linearly separable (C) (iii) is linearly separable (D) (iv) is linearly separable.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Design a linear binary classifier f(x) = sign(w^T x + b), x in R^2, on the training data: Class-1 = {(2,0), (0,2), (2,2)}, Class-2 = {(0,0)}. The hard-margin support vector machine (SVM) formulation is solved to obtain w and b. Which of the following options is/are correct? (A) w = (4,4) and b = 1 (B) The number of support vectors is 3 (C) The margin is sqrt(2) (D) Training accuracy is 98%.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] In a two-class problem in R^d with labels red and green and class means mu_red, mu_green, a classifier computes f(x) = ||mu_red - x||^2 - ||mu_green - x||^2 and assigns label red if f(x) < 0, else green. Which of the following statements is/are correct? (A) The sample x = 0 is assigned green if ||mu_red|| < ||mu_green|| (B) f is a linear function of x (C) f(x) = w^T x + b, where w and b are functions of mu_red and mu_green (D) f is a quadratic polynomial in x.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Decision Trees",
+     "subs": [
+      {
+       "n": "Entropy and information gain",
+       "p": "Split-selection numericals"
+      },
+      {
+       "n": "Gini impurity",
+       "p": "Alternative impurity"
+      },
+      {
+       "n": "Depth and overfitting",
+       "p": "Conceptual"
+      }
+     ],
+     "freq": "2/3 DA years · 1 Q",
+     "patterns": [
+      "Compute gain for one split by hand"
+     ],
+     "tests": [
+      "Include in ML sectional"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Ten international cricket games between teams Green and Blue are given with attributes Pitch (S = spin-friendly, F = pace-friendly) and Format (O = one-day, T = test) and target Winner: (S,T,Green), (S,T,Blue), (F,O,Blue), (S,O,Blue), (F,T,Green), (F,O,Blue), (S,O,Green), (F,T,Blue), (F,O,Blue), (S,O,Green). A decision-tree model is built to predict outcomes of future games. The computed InformationGain(C, Pitch) with respect to the target is ____ (rounded off to two decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Bias-Variance Trade-off and Cross-Validation",
+     "subs": [
+      {
+       "n": "Bias-variance decomposition",
+       "p": "Conceptual staple"
+      },
+      {
+       "n": "LOO and k-fold CV",
+       "p": "Syllabus-explicit; estimate-computation questions"
+      },
+      {
+       "n": "Regularisation link",
+       "p": "Connects to Ridge"
+      }
+     ],
+     "freq": "2/3 DA years · 1 Q",
+     "patterns": [
+      "Estimate LOO/k-fold errors",
+      "Classify high-bias vs high-variance"
+     ],
+     "tests": [
+      "Conceptual flashcards"
+     ],
+     "pyqs": [
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "You are training a classifier for a 10-class classification problem. Each input is a 512-dimensional vector. There are 1000 samples, of which the first 100 will be used for testing. Leave-One-Out-Cross-Validation (LOOCV) is used for selection of the classifier model before testing. Which option is the correct number of validation splits that will be generated? (A) 10 (B) 512 (C) 900 (D) 1000.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "Which of the following statements is true for Ridge Regression? (A) The regularizer guards against scenarios where the model works well for test data but poorly for training data (B) The regularizer uses the L1 norm (C) Ridge Regression aims to reduce the number of parameters that have negative values (D) The regularizer may increase the bias of the model, but it helps in reducing the variance in predictions.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Multi-Layer Perceptron and Feed-Forward Neural Networks",
+     "subs": [
+      {
+       "n": "Perceptron update rule",
+       "p": "DA 2025: update-direction question"
+      },
+      {
+       "n": "ReLU networks and gradients",
+       "p": "DA 2025: ∂y/∂a backprop; ReLU differentiability"
+      },
+      {
+       "n": "MLP parameter counting",
+       "p": "DA 2026: parameter-count question; DA 2024 two-network comparison"
+      },
+      {
+       "n": "Activation functions",
+       "p": "Sigmoid/ReLU properties"
+      }
+     ],
+     "freq": "3/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Count parameters exactly",
+      "One backprop step by hand"
+     ],
+     "tests": [
+      "NN drill: 15 problems"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "Two neural networks (Figures 1 and 2) use ReLU activation ReLU(z) = max{0, z} with all biases set to 0; the connection weights are shown in the figures, with unknown weights p, q, r in Figure 2. For what values of p, q, r are the two NNs equivalent when x1, x2, x3 are positive? (A) p=36, q=24, r=24 (B) p=24, q=24, r=36 (C) p=18, q=36, r=24 (D) p=36, q=36, r=36.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "A linear classifier y = sign(f(x; w, b)), f(x; w, b) = w^T x + b, is trained by updating w_new = w_old + y_n x_n and b_new = b_old + y_n whenever sign(f(x_n; w_old, b_old)) does not equal y_n. For the case (x_n, +1) with f(x_n; w_old, b_old) < 0, which one is correct? (A) f(x_n; w_new, b_new) > f(x_n; w_old, b_old) (B) f(x_n; w_new, b_new) < f(x_n; w_old, b_old) (C) f(x_n; w_new, b_new) = f(x_n; w_old, b_old) (D) y_n f(x_n; w_old, b_old) > 1.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "The neural network shown in the figure has inputs u, v; weights a, b, c, d, e, f; output y; and ReLU activation R(x) = max(0, x) at its neurons. Given u = 2, v = 3, a = 1, b = 1, c = 1, d = -1, e = 4, f = -1, which one is correct? (A) dy/da = 8, dy/df = 0 (B) dy/da = 1, dy/df = 0 (C) dy/da = 1, dy/df = -1 (D) dy/da = 2, dy/df = -1.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Which of the following statements is/are correct about the rectified linear unit (ReLU) activation function defined as ReLU(x) = max(x, 0), x in R? (A) ReLU is continuous everywhere (B) ReLU is differentiable everywhere (C) ReLU is not differentiable at x = 0 (D) ReLU(x) = ReLU(ax) for all a in R.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] A fully-connected feed-forward multi-layer perceptron has 30 neurons in the input layer, two hidden layers with 4 and 3 neurons respectively, and one neuron in the output layer. No bias parameters are used. The number of learnable parameters in the MLP is ____ (integer).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Clustering — k-Means, k-Medoids, Hierarchical",
+     "subs": [
+      {
+       "n": "k-means iterations and assignments",
+       "p": "DA 2024: k=3 same-cluster question"
+      },
+      {
+       "n": "k-medoids difference",
+       "p": "Conceptual 1-mark"
+      },
+      {
+       "n": "Hierarchical: single/complete linkage",
+       "p": "DA 2024/2025 linkage traces; DA 2026 agglomerative with Manhattan"
+      },
+      {
+       "n": "Initialisation dependence",
+       "p": "k-means trap question"
+      }
+     ],
+     "freq": "3/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Trace one k-means iteration",
+      "Merge clusters by linkage rule"
+     ],
+     "tests": [
+      "Clustering drill: 12 traces"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Euclidean distance based k-means clustering was run on a dataset of 100 points with k = 3. If the points [1,1] and [-1,1] are both part of cluster 3, which ONE of the following points is necessarily also part of cluster 3? (A) [0,0] (B) [0,2] (C) [2,0] (D) [0,1].",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "The (i, j)-th entry of the given table is the distance between points x_i and x_j for x1..x5: d(x1,x2)=1, d(x1,x3)=4, d(x1,x4)=3, d(x1,x5)=6, d(x2,x3)=3, d(x2,x4)=5, d(x2,x5)=3, d(x3,x4)=2, d(x3,x5)=5, d(x4,x5)=1. Single linkage clustering is performed on these data points. Which ONE option is the correct representation of the clusters produced (dendrogram figures)?",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let C1, C2 be two sets of objects and D(x, y) a dissimilarity measure, with DIS-1(C1,C2) = max over x in C1, y in C2 of D(x,y) and DIS-2(C1,C2) = min over x in C1, y in C2 of D(x,y). Which of the following statements is/are correct? (A) Single Linkage Clustering uses DIS-1 (B) Single Linkage Clustering uses DIS-2 (C) Complete Linkage Clustering uses DIS-2 (D) Complete Linkage Clustering uses DIS-1.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "Four points in 3-D space: P1=[2,3,-1], P2=[3,1,1], P3=[5,-2,3], P4=[3,3,3]. Hierarchical Agglomerative Clustering is applied using Manhattan Distance as the metric. Which option indicates the two points that will be merged first? (A) P1, P2 (B) P2, P3 (C) P3, P4 (D) P2, P4.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 2,
+     "topic": "Principal Component Analysis",
+     "subs": [
+      {
+       "n": "Covariance eigen-decomposition",
+       "p": "DA 2025: eigenvalues λᵢ=100^(2−i)"
+      },
+      {
+       "n": "Explained variance and projections",
+       "p": "Projection computation"
+      },
+      {
+       "n": "PCA for classification",
+       "p": "DA 2026: PCA-for-classification question"
+      },
+      {
+       "n": "Scatter matrices",
+       "p": "DA 2024: between/within-class scatter"
+      },
+      {
+       "n": "Eigenvector sign/scaling traps",
+       "p": "Recurring conceptual trap"
+      }
+     ],
+     "freq": "3/3 DA years · 1–2 Qs — ask every year",
+     "patterns": [
+      "Eigenvectors of 2×2 covariance by hand",
+      "Explain what PCA maximises"
+     ],
+     "tests": [
+      "PCA drill — never skip, it appears every year"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Let u = [1, 2, 3, 4, 5]^T, and let sigma1, sigma2, sigma3, sigma4, sigma5 be the singular values of the matrix M = u u^T (u^T being the transpose of u). The value of sum of sigma_i for i = 1 to 5 is ____.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Let D = {x(1), ..., x(n)} be a dataset of n observations, each x(i) in R^100, with sum of x(i) = 0. The covariance matrix computed from D has eigenvalues lambda_i = 100^(2-i), 1 <= i <= 100. Let u in R^100 be the unit direction of maximum variance. The value of (1/n) times sum over i of (u^T x(i))^2 is ____ (integer).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "For a classification problem, Principal Component Analysis (PCA) has been used to reduce the dimensionality of a feature space from 100 to 10. Which option is true about the angle theta between the first and the tenth principal components? (A) theta = 0 degrees (B) theta = 90 degrees (C) 90 < theta <= 180 degrees (D) 0 < theta < 90 degrees.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Let A = (I_n - (1/n) 1 1^T), where 1 = (1, 1, ..., 1)^T in R^n and I_n is the identity matrix of order n. The value of max over S of x^T A x, where S = {x in R^n : x^T x = 1}, is ____ (integer).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "14. Artificial Intelligence",
+   "note": "Data Science paper (~6–11 marks, smallest section — efficient study wins here)",
+   "rows": [
+    {
+     "tier": 3,
+     "topic": "Uninformed Search (BFS, DFS)",
+     "subs": [
+      {
+       "n": "BFS/DFS/UCS properties",
+       "p": "Completeness/optimality MCQs"
+      },
+      {
+       "n": "State-space counting",
+       "p": "DA 2024: successor counting"
+      },
+      {
+       "n": "DFS discovery/finish counts",
+       "p": "DA 2025: discovery-count question"
+      }
+     ],
+     "freq": "2–3/3 DA years · 1 Q",
+     "patterns": [
+      "Count nodes expanded",
+      "Compare algorithm properties"
+     ],
+     "tests": [
+      "Include in AI quiz"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Consider performing depth-first search (DFS) on an undirected, unweighted graph G starting at vertex s; d[u] is the length of the shortest path from s to u. Let (u, v) be an edge with d[u] < d[v]. If the edge (u, v) is explored first in the direction from u to v during the DFS, then (u, v) becomes a ____ edge. (A) tree (B) cross (C) back (D) gray.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "In a state space the start state is number 1, and the successor function for state n returns states n+1 and n+2. States in the unexpanded list are expanded in ascending order of numbers, and previously expanded states are not re-added. Which ONE statement about breadth-first search (BFS) and depth-first search (DFS) is true when reaching goal state number 6? (A) BFS expands more states than DFS (B) DFS expands more states than BFS (C) Both expand an equal number of states (D) Neither reaches goal state 6.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] Consider a directed graph G = (V, E), V = {0, 1, ..., 100}, E = {(i, j) : 0 < j - i <= 2}. The adjacency list of each vertex is in decreasing order of vertex number, and depth-first search (DFS) is performed starting at vertex 0. The number of vertices that will be discovered after vertex 50 is ____ (integer).",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 1,
+       "q": "Which of the following algorithms is NOT an example of uninformed search? (A) Breadth First Search (B) Depth First Search (C) A* Search (D) Depth-limited Search.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "Let G = (V, E) be a directed graph (may contain cycles, no self-loops, need not be strongly connected), and G_R the graph obtained by reversing all edge directions without changing vertices. BFS or DFS from any given vertex v visits exactly the reachable vertices from v. Which of the following statements must always be true, regardless of the structure of G? (A) If u is reachable in the BFS of G_R from v, then u is also reachable in the DFS of G from v (B) In G_R, BFS from v visits exactly the same set of vertices as DFS from v in G (C) The order of vertices visited in BFS of G_R from v is the reverse of the order in DFS of G from v (D) If u is reachable in the DFS of G from v, then v is also reachable in the BFS of G_R from u.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Informed Search — A* and Heuristics",
+     "subs": [
+      {
+       "n": "Admissibility and consistency",
+       "p": "DA 2024: admissibility of h1+h2, max, min"
+      },
+      {
+       "n": "A* expansion order",
+       "p": "DA 2025: expansion-sequence question"
+      },
+      {
+       "n": "Heuristic dominance",
+       "p": "Conceptual 1-mark"
+      }
+     ],
+     "freq": "3/3 DA years · 1 Q",
+     "patterns": [
+      "Check admissibility against h*",
+      "Trace expansions with f=g+h"
+     ],
+     "tests": [
+      "A* drill: 10 traces — always asked"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Let h1 and h2 be two admissible heuristics used in A* search. Which ONE of the following expressions is always an admissible heuristic? (A) h1 + h2 (B) h1 x h2 (C) h1/h2 (h2 not 0) (D) |h1 - h2|.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "The state graph shows the action cost along the edges and the heuristic function h associated with each state (nodes S, A, B, C, D, E, G with given h values; G is the goal). A* algorithm is applied using a priority queue to store the frontier. In what sequence are the nodes expanded? (A) S,A,E,C,B,D,G (B) S,E,A,C,B,D,G (C) S,A,E,B,C,D,G (D) S,A,B,E,C,D,G.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Adversarial Search — Minimax",
+     "subs": [
+      {
+       "n": "Minimax tree values",
+       "p": "DA 2026: game-tree value question"
+      },
+      {
+       "n": "Alpha-beta pruning",
+       "p": "DA 2024/2025: pruning ranges; ordering matters trap"
+      },
+      {
+       "n": "Move-ordering effects",
+       "p": "Why prune counts differ"
+      }
+     ],
+     "freq": "3/3 DA years · 1 Q",
+     "patterns": [
+      "Evaluate game trees",
+      "Mark pruned branches correctly"
+     ],
+     "tests": [
+      "Include in AI quiz"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "In adversarial search, alpha-beta pruning can be applied to game trees of any depth, where alpha is the (m) value choice formed so far at any choice point along the path for the MAX player and beta is the (n) value choice formed so far for the MIN player. Which choice of (m) and (n) makes the statement valid? (A) m = highest, n = highest (B) m = lowest, n = highest (C) m = highest, n = lowest (D) m = lowest, n = lowest.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "Consider game trees Tree-1 and Tree-2, where the first level is a MAX agent and the second level a MIN agent; utility values (including unknowns x and y) are at the leaf/square nodes (Tree-1 root A has children with values 2, x, 1; Tree-2 node E has children 5, y, 2). For what ranges of x and y will the right child of node B and the right child of node E be pruned by the alpha-beta pruning algorithm? (A) x in [1, inf) and y in (-inf, 2] (B) x in (-inf, 2] and y in (-inf, 5] (C) x in (-inf, 2] and y in [2, inf) (D) x in [1, inf) and y in (-inf, 5].",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] In the game tree for a two-player turn-taking minimax game (figure), MAX starts at the root and has three strategies 1, 2, 3; MIN then also has three strategies 1, 2, 3; the game ends there. Terminal nodes show the utility of each game state, and both players always take optimal strategies. At the root, the best strategy for MAX is ____ (integer).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Propositional Logic and Predicate Logic",
+     "subs": [
+      {
+       "n": "Entailment and validity",
+       "p": "DA 2026: two FOL validity questions"
+      },
+      {
+       "n": "Equivalences and tautologies",
+       "p": "DA 2025: equivalence question"
+      },
+      {
+       "n": "FOL predicates and quantifiers",
+       "p": "DA 2024: game/shape predicates"
+      },
+      {
+       "n": "Shared with CSE discrete maths",
+       "p": "Study once, credit twice"
+      }
+     ],
+     "freq": "3/3 DA years · 1–2 Qs",
+     "patterns": [
+      "Same skill as CS logic topic"
+     ],
+     "tests": [
+      "Shared with group 1 drill — no separate study"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Let x and y be two propositions. Which of the following statements is a tautology / are tautologies? (A) (not x AND y) => (y => x) (B) (x AND not y) => (not x => y) (C) (not x AND y) => (not x => y) (D) (x AND not y) => (y => x).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let game(ball, rugby) be true if the ball is used in rugby, and shape(ball, round) be true if the ball is round. Sentences: s1: for all ball, NOT game(ball, rugby) => shape(ball, round); s2: for all ball, NOT shape(ball, round) => game(ball, rugby); s3: for all ball, game(ball, rugby) => NOT shape(ball, round); s4: for all ball, shape(ball, round) => NOT game(ball, rugby). Which choice(s) is/are logical representations of the assertion 'All balls are round except balls used in rugby'? (A) s1 AND s3 (B) s1 AND s2 (C) s2 AND s3 (D) s3 AND s4.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 1,
+       "q": "Let p and q be any two propositions: S1: p -> q, S2: NOT p AND q, S3: NOT p OR q, S4: NOT p OR NOT q (AND = conjunction, OR = disjunction, NOT = negation). Which one option is correct (== denotes logical equivalence)? (A) S1 == S3 (B) S2 == S3 (C) S2 == S4 (D) S1 == S4.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "Assume a Creative (C) person will Succeed (S) if the person is also Disciplined (D), but will not succeed otherwise. Statements: (i) C AND S <=> D; (ii) C => (S <=> D); (iii) C <=> ((D => S) OR NOT S). Which option is correct? (A) Both (i) and (ii) are TRUE (B) Only (ii) is TRUE (C) Both (ii) and (iii) are TRUE (D) Only (iii) is TRUE.",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Let P(x) be a predicate. Which of the following statements is/are NOT valid in first-order logic? (A) forall x P(x) => exists x P(x) (B) exists x P(x) => forall x P(x) (C) exists x P(x) <=> forall x P(x) (D) forall x P(x) => exists x NOT P(x).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    },
+    {
+     "tier": 3,
+     "topic": "Reasoning under Uncertainty — Conditional Independence, Variable Elimination, Sampling",
+     "subs": [
+      {
+       "n": "Conditional independence factorisation",
+       "p": "DA 2024: P(U,V,W,X,Y) factorisation"
+      },
+      {
+       "n": "Bayes-net CPT computations",
+       "p": "DA 2024: CPT inference question"
+      },
+      {
+       "n": "Variable elimination",
+       "p": "DA 2025: exact-inference question"
+      },
+      {
+       "n": "Sampling: rejection and Gibbs",
+       "p": "DA 2025: approximate-inference comparison"
+      }
+     ],
+     "freq": "2/3 DA years · 1 Q",
+     "patterns": [
+      "Read factorisations off the graph",
+      "One VE elimination by hand"
+     ],
+     "tests": [
+      "Make a Bayes-net worked-example card"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 1,
+       "q": "Five random variables U, V, W, X, Y have joint distribution P(U, V, W, X, Y) = P(U) P(V) P(W|U,V) P(X|W) P(Y|W). Which ONE of the following statements is FALSE? (A) Y is conditionally independent of V given W (B) X is conditionally independent of U given W (C) U and V are conditionally independent given W (D) Y and X are conditionally independent given W.",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2024,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] A Bayesian network of four Bernoulli random variables U, V, W, Z has CPTs: P(U=0) = P(U=1) = 0.5; P(V=0|U) = P(V=1|U) = 0.5 for both U values; P(W=0|U=0) = 1, P(W=1|U=0) = 0, P(W=0|U=1) = 0, P(W=1|U=1) = 1; P(Z=0|V=0,W=0) = 0.5, P(Z=1|V=0,W=0) = 0.5, P(Z=0|V=0,W=1) = 1, P(Z=0|V=1,W=0) = 1, P(Z=0|V=1,W=1) = 0.5. The value of P(U=1, V=1, W=1, Z=1) is ____ (rounded off to three decimal places).",
+       "u": "https://gate2025.iitr.ac.in/doc/download/2024/DA24S1.pdf"
+      },
+      {
+       "y": 2025,
+       "p": "DA",
+       "m": 2,
+       "q": "[MSQ] Which of the following statements is/are correct in a Bayesian network? (A) Variable elimination is an approximate inference algorithm (B) Gibbs sampling is an exact inference algorithm (C) Variable elimination is used to determine conditional probabilities (D) Rejection sampling is an approximate inference algorithm.",
+       "u": "https://gate2025.iitr.ac.in/doc/2025/2025_QP/DA.pdf"
+      },
+      {
+       "y": 2026,
+       "p": "DA",
+       "m": 2,
+       "q": "[NAT] A clinic tests for disease D. If a person suffers from D, the test is positive 80% of the time and negative 20%; if a person does not suffer from D, the test is positive 10% and negative 90%. The disease D occurs in 30% of the general population. If a person tests positive for D, the probability that he/she actually suffers from D is ____ (rounded off to two decimal places).",
+       "u": "https://gate2026.iitg.ac.in/doc/download/2026/QPs/DA.pdf"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "15. General Aptitude",
+   "note": "Common to both papers — fixed 15 marks, identical syllabus, study once",
+   "rows": [
+    {
+     "tier": 1,
+     "topic": "Verbal Ability — Grammar, Vocabulary, Reading Comprehension",
+     "subs": [
+      {
+       "n": "Grammar: tenses, articles, prepositions, agreement",
+       "p": "Error-spotting questions"
+      },
+      {
+       "n": "Vocabulary and idioms in context",
+       "p": "Word-meaning questions"
+      },
+      {
+       "n": "Reading comprehension and sequencing",
+       "p": "Short-passage questions every year"
+      }
+     ],
+     "freq": "Every year · 4–6 marks",
+     "patterns": [
+      "Error spotting",
+      "Cloze/vocab in context"
+     ],
+     "tests": [
+      "30-min GA block alternate days — no separate theory phase"
+     ],
+     "pyqs": [
+      {
+       "y": 2023,
+       "p": "CS",
+       "m": 1,
+       "q": "Fill in the blank: 'We reached the station late, and ___________ missed the train.'",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/verbal-ability"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "Identify the option that completes the following intensity analogy: Dry : Arid : Parched :: Diet : Fast : ______.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/verbal-ability"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 1,
+       "q": "Fill in the blank: 'Despite his initial hesitation, Rehman's __________ to contribute to the success of the project never wavered.'",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/verbal-ability"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Numerical Ability — Quantitative Aptitude and Data Interpretation",
+     "subs": [
+      {
+       "n": "Ratios, percentages, powers, logarithms",
+       "p": "Bulk of quant marks"
+      },
+      {
+       "n": "Permutations/combinations and series",
+       "p": "Feeds from maths prep"
+      },
+      {
+       "n": "Data interpretation: graphs, tables, maps",
+       "p": "Every year 2–3 questions"
+      },
+      {
+       "n": "Mensuration and geometry basics",
+       "p": "Occasional"
+      }
+     ],
+     "freq": "Every year · 5–7 marks",
+     "patterns": [
+      "Speed arithmetic",
+      "DI extraction accuracy"
+     ],
+     "tests": [
+      "Daily 15-question GA set"
+     ],
+     "pyqs": [
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "For the sample 9, 18, 11, 14, 15, 17, 10, 69, 11, 13, the median is:",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/numerical-ability"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 1,
+       "q": "Coin counts in ₹1, ₹5 and ₹10 denominations are in the ratio 5 : 3 : 13. What percentage of the total money is in ₹5 coins?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/numerical-ability"
+      },
+      {
+       "y": 2024,
+       "p": "CS",
+       "m": 2,
+       "q": "A 20 cm × 8 cm rectangle is folded 3 times along symmetry lines perpendicular to its long edge. The perimeter of the final folded sheet (in cm) is:",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/numerical-ability"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "A fair six-faced die is rolled three times. What is the probability of rolling a '6' exactly once?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/numerical-ability"
+      }
+     ]
+    },
+    {
+     "tier": 1,
+     "topic": "Logical Reasoning and Analytical Ability",
+     "subs": [
+      {
+       "n": "Deduction/induction puzzles",
+       "p": "Constraint-satisfaction style puzzles"
+      },
+      {
+       "n": "Analogies and numerical relations",
+       "p": "Quick marks"
+      },
+      {
+       "n": "Spatial: folding, rotation, patterns",
+       "p": "Paper-folding questions — practice-based only"
+      }
+     ],
+     "freq": "Every year · 4–5 marks",
+     "patterns": [
+      "Constraint grids",
+      "Visual rotation"
+     ],
+     "tests": [
+      "Alternate-day GA block"
+     ],
+     "pyqs": [
+      {
+       "y": 2020,
+       "p": "CS",
+       "m": 2,
+       "q": "[NAT] If P = 3, R = 27, T = 243, then Q + S = _________.",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/logical-reasoning"
+      },
+      {
+       "y": 2025,
+       "p": "CS",
+       "m": 2,
+       "q": "If IMAGE and FIELD are coded as FHBNJ and EMFJG respectively, then which one among the given options is the most appropriate code for BEACH?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/logical-reasoning"
+      },
+      {
+       "y": 2026,
+       "p": "CS",
+       "m": 1,
+       "q": "'When it is raining, peacocks dance.' Based only on this sentence, which one of the following options is necessarily true?",
+       "u": "https://questions.examside.com/past-years/gate/gate-cse/general-aptitude/logical-reasoning"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "meta": {
+  "disclaimer": "PYQ frequencies are approximate (coaching-analysed, ±1 year). DA notes cite the three existing papers (2024–2026). Solve the actual topic-wise PYQ bank for the real questions.",
+  "solveCSE": "CSE: topic-wise PYQs 2017–2026 (oldest → newest when learning)",
+  "solveDA": "DA: all questions from the 2024, 2025, 2026 papers",
+  "pyqNote": "Real PYQs transcribed from the official GATE papers (2024–2026 DA from the official PDFs; CS questions from official/archived sources via linked pages)."
+ }
+}
