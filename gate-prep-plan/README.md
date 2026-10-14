@@ -2,8 +2,8 @@
 
 **Created 6 Oct 2026 · Target: GATE 2027 (IIT Madras), exams 6–7, 13–14, 20–21 Feb 2027 · Two papers: CS + DA (officially allowed combination)**
 
-## ⚠️ Urgent
-Regular registration closed 5 Oct 2026. **Extended window (₹500 late fee) closes 12 Oct 2026** — register at https://gate2027.iitm.ac.in before Monday. Two papers = double fee. CS↔DA is allowed in both directions (primary/secondary).
+## ⚠️ Registration
+Registration for GATE 2027 is now closed. Verify your registration status at https://gate2027.iitm.ac.in. Two papers = double fee. CS↔DA is allowed in both directions (primary/secondary).
 
 ## Documents
 

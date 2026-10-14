@@ -33,23 +33,28 @@
 
 # G. Month-wise Plan
 
-## October 2026 (W0–W2.5) — "Register + Math spine begins"
+## October 2026 (W0–W2.5) — "Math spine begins"
 
-- **By 12 Oct:** complete GATE 2027 registration (two papers: CS primary + DA secondary; fee = 2× single paper; check the official two-paper combination table).
-- W1–W2: Linear Algebra (DA depth) + Propositional & FOL logic + C programming (pointers, arrays, functions, recursion) + start daily 30-min GA.
-- Milestones: eigen/projection machinery fluent; 50+ C tracing problems; PYQ notebook created.
+- W1: Linear Algebra complete (DA depth) + start daily 30-min GA.
+- W2: Probability & Statistics complete (DA depth).
+- Milestones: eigen/projection machinery fluent; distributions mastered; PYQ notebook created.
 
-## November 2026 (W2.5–W6.5) — "Finish common core math + start systems"
+## November 2026 (W2.5–W6.5) — "Finish common core + programming"
 
-- P&S complete (RVs → distributions → CLT/CI/tests — DA depth); Combinatorics + graph theory + relations/lattices/groups; DS (stacks→heaps) + Algorithms (complexity→graphs); DBMS core 1 (ER, relational algebra, SQL).
-- Weekend sectional tests from W4: LA, P&S, C-programming.
-- Milestone: by 22 Nov, all shared math + DS/Algo + half of DBMS done with first PYQ pass.
+- W3: Calculus + Discrete Math (logic, sets, relations, groups, graphs).
+- W4: Programming in C + Python (syntax, pointers, recursion).
+- W5: Data Structures (stacks, queues, linked lists, trees, heaps, hashing).
+- W6: Algorithms (searching, sorting, complexity, recurrences, greedy, DP, graphs) + DBMS core 1 (ER, relational algebra, SQL, normalization, transactions).
+- Weekend sectional tests: LA, P&S, Programming, DS+Algo.
+- Milestone: by 22 Nov, all shared math + Programming + DS + Algorithms + DBMS core done with first PYQ pass.
 
-## December 2026 (W7–W10.5) — "CSE branch surge + DA ML"
+## December 2026 (W7–W10.5) — "CSE branch + DA ML/AI"
 
-- DL + COA (W7–8); OS (W9–10); ML (supervised → unsupervised) in parallel 2-h evening slots; DBMS core 2 (normalization, transactions, indexing) + warehousing extension.
-- W4 of Dec: TOC begins.
-- Milestones: COA pipelining/cache numericals at 85% accuracy; ML section complete with PYQs; DBMS done for both papers.
+- W7: Digital Logic + COA (instruction set, ALU, control unit) + ML (linear/ridge/logistic regression).
+- W8: COA (cache, pipelining, I/O) + ML (kNN, NB, LDA, SVM, decision trees, clustering, PCA).
+- W9: OS (processes, threads, sync, scheduling, deadlock) + ML (MLP, backprop, bias-variance).
+- W10: OS (memory, virtual memory, file systems) + TOC (regular languages) + AI (search, A*, minimax).
+- Milestones: COA pipelining/cache numericals at 85% accuracy; ML section complete with PYQs; OS core done.
 
 ## January 2027 (W11–W14.5) — "Syllabus closes, PYQ mastery"
 
