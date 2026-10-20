@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Merge collected PYQ JSON files (one array per file) into checklist_data.json.
+""""""Merge collected PYQ JSON files (one array per file) into checklist_data.json.
+# NOTE: Run after checklist_data_make.py (which creates the base checklist_data.json).
 Usage: python pyq_data_make.py  (reads pyq_raw_*.json next to this script)
 Each entry: {"topic","year","paper","marks","q","url"} — matched to checklist rows by exact topic name.
 """

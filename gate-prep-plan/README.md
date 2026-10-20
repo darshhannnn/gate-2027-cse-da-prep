@@ -28,3 +28,10 @@ Registration for GATE 2027 is now closed. Verify your registration status at htt
 3. PYQs from week 1, topic-wise; Phase 3 (Jan) is a full PYQ marathon; DA's 3 real papers get two timed passes each.
 4. Mocks: ~12 full-length (6 CS + 5–6 DA) + 18 sectional, every one with a coded mistake autopsy (C1–C6).
 5. Score targets for AIR<500: **CS ~75/100 at ≥85% accuracy, DA ~62/100** — attempt ~62–65 questions, never blind-guess MCQs, always attempt MSQ/NAT.
+
+## Build steps (recommended order)
+
+1. Run `site/checklist_data_make.py` to generate the base `checklist_data.json`.
+2. Run `site/pyq_data_make.py` to merge raw PYQ data into the checklist.
+3. Open `site/index.html` in a browser (or serve via a local HTTP server) to view the tracker.
+

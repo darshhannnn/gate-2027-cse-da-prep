@@ -222,6 +222,7 @@ nav#side li.l2 a{padding-left:22px;font-size:12.8px;color:var(--muted)}
 }
 </style>
 </head>
+<!-- TODO: Move large static schedule JSON data to a separate file (e.g., schedule_data.json) and load it dynamically for better performance -->
 <body data-view="tracker">
 <header>
   <div class="brand">GATE 2027 <small>· CSE + DA</small></div>
@@ -3912,10 +3913,6 @@ function mcSubsDone(g,r,row){let n=0;row.subs.forEach((_,i)=>{if(store.mc[mcSubK
 function renderCheck(){
   const ck=DATA.checklist; if(!ck){$("#t-mc").innerHTML="<p class='sub'>checklist data missing</p>";return;}
   const t=new Date(), iso=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");
-  const disc=DISC.map((s,i)=>`<label class="act ${store.mc["dd"+iso+"i"+i]?"done":""}">
-    <input type="checkbox" class="t" data-mcd="${i}" ${store.mc["dd"+iso+"i"+i]?"checked":""}><span>${s}</span></label>`).join("");
-  const hours=[["Theory / Learning","h0"],["Previous Year Questions","h1"],["Revision","h2"],["Mock or Sectional Test","h3"]]
-    .map(([n,k])=>`<div><label>${n} (hours)</label><input type="number" step="0.5" min="0" data-mch="${k}" value="${esc(store.mc["dh"+iso+k]||"")}"></div>`).join("");
   const groups=ck.groups.map((G,gi)=>{
     const rows=G.rows.map((R,ri)=>{
       const done=MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length;
@@ -3936,11 +3933,6 @@ function renderCheck(){
       <div class="card">${rows}</div>`;
   }).join("");
   $("#t-mc").innerHTML=`
-    <div class="card pad" style="margin-bottom:14px">
-      <div class="h2">Daily Session Checklist <span class="sub">— resets every day</span></div>
-      <div class="twocol"><div>${disc}</div>
-        <div><div class="msec">Hours spent</div><div class="mhours">${hours}</div></div></div>
-    </div>
     <div class="card pad" style="margin-bottom:6px">
       <b>How to use:</b> <span class="sub">pick 1–3 red topics first → study theory (T) → solve their PYQs (P) → revise in the evening (R) → update the mistake log (M). Click any topic for its subtopics, topic-wise and subtopic-wise PYQs, and the tests to run. Never start a low-priority topic while reds of the same subject are weak.</span>
       <div style="margin-top:6px"><span class="mpill">${esc(ck.meta.disclaimer)}</span>

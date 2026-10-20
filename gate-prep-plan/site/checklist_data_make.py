@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate checklist_data.json for the GATE plan website.
+# NOTE: Run pyq_data_make.py first to generate raw PYQ JSON files.
 
 Content basis: official GATE 2027 syllabi (CS + DA), PYQ pattern analysis of
 CSE 2017-2026 and the three DA papers (2024-2026), and the user's master

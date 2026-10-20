@@ -27,7 +27,7 @@ Digital Logic (~5), COA (~9), OS (~9), TOC (~8), Compiler Design (~5–6), CN (~
 - Statistics beyond CSE level: CLT, confidence intervals, z/t/χ² tests, estimators (~4–6 m)
 - Data warehousing/OLAP (~3–5 m)
 - Optimization flavor: convexity, Taylor series (~1–2 m)
-- Python-specific programming practice (C covers concepts; Python syntax/tracing needs its own drills)
+- Python-specific programming practice (C covers concepts; Python syntax and tracing drills are required for DA)
 
 ## D.4 Optimal study order (no double-study)
 
