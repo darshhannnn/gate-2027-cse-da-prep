@@ -33,5 +33,43 @@ Registration for GATE 2027 is now closed. Verify your registration status at htt
 
 1. Run `site/checklist_data_make.py` to generate the base `checklist_data.json`.
 2. Run `site/pyq_data_make.py` to merge raw PYQ data into the checklist.
-3. Open `site/index.html` in a browser (or serve via a local HTTP server) to view the tracker.
+3. Run `site/sequence_data_make.py` to rebuild the study sequence. It syncs the topic
+   inventory against the official GATE 2027 syllabus, applies the research corrections,
+   and writes `DATA.sequence` back into `site/index.html` — every topic exactly once, in
+   plan order, with shared CS↔DA topics merged into one row.
+4. Open `site/index.html` in a browser (or serve via a local HTTP server) to view the tracker.
+
+### The study sequence
+
+The **Topics** tab is the canonical sequence (`DATA.sequence`), not a flat list:
+
+- Order follows the plan: Phase 1 shared spine (Linear Algebra → P&S → Calculus → DM →
+  Programming/DS/Algo → Algorithms → DBMS & Warehousing → General Aptitude), then Phase 2
+  with CS-only subjects paired against DA-only ones.
+- A topic in **both** papers appears **once**, badged `CS·DA`, and one tick counts for both
+  — "everything shared gets studied exactly once" (see `02_Overlap_and_Syllabus_Checklist.md`).
+- Rows are badged `CS` or `DA` when they belong to a single paper.
+- The header percentage counts sequence rows, so it matches exactly what you can tick.
+
+`sequence_data_make.py` refuses to write if any topic would fall out of the sequence.
+
+## Design system
+
+`site/index.html` is a self-contained single file — markup, styles and logic in one place.
+The stylesheet is token-driven, so the whole UI can be restyled from the `:root` block at the
+top of the `<style>` element:
+
+| Token group | Examples |
+|---|---|
+| Surfaces | `--bg`, `--surface`, `--surface-2`, `--surface-3`, `--border`, `--border-strong` |
+| Text | `--text`, `--text-2`, `--text-3` |
+| Accent / status | `--accent`, `--success`, `--warning`, `--danger`, `--info` |
+| Scale | `--fs-*` type, `--sp-*` spacing, `--r-*` radius, `--sh-*` elevation |
+| Tiers | `--t1`…`--t4` (filled tint badges — Tier 1 red → Tier 4 slate) |
+| Papers | `--pap-cs`, `--pap-da`, `--pap-both` (outlined pills) |
+
+Tier badges and paper badges deliberately use **different shapes** — a filled rounded square
+versus an outlined pill — so a "T2" chip is never mistaken for a "CS" chip. Dark mode is a
+parallel token set on `html.dark`, and the theme follows the OS preference until the user
+overrides it with the header toggle.
 
