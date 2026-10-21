@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""""""Merge collected PYQ JSON files (one array per file) into checklist_data.json.
+"""Merge collected PYQ JSON files (one array per file) into checklist_data.json.
 # NOTE: Run after checklist_data_make.py (which creates the base checklist_data.json).
 Usage: python pyq_data_make.py  (reads pyq_raw_*.json next to this script)
 Each entry: {"topic","year","paper","marks","q","url"} — matched to checklist rows by exact topic name.
@@ -14,6 +14,7 @@ ck = json.loads(ck_path.read_text(encoding="utf-8"))
 index = {}
 for g in ck["groups"]:
     for r in g["rows"]:
+        r.pop("pyqs", None)
         index[r["topic"]] = r
 
 total, matched, unmatched = 0, 0, set()
@@ -40,6 +41,6 @@ ck["meta"]["pyqNote"] = "Real PYQs transcribed from the official GATE papers (20
 ck_path.write_text(json.dumps(ck, ensure_ascii=False, indent=1), encoding="utf-8")
 nq = sum(len(r.get("pyqs", [])) for g in ck["groups"] for r in g["rows"])
 topics_with = sum(1 for g in ck["groups"] for r in g["rows"] if r.get("pyqs"))
-print(f"matched {matched}/{total} into {topics_with}/89 topics")
+print(f"matched {matched}/{total} into {topics_with}/{len(index)} topics")
 if unmatched:
     print("UNMATCHED topics:", sorted(unmatched))

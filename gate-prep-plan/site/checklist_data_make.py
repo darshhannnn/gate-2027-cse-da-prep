@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Generate checklist_data.json for the GATE plan website.
-# NOTE: Run pyq_data_make.py first to generate raw PYQ JSON files.
 
 Content basis: official GATE 2027 syllabi (CS + DA), PYQ pattern analysis of
 CSE 2017-2026 and the three DA papers (2024-2026), and the user's master
@@ -744,7 +743,7 @@ T(3, "Adversarial Search — Minimax", [
     "3/3 DA years · 1 Q",
     ["Evaluate game trees", "Mark pruned branches correctly"],
     ["Include in AI quiz"]),
-T(3, "Propositional Logic and Predicate Logic", [
+T(3, "Propositional Logic and Predicate Logic (AI section)", [
     ("Entailment and validity", "DA 2026: two FOL validity questions"),
     ("Equivalences and tautologies", "DA 2025: equivalence question"),
     ("FOL predicates and quantifiers", "DA 2024: game/shape predicates"),
