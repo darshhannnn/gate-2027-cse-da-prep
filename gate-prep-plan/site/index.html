@@ -87,6 +87,25 @@ label.act.done span{color:var(--muted);text-decoration:line-through;text-decorat
 .toggle.on{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
 .toggle.on .dot{background:var(--ok)}
 
+/* ---------- unified syllabus ---------- */
+.uni-wrapper{max-width:780px;margin:0 auto}
+.uni-bar{height:8px;background:var(--line2);border-radius:9px;overflow:hidden;margin:8px 0}
+.uni-bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.uni-filter{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.uni-filter button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:6px 13px;cursor:pointer;font:inherit;font-size:13px}
+.uni-filter button.on{border-color:var(--accent);color:var(--accent);font-weight:600}
+.uni-next{background:var(--card);border:1px solid var(--accent);border-radius:12px;padding:10px 14px;margin:10px 0}
+.uni-sub{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:6px 14px 10px}
+.uni-sub h2{font-size:16px;margin:8px 0 2px;display:flex;justify-content:space-between;gap:8px}
+.uni-sub h2 span{font-size:12px;color:var(--muted);font-weight:400}
+.uni-label{display:flex;align-items:flex-start;gap:9px;padding:6px 0;border-top:1px solid var(--line2);cursor:pointer}
+.uni-label:first-of-type{border-top:0}
+.uni-label input{margin-top:4px;accent-color:var(--ok)}
+.uni-label.done span{color:var(--muted);text-decoration:line-through}
+.uni-bubble{font-size:11px;border-radius:10px;padding:1px 8px;margin-left:6px;white-space:nowrap;border:1px solid;vertical-align:1px}
+.uni-b1{color:var(--t3)}.uni-b2{color:var(--t2)}.uni-b3{color:var(--t4)}
+.uni-legend{font-size:12px;color:var(--muted);margin:10px 0}
+
 /* ---------- today ---------- */
 .daynav{display:flex;align-items:center;gap:10px;margin:14px 0}
 .daynav button{border:1px solid var(--line);background:var(--card);border-radius:9px;padding:5px 12px;font-size:13px}
@@ -249,6 +268,7 @@ nav#side li.l2 a{padding-left:22px;font-size:12.8px;color:var(--muted)}
         <button data-pane="t-today" class="on">Today</button>
         <button data-pane="t-daily">Daily Plan</button>
         <button data-pane="t-topics">Topics</button>
+        <button data-pane="t-unified">Unified Syllabus</button>
         <button data-pane="t-mc">Master Checklist</button>
         <button data-pane="t-pyq">PYQ Tracker</button>
         <button data-pane="t-time">Time Structure</button>
@@ -258,6 +278,7 @@ nav#side li.l2 a{padding-left:22px;font-size:12.8px;color:var(--muted)}
       <section class="tpane on" id="t-today"></section>
       <section class="tpane" id="t-daily"></section>
       <section class="tpane" id="t-topics"></section>
+      <section class="tpane" id="t-unified"></section>
       <section class="tpane" id="t-mc"></section>
       <section class="tpane" id="t-pyq"></section>
       <section class="tpane" id="t-time"></section>
@@ -3596,6 +3617,7 @@ function updateOverall(){
     total+=4;
     R.subs.forEach((_,i)=>{if(store.mc[mcSubKey(gi,ri,i)])done++;});
     total+=R.subs.length;}));
+  UNI_DATA.forEach((s,i)=>s[1].forEach((t,j)=>{total++;if(uniSt[uniId(i,j)])done++;}));
   $("#overall").textContent=(total?Math.round(100*done/total):0)+"%";
 }
 
@@ -3755,6 +3777,65 @@ function renderPyq(){
   $$("#t-pyq input[data-pk]").forEach(el=>el.onchange=()=>{
     const k=el.dataset.pk;store.p[k]=store.p[k]||[0,0,0];store.p[k][+el.dataset.i]=el.checked?1:0;save();updateOverall();});
 }
+
+/* ---------------- UNIFIED SYLLABUS pane ---------------- */
+const UNI_KEY="gate-uni-v1";
+const UNI_DATA=[
+  ["Linear Algebra",[["Matrices, determinants, rank",1],["Systems of linear equations",1],["Eigenvalues and eigenvectors",1],["LU decomposition",0],["Vector spaces, subspaces, basis, dimension",3],["Projections, orthogonality, Gram-Schmidt",3],["Singular value decomposition",3]]],
+  ["Probability and Statistics",[["Counting, conditional probability, Bayes rule",1],["Random variables, expectation, variance",1],["Uniform, normal, exponential, Poisson, binomial distributions",2],["Covariance and correlation",3],["Conditional expectation and variance",3],["Confidence intervals, hypothesis testing",3]]],
+  ["Calculus and Optimization",[["Limits, continuity, differentiability",1],["Maxima and minima",1],["Mean value theorems, integration",0],["Partial derivatives, gradient, Hessian",3],["Convexity, gradient descent",3]]],
+  ["Discrete Mathematics",[["Propositional and first-order logic",0],["Sets, relations, functions",0],["Graph theory basics",0],["Combinatorics, recurrences",0]]],
+  ["Programming and Data Structures",[["C programming, recursion, pointers",0],["Arrays, stacks, queues, linked lists",1],["Trees, binary search trees, heaps",1],["Hashing",1]]],
+  ["Algorithms",[["Asymptotic analysis",1],["Searching and sorting",1],["Divide and conquer",1],["Graph traversal, shortest paths",1],["Greedy, dynamic programming",0],["Minimum spanning trees, P and NP",0]]],
+  ["Databases",[["Entity-relationship model, relational algebra",1],["Structured Query Language",1],["Normalization",1],["Transactions, indexing",0],["Data warehousing: schemas, ETL",3]]],
+  ["Machine Learning",[["Regression, bias-variance, cross-validation",3],["Logistic regression, k-nearest neighbours, naive Bayes",3],["Decision trees, support vector machines",3],["Perceptron, multi-layer neural networks",3],["Clustering, principal component analysis",3]]],
+  ["Artificial Intelligence",[["Uninformed and informed search, A-star",3],["Adversarial search",3],["Propositional logic, inference",3],["Bayesian networks, variable elimination",3]]],
+  ["Theory of Computation",[["Finite automata, regular languages",0],["Context-free languages, pushdown automata",0],["Turing machines, decidability",0]]],
+  ["Digital Logic and Computer Organization",[["Boolean algebra, minimization",0],["Combinational and sequential circuits",0],["Pipelining, cache, memory hierarchy",0]]],
+  ["Operating Systems, Networks, Compilers",[["Processes, scheduling, deadlocks",0],["Memory management, file systems",0],["Network layers, routing, transport",0],["Lexical analysis, parsing, code generation",0]]]
+];
+const UNI_LABELS=["","DA","DA extended","DA only"];
+let uniSt={},uniFilter="all";
+try{uniSt=JSON.parse(localStorage.getItem(UNI_KEY)||"{}")}catch(e){}
+function uniSave(){try{localStorage.setItem(UNI_KEY,JSON.stringify(uniSt))}catch(e){}}
+function uniId(i,j){return i+"-"+j}
+function uniVis(t){return uniFilter==="all"||(uniFilter==="shared"&&t===1)||(uniFilter==="da"&&t>0)}
+function renderUnified(){
+  let h="",tot=0,dn=0,nx=null;
+  UNI_DATA.forEach((s,i)=>{
+    let rows="",c=0,k=0;
+    s[1].forEach((t,j)=>{
+      tot++;const x=!!uniSt[uniId(i,j)];if(x)dn++;
+      if(!x&&!nx&&uniVis(t[1]))nx={s:s[0],t:t};
+      if(!uniVis(t[1]))return;
+      k++;if(x)c++;
+      rows+=`<label class="uni-label ${x?"done":""}"><input type="checkbox" data-i="${i}" data-j="${j}"${x?" checked":""}><span>${esc(t[0])}${t[1]?`<span class="uni-bubble uni-b${t[1]}">${UNI_LABELS[t[1]]}</span>`:""}</span></label>`;
+    });
+    if(k)h+=`<div class="uni-sub"><h2>${i+1}. ${esc(s[0])}<span>${c}/${k}</span></h2>${rows}</div>`;
+  });
+  $("#t-unified").innerHTML=`
+    <div class="uni-wrapper">
+      <div class="card pad" style="margin-bottom:14px"><div class="h2">Unified Syllabus
+        <span class="sub">— one syllabus, one sequence, with DA bubbles. Check against official 2027 syllabus before relying on it.</span></div></div>
+      <div class="uni-bar"><i id="uni-pb"></i></div>
+      <div class="sub" id="uni-pt"></div>
+      <div class="uni-next" id="uni-nx"></div>
+      <div class="uni-filter" id="uni-fl"></div>
+      <div class="uni-legend">Bubbles: <span class="uni-bubble uni-b1">DA</span> also in the Data Science and Artificial Intelligence paper &nbsp;<span class="uni-bubble uni-b2">DA extended</span> that paper goes deeper &nbsp;<span class="uni-bubble uni-b3">DA only</span> only that paper</div>
+      <div>${h}</div>
+    </div>`;
+  $("#uni-pb").style.width=(tot?dn*100/tot:0)+"%";
+  $("#uni-pt").textContent=dn+" of "+tot+" topics done";
+  $("#uni-nx").innerHTML=nx?`<b>Next up:</b> ${esc(nx.t[0])} <span class="sub">${esc(nx.s)}</span>`:"Everything in this view is done.";
+  const F=[["all","Everything"],["shared","Shared topics only"],["da","Data Science and Artificial Intelligence topics"]];
+  $("#uni-fl").innerHTML=F.map(a=>`<button data-f="${a[0]}" class="${uniFilter===a[0]?"on":""}">${a[1]}</button>`).join("");
+}
+document.addEventListener("change",e=>{
+  const d=e.target.dataset;if(d.i!=null){uniSt[uniId(d.i,d.j)]=e.target.checked;uniSave();renderUnified();updateOverall();}
+});
+document.addEventListener("click",e=>{
+  const g=e.target.dataset.f;if(g){uniFilter=g;renderUnified();}
+});
 
 /* ---------------- TIME + GUIDE panes ---------------- */
 function renderTime(){
@@ -3971,7 +4052,7 @@ $("#top").onclick=()=>scrollTo({top:0,behavior:"smooth"});
 addEventListener("scroll",()=>$("#top").style.display=scrollY>700?"block":"none",{passive:true});
 
 /* ---------------- boot ---------------- */
-renderToday();renderDaily();renderTopics();renderCheck();renderPyq();renderTime();renderGuide();
+renderToday();renderDaily();renderTopics();renderUnified();renderCheck();renderPyq();renderTime();renderGuide();
 updateOverall();
 </script>
 </body>
