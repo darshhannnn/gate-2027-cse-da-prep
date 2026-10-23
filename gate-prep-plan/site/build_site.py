@@ -66,7 +66,7 @@ def clean_data(dump: dict) -> dict:
             continue
         cs, da = r[4], r[6]
         if cs and da and sim(cs, da) >= 0.5:
-            track = "shared"
+            track = "dual"
         elif cs and not da:
             track = "CS"
         elif da and not cs:
@@ -696,7 +696,7 @@ function renderDaily(){
       } else if(trk==="rest"){
         focusCell=`<span class="subname">${esc(d.cs||d.da||"—")}</span>`;
       } else {
-        focusCell=`<span class="subname">${esc(d.cs)}</span> <span class="sub">/</span> <span class="subname">${esc(d.da)}</span>`;
+         focusCell=d.cs===d.da?`<span class="subname">${esc(d.cs)}</span> <span class="badge b2">CS</span> <span class="badge b3">DA</span>`:`<span class="subname">${esc(d.cs)}</span> <span class="sub">/</span> <span class="subname">${esc(d.da)}</span>`;
       }
       return `<tr data-date="${d.date}" style="cursor:pointer">
         <td style="white-space:nowrap">${fmtDate(d.date)}</td>

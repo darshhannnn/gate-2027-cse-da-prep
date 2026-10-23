@@ -45,6 +45,62 @@ def side(scope: str, topic: str) -> str:
     return "both"
 
 
+PREFIX = re.compile(r"^(Both papers|Shared by both papers|Computer Science|Data Science and Artificial Intelligence)([^:]{0,60}):\s*")
+
+
+def split_top(s: str):
+    """Split on commas/semicolons/sentence ends that are outside parentheses."""
+    out, buf, depth = [], "", 0
+    for i, ch in enumerate(s):
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+        if depth == 0 and (ch in ",;" or (ch == "." and s[i + 1:i + 2] in (" ", ""))):
+            out.append(buf)
+            buf = ""
+        else:
+            buf += ch
+    out.append(buf)
+    items = []
+    for it in out:
+        it = re.sub(r"^\s*(and|or)\s+", "", it.strip())
+        if it:
+            items.append(it[0].upper() + it[1:])
+    return items
+
+
+def split_desc(desc: str, scope: str, topic: str):
+    """Return (cs_items, da_items): one syllabus item per entry, assigned to the right paper(s)."""
+    default = side(scope, topic)
+    cs, da = [], []
+    for ln in desc.split("\n"):
+        for part in ln.split(" | "):
+            part = part.strip()
+            if not part:
+                continue
+            m = PREFIX.match(part)
+            target = default
+            if m:
+                head = m.group(1)
+                target = "cs" if head == "Computer Science" else "da" if head.startswith("Data") else "both"
+                part = part[m.end():]
+            if part.lower().startswith("session focus:"):
+                items = [part]
+                target = "both" if default == "both" else default
+            else:
+                items = split_top(part)
+            if target in ("cs", "both"):
+                cs += items
+            if target in ("da", "both"):
+                da += items
+    if default == "cs":
+        da = []
+    elif default == "da":
+        cs = []
+    return cs, da
+
+
 def activities(kind: str, tier: str, routine: str, desc: str):
     """Return the six activity cells: PYQs, maths/stats, GA, spaced revision, mistake log, test."""
     if kind == "Study session":
@@ -89,9 +145,10 @@ def main():
     for dt, day, kind, phase, unit, topic, desc, scope, tier, routine in plan:
         sd = side(scope, topic)
         label = f"{unit}: {topic}" if unit.startswith("Unit") else topic
-        text = bullets(desc)
-        cs, cst = (label, text) if sd in ("cs", "both") else ("", "")
-        da, dat = (label, text) if sd in ("da", "both") else ("", "")
+        cs_items, da_items = split_desc(desc, scope, topic)
+        as_text = lambda items: "\n".join("\u2022 " + x for x in items)
+        cs, cst = (label, as_text(cs_items)) if sd in ("cs", "both") else ("", "")
+        da, dat = (label, as_text(da_items)) if sd in ("da", "both") else ("", "")
         act = activities(kind, tier, routine, desc)
         new.append([
             f"{dt} 00:00:00", day, str(week_of(dt)), phase,
