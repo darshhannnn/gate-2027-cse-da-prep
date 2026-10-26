@@ -1166,25 +1166,109 @@ def update_index_html():
     new_data_line = "const DATA = " + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + ";"
     new_text = text[:m.start()] + new_data_line + text[m.end():]
 
-    # 1. Update CSS for checkable .subrow items in the Today Focus Card
+    # 1. Update CSS for clean checkable .subrow items, section chips, and focus callout
     old_css = ".sublist{display:flex;flex-direction:column;gap:7px;margin-top:10px}\n.subrow{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1.45;color:var(--muted)}"
     new_css = (
-        ".sublist{display:flex;flex-direction:column;gap:2px;margin-top:10px}\n"
-        ".subrow{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.45;color:var(--ink);padding:6px 4px;border-bottom:1px dashed var(--line2);cursor:pointer}\n"
-        ".subrow:last-child{border-bottom:none}\n"
+        ".sublist{display:flex;flex-direction:column;gap:4px;margin-top:12px}\n"
+        ".subrow{display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5;color:var(--ink);padding:9px 10px;border-radius:10px;border:1px solid var(--line2);background:color-mix(in srgb,var(--bg) 55%,var(--card));cursor:pointer;transition:border-color .15s,background .15s}\n"
+        ".subrow:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}\n"
         ".subrow input.t{margin-top:3px;flex-shrink:0}\n"
-        ".subrow .subtxt{flex:1}\n"
-        ".subrow.done .subtxt{text-decoration:line-through;color:var(--muted)}"
+        ".subrow .subtxt{flex:1;min-width:0}\n"
+        ".subrow.done{opacity:.72;background:transparent}\n"
+        ".subrow.done .submain{text-decoration:line-through;color:var(--muted)}\n"
+        ".subhead-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 7px;border-radius:5px;margin-right:6px;vertical-align:baseline}\n"
+        ".submain{font-weight:500;color:var(--ink)}\n"
+        ".sec-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}\n"
+        ".sec-chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;line-height:1.3;padding:2px 7px;border-radius:6px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-variant-numeric:tabular-nums}\n"
+        ".sec-chip b{color:var(--accent);font-weight:700}\n"
+        ".sec-chip em{font-style:normal;color:var(--muted);font-size:11px;font-weight:600}\n"
+        ".act-block{display:flex;flex-direction:column;gap:5px;width:100%}\n"
+        ".act-src{font-size:11.5px;font-weight:700;color:var(--muted);margin-top:2px}\n"
+        ".focus-banner{margin-top:12px;padding:10px 13px;border-radius:10px;background:color-mix(in srgb,var(--accent-soft) 55%,transparent);border-left:3px solid var(--accent);font-size:13px;color:var(--ink);line-height:1.45}\n"
+        ".focus-banner b{color:var(--accent)}"
     )
     new_text = new_text.replace(old_css, new_css).replace(old_css.replace("\n", "\r\n"), new_css)
 
-    # 2. Add subKey helper right after togKey
+    # 2. Add subKey and clean formatting helpers right after togKey
     old_helper = 'const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;\nconst togKey=(date,ti)=>date+"|T"+ti;'
-    new_helper = 'const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;\nconst togKey=(date,ti)=>date+"|T"+ti;\nconst subKey=(date,si)=>date+"|S|"+si;'
+    new_helper = """const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;
+const togKey=(date,ti)=>date+"|T"+ti;
+const subKey=(date,si)=>date+"|S|"+si;
+
+/* Clean visual formatters for book sections & subtopics */
+function renderSecChips(secStr){
+  const parts=secStr.split(/,\\s*(?=\\d+\\.\\d+\\b)/);
+  if(parts.length===1 && !/^\\d+\\.\\d+\\s/.test(parts[0].trim())) return "";
+  const chips=parts.map(p=>{
+    const m=p.trim().match(/^(\\d+\\.\\d+)\\s+(.+?)\\s*\\((\\d+)\\)(.*)$/);
+    if(m) return `<span class="sec-chip"><b>${esc(m[1])}</b> ${esc(m[2])} <em>${esc(m[3])} Qs</em>${m[4]?esc(m[4]):""}</span>`;
+    return `<span class="sec-chip">${esc(p.trim())}</span>`;
+  }).join("");
+  return `<div class="sec-chips">${chips}</div>`;
+}
+function fmtSubItem(raw){
+  const m=raw.match(/^((?:(?:Core CS|Engg Math|Discrete Math|GATE GA|Practice Book)\\s+)?Ch\\s*\\d+[^:]*|DA\\s+[^:]+):\\s*(.+)$/);
+  if(!m) return `<span class="submain">${esc(raw)}</span>`;
+  const prefix=m[1].trim(), rest=m[2].trim();
+  const dashIdx=rest.indexOf(" — ");
+  if(dashIdx!==-1){
+    const left=rest.slice(0,dashIdx).trim(), right=rest.slice(dashIdx+3).trim();
+    if(/^\\d+\\.\\d+\\s/.test(left)){
+      return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(right)}</span>${renderSecChips(left)}`;
+    }
+  }
+  if(/^\\d+\\.\\d+\\s/.test(rest)){
+    return `<span class="subhead-tag">${esc(prefix)}</span>${renderSecChips(rest)}`;
+  }
+  return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(rest)}</span>`;
+}
+function fmtActItem(raw){
+  if(!/^(Math Recall —|GA\\s)/i.test(raw)) return `<span>${esc(raw)}</span>`;
+  let s=raw, badge="";
+  const bm=s.match(/\\[([^\\]]+)\\]\\s*$/);
+  if(bm){ badge=` <span class="spill sp-both" style="font-size:10px;padding:0 6px">${esc(bm[1])}</span>`; s=s.slice(0,bm.index).trim(); }
+  const blocks=s.split(/\\s*\\|\\s*/);
+  const html=blocks.map(b=>{
+    const cm=b.match(/^([^:]+):\\s*(.+)$/);
+    if(cm && /^\\d+\\.\\d+\\s/.test(cm[2].trim())){
+      return `<div><div class="act-src">${esc(cm[1].trim())}</div>${renderSecChips(cm[2].trim())}</div>`;
+    }
+    return `<div>${esc(b)}</div>`;
+  }).join("");
+  return `<div class="act-block">${html}${badge?`<div>${badge}</div>`:""}</div>`;
+}
+function fmtMcSub(raw){
+  let s=raw, tag="";
+  const tm=s.match(/\\[(Both|CS|DA|DA \\+ Both)\\]/i);
+  if(tm){
+    const t=tm[1].toUpperCase();
+    tag=t.includes("BOTH")?"Both":t;
+    s=s.replace(tm[0],"").replace(/\\s+·\\s+/," · ").trim();
+  }
+  const cls=tag==="Both"?"sp-both":(tag==="CS"?"sp-cs":"sp-da");
+  const pill=tag?` <span class="spill ${cls}">${tag}</span>`:"";
+  const parts=s.split(/\\s*·\\s*/);
+  const mainTitle=parts[0].trim();
+  const bookPart=parts.slice(1).join(" | ").trim();
+  if(!bookPart) return `<div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><span class="submain">${esc(mainTitle)}</span>${pill}</div></div>`;
+  const blocks=bookPart.split(/\\s*\\|\\s*/).map(b=>{
+    const cm=b.match(/^([^:]+):\\s*(.+)$/);
+    if(cm && /^\\d+\\.\\d+\\s/.test(cm[2].trim())){
+      return `<div style="margin-top:4px"><span class="subhead-tag">${esc(cm[1].trim())}</span>${renderSecChips(cm[2].trim())}</div>`;
+    }
+    return `<div class="act-src" style="margin-top:4px">${esc(b)}</div>`;
+  }).join("");
+  return `<div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><span class="submain">${esc(mainTitle)}</span>${pill}</div>${blocks}</div>`;
+}"""
     if 'const subKey=' not in new_text:
         new_text = new_text.replace(old_helper, new_helper).replace(old_helper.replace("\n", "\r\n"), new_helper)
 
-    # 3. Make each Today Focus Card item checkable with a done counter in the card header
+    # 3. Use fmtActItem in actHtml in renderToday()
+    old_act = "<span>${esc(ln)}</span></label>"
+    new_act = "${fmtActItem(ln)}</label>"
+    new_text = new_text.replace(old_act, new_act)
+
+    # 4. Make each regular Today Focus Card item checkable + render Session Focus as a clean banner
     old_focus = """  const subRows=[...regular, ...focus].map(it=>{
     const inCS=csSet.has(it), inDA=daSet.has(it);
     const tag=(inCS&&inDA)?"Both":(inCS?"CS":"DA");
@@ -1196,7 +1280,7 @@ def update_index_html():
     <div style="font-size:16.5px;font-weight:700">${esc(titleText)}</div>
     <div class="sublist">${subRows}</div>
   </div>`;"""
-    new_focus = """  const allSubItems=[...regular, ...focus];
+    new_focus = """  const allSubItems=regular.length?regular:focus;
   const subDoneCount=allSubItems.filter((_,si)=>store.d[subKey(d.date,si)]).length;
   const subRows=allSubItems.map((it,si)=>{
     const inCS=csSet.has(it), inDA=daSet.has(it);
@@ -1205,21 +1289,42 @@ def update_index_html():
     const sk=subKey(d.date,si), chk=!!store.d[sk];
     return `<label class="subrow ${chk?"done":""}">
       <input type="checkbox" class="t" data-sk="${esc(sk)}" ${chk?"checked":""}>
-      <span class="subtxt">${esc(it)}</span>
+      <div class="subtxt">${fmtSubItem(it)}</div>
       <span class="spill ${cls}">${tag}</span>
     </label>`;
   }).join("");
-  const titleText=(d.cs&&d.da&&d.cs!==d.da)?`${d.cs} · ${d.da}`:(d.cs||d.da||"—");
+  const focusBanner=(regular.length&&focus.length)?focus.map(f=>`<div class="focus-banner"><b>🎯 Session Focus:</b> ${esc(f.replace(/^session focus:\\s*/i,""))}</div>`).join(""):"";
+  const rawTitle=(d.cs&&d.da&&d.cs!==d.da)?`${d.cs} · ${d.da}`:(d.cs||d.da||"—");
+  const um=rawTitle.match(/^(Unit\\s+\\d+|Second pass\\s+\\d+|Foundation diagnostic\\s+\\d+):\\s*(.+)$/i);
+  const titleHtml=um?`<span class="subhead-tag" style="font-size:12.5px;padding:2px 9px">${esc(um[1])}</span><span>${esc(um[2])}</span>`:esc(rawTitle);
   const focusHtml=`<div class="card pad">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
-      <div style="font-size:16.5px;font-weight:700">${esc(titleText)}</div>
-      ${allSubItems.length?`<span class="sub" id="today-subprog" style="font-variant-numeric:tabular-nums">${subDoneCount}/${allSubItems.length} subtopics done</span>`:""}
+      <div style="font-size:16.5px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap">${titleHtml}</div>
+      ${allSubItems.length?`<span class="badge okb" id="today-subprog" style="font-variant-numeric:tabular-nums">${subDoneCount}/${allSubItems.length} subtopics done</span>`:""}
     </div>
     <div class="sublist">${subRows}</div>
+    ${focusBanner}
   </div>`;"""
     new_text = new_text.replace(old_focus, new_focus).replace(old_focus.replace("\n", "\r\n"), new_focus)
 
-    # 4. Update bindChecks(scope) to handle data-sk checkboxes and live-refresh the Today progress ring/dot
+    # 5. Clean up Daily Plan preview text so it doesn't slice mid-word on book chapter prefixes
+    old_daily_first = """      const ttl=(d.cs&&d.da&&d.cs!==d.da)?`${esc(d.cs)} · ${esc(d.da)}`:esc(d.cs||d.da||"—");
+      const first=((d.csT||d.daT||"").split("\\n")[0]||"").replace(/^•\\s*/,"").slice(0,52);"""
+    new_daily_first = """      const rawTtl=(d.cs&&d.da&&d.cs!==d.da)?`${d.cs} · ${d.da}`:(d.cs||d.da||"—");
+      const um=rawTtl.match(/^(Unit\\s+\\d+|Second pass\\s+\\d+|Foundation diagnostic\\s+\\d+):\\s*(.+)$/i);
+      const ttl=um?`<span class="subhead-tag">${esc(um[1])}</span>${esc(um[2])}`:esc(rawTtl);
+      const rawFirst=((d.csT||d.daT||"").split("\\n").find(x=>!/^•?\\s*session focus:/i.test(x))||"").replace(/^•\\s*/,"");
+      const dashPos=rawFirst.indexOf(" — ");
+      const cleanFirst=dashPos!==-1?rawFirst.slice(dashPos+3):rawFirst.replace(/^(?:(?:Core CS|Engg Math|Discrete Math)\\s+)?(?:Ch\\s*\\d+[^:]*|DA\\s+[^:]+):\\s*/,"");
+      const first=cleanFirst.length>58?cleanFirst.slice(0,56).replace(/\\s+\\S*$/,"")+"…":cleanFirst;"""
+    new_text = new_text.replace(old_daily_first, new_daily_first).replace(old_daily_first.replace("\n", "\r\n"), new_daily_first)
+
+    # 6. Use fmtMcSub in openMcModal() for clean Master Checklist subtopics
+    old_mc_modal = '<input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}><span>${esc(s.n)}</span></label>'
+    new_mc_modal = '<input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}>${fmtMcSub(s.n)}</label>'
+    new_text = new_text.replace(old_mc_modal, new_mc_modal)
+
+    # 7. Update bindChecks(scope) to handle data-sk checkboxes and live-refresh the Today progress ring/dot
     old_bind = """function bindChecks(scope){
   $$((scope||"")+" input[data-k]").forEach(el=>el.onchange=()=>{
     store.d[el.dataset.k]=el.checked?1:0;save();
