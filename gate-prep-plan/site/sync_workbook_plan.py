@@ -1002,15 +1002,24 @@ def clean_data(dump: dict) -> dict:
                 break
 
     link = {}
+    try:
+        import subprocess
+        head_idx = subprocess.check_output(["git", "show", "b64abb6:gate-prep-plan/site/index.html"], cwd=str(ROOT)).decode("utf-8")
+        head_data = json.loads(re.search(r"^const DATA = (\{.*\});$", head_idx, re.M).group(1))
+        link = json.loads(json.dumps(head_data.get("linkMap", {})))
+    except Exception:
+        link = {}
+
     if ck:
         def day_lines(s):
             return [x.strip().lstrip("•").strip() for x in s.split("\n") if x.strip().lstrip("•").strip()]
 
         for d in days:
-            ent = {}
+            ent = link.setdefault(d["date"], {})
             for side, exam in (("cs", "CS"), ("da", "DA")):
                 subj = d[side]
-                t307, mc = [], []
+                s_ent = ent.get(side, {"mc": [], "t": []})
+                t307, mc = list(s_ent.get("t", [])), list(s_ent.get("mc", []))
                 for L in day_lines(d[side + "T"]):
                     for t in topics:
                         if t["exam"] != exam or sim(subj, t["subject"]) < 0.4:
@@ -1027,8 +1036,91 @@ def clean_data(dump: dict) -> dict:
                                     mc.append([gi, ri])
                 if t307 or mc:
                     ent[side] = {"mc": mc, "t": t307}
-            if ent:
-                link[d["date"]] = ent
+            if not ent:
+                link.pop(d["date"], None)
+
+    EXTRA_LINKS = {
+        "2026-10-23": {"cs_t": [67], "da_t": [234], "cs_mc": [(1, 0)], "da_mc": [(1, 0)]},
+        "2026-10-24": {"cs_t": [67], "da_t": [234], "cs_mc": [(1, 0)], "da_mc": [(1, 0)]},
+        "2026-10-25": {"cs_t": [], "da_t": [], "cs_mc": [(14, 0), (14, 1), (14, 2)], "da_mc": [(14, 0), (14, 1), (14, 2)]},
+        "2026-10-26": {"cs_t": [66, 67], "da_t": [233, 234], "cs_mc": [(1, 0), (1, 1)], "da_mc": [(1, 0), (1, 1)]},
+        "2026-10-27": {"cs_t": [], "da_t": [], "cs_mc": [(1, 1)], "da_mc": [(1, 1)]},
+        "2026-10-28": {"cs_t": [], "da_t": [], "cs_mc": [(1, 1)], "da_mc": [(1, 1)]},
+        "2026-10-29": {"cs_t": [], "da_t": [240], "cs_mc": [(1, 2), (1, 3)], "da_mc": [(1, 2)]},
+        "2026-10-30": {"cs_t": [], "da_t": [256], "cs_mc": [(1, 5)], "da_mc": [(1, 5)]},
+        "2026-10-31": {"cs_t": [76, 77, 78], "da_t": [243, 244, 245, 256], "cs_mc": [(1, 7), (1, 8)], "da_mc": [(1, 7)]},
+        "2026-11-02": {"cs_t": [79], "da_t": [246, 248], "cs_mc": [(1, 6)], "da_mc": [(1, 6)]},
+        "2026-11-03": {"cs_t": [78], "da_t": [245, 248, 249], "cs_mc": [(1, 6), (1, 8)], "da_mc": [(1, 6), (1, 8)]},
+        "2026-11-04": {"cs_t": [74], "da_t": [241, 252, 253], "cs_mc": [(1, 4), (1, 11)], "da_mc": [(1, 4), (1, 11)]},
+        "2026-11-05": {"cs_t": [88], "da_t": [255], "cs_mc": [(1, 4), (1, 11)], "da_mc": [(1, 4), (1, 11)]},
+        "2026-11-06": {"cs_t": [87], "da_t": [250], "cs_mc": [(1, 9), (1, 11)], "da_mc": []},
+        "2026-11-07": {"cs_t": [], "da_t": [251], "cs_mc": [(1, 10)], "da_mc": []},
+        "2026-11-09": {"cs_t": [], "da_t": [251], "cs_mc": [(1, 10)], "da_mc": []},
+        "2026-11-10": {"cs_t": [], "da_t": [252, 253], "cs_mc": [], "da_mc": [(13, 0), (1, 11)]},
+        "2026-11-11": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(13, 1)]},
+        "2026-11-12": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(13, 2)]},
+        "2026-11-13": {"cs_t": [], "da_t": [], "cs_mc": [(5, 0), (5, 2)], "da_mc": [(5, 0), (5, 2)]},
+        "2026-11-14": {"cs_t": [], "da_t": [], "cs_mc": [(5, 1)], "da_mc": [(5, 1)]},
+        "2026-11-16": {"cs_t": [], "da_t": [], "cs_mc": [(5, 1)], "da_mc": [(5, 1)]},
+        "2026-11-17": {"cs_t": [], "da_t": [], "cs_mc": [(5, 1)], "da_mc": [(5, 1)]},
+        "2026-11-18": {"cs_t": [98], "da_t": [265], "cs_mc": [(5, 2)], "da_mc": [(5, 2)]},
+        "2026-11-19": {"cs_t": [98], "da_t": [265], "cs_mc": [(5, 2)], "da_mc": [(5, 2)]},
+        "2026-11-20": {"cs_t": [99, 100], "da_t": [266, 267], "cs_mc": [(5, 3), (5, 5)], "da_mc": [(5, 3), (5, 5)]},
+        "2026-11-21": {"cs_t": [101, 103], "da_t": [268, 269, 270], "cs_mc": [(5, 4)], "da_mc": []},
+        "2026-11-23": {"cs_t": [], "da_t": [271, 272, 273], "cs_mc": [], "da_mc": [(5, 5), (5, 6)]},
+        "2026-11-24": {"cs_t": [], "da_t": [274, 275, 276], "cs_mc": [], "da_mc": [(5, 6)]},
+        "2026-11-25": {"cs_t": [], "da_t": [], "cs_mc": [(6, 0)], "da_mc": []},
+        "2026-11-26": {"cs_t": [107], "da_t": [], "cs_mc": [(6, 0), (6, 2), (7, 0)], "da_mc": []},
+        "2026-11-27": {"cs_t": [], "da_t": [], "cs_mc": [(6, 1), (6, 2)], "da_mc": []},
+        "2026-11-28": {"cs_t": [112], "da_t": [], "cs_mc": [(6, 3)], "da_mc": []},
+        "2026-11-30": {"cs_t": [], "da_t": [], "cs_mc": [(7, 1)], "da_mc": []},
+        "2026-12-01": {"cs_t": [], "da_t": [], "cs_mc": [(7, 1)], "da_mc": []},
+        "2026-12-02": {"cs_t": [175], "da_t": [], "cs_mc": [(7, 2), (7, 3)], "da_mc": []},
+        "2026-12-03": {"cs_t": [], "da_t": [], "cs_mc": [(7, 4)], "da_mc": []},
+        "2026-12-04": {"cs_t": [], "da_t": [], "cs_mc": [(8, 0)], "da_mc": []},
+        "2026-12-05": {"cs_t": [], "da_t": [], "cs_mc": [(8, 1), (8, 2)], "da_mc": []},
+        "2026-12-07": {"cs_t": [], "da_t": [], "cs_mc": [(2, 0), (2, 1)], "da_mc": []},
+        "2026-12-08": {"cs_t": [142], "da_t": [], "cs_mc": [(2, 2)], "da_mc": []},
+        "2026-12-09": {"cs_t": [136, 137], "da_t": [], "cs_mc": [(2, 3), (2, 4)], "da_mc": []},
+        "2026-12-10": {"cs_t": [136, 137, 138], "da_t": [], "cs_mc": [(2, 3), (2, 4), (2, 5)], "da_mc": []},
+        "2026-12-11": {"cs_t": [], "da_t": [], "cs_mc": [(3, 0), (3, 1)], "da_mc": []},
+        "2026-12-12": {"cs_t": [116], "da_t": [], "cs_mc": [(3, 0), (3, 2)], "da_mc": []},
+        "2026-12-14": {"cs_t": [116], "da_t": [], "cs_mc": [(3, 0), (3, 2)], "da_mc": []},
+        "2026-12-15": {"cs_t": [122], "da_t": [], "cs_mc": [(3, 2)], "da_mc": []},
+        "2026-12-16": {"cs_t": [125], "da_t": [], "cs_mc": [(3, 3)], "da_mc": []},
+        "2026-12-17": {"cs_t": [125], "da_t": [], "cs_mc": [(3, 3)], "da_mc": []},
+        "2026-12-18": {"cs_t": [], "da_t": [], "cs_mc": [(3, 4), (2, 4)], "da_mc": []},
+        "2026-12-19": {"cs_t": [152], "da_t": [], "cs_mc": [(4, 0), (4, 4)], "da_mc": []},
+        "2026-12-21": {"cs_t": [152], "da_t": [], "cs_mc": [(4, 1), (4, 2), (4, 3), (4, 5)], "da_mc": []},
+        "2026-12-22": {"cs_t": [], "da_t": [302, 303], "cs_mc": [], "da_mc": [(13, 3), (13, 4)]},
+        "2026-12-23": {"cs_t": [], "da_t": [306], "cs_mc": [], "da_mc": [(13, 4)]},
+        "2026-12-24": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(12, 0)]},
+        "2026-12-25": {"cs_t": [], "da_t": [281], "cs_mc": [], "da_mc": [(12, 1), (12, 2)]},
+        "2026-12-26": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(12, 2)]},
+        "2026-12-28": {"cs_t": [], "da_t": [284], "cs_mc": [], "da_mc": [(12, 3)]},
+        "2026-12-29": {"cs_t": [], "da_t": [284], "cs_mc": [], "da_mc": [(12, 3)]},
+        "2026-12-30": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(12, 4)]},
+        "2026-12-31": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(12, 5)]},
+        "2027-01-01": {"cs_t": [], "da_t": [289], "cs_mc": [], "da_mc": [(12, 6)]},
+        "2027-01-02": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(12, 7), (12, 8)]},
+        "2027-01-04": {"cs_t": [], "da_t": [], "cs_mc": [], "da_mc": [(12, 7), (12, 8)]},
+    }
+    for dt, add in EXTRA_LINKS.items():
+        ent = link.setdefault(dt, {})
+        for side in ("cs", "da"):
+            t_indices = add.get(f"{side}_t", [])
+            mc_pairs = add.get(f"{side}_mc", [])
+            if not t_indices and not mc_pairs and side not in ent:
+                continue
+            s_ent = ent.setdefault(side, {"mc": [], "t": []})
+            for idx in t_indices:
+                k = key307(topics[idx])
+                if k not in s_ent["t"]:
+                    s_ent["t"].append(k)
+            for gi, ri in mc_pairs:
+                if [gi, ri] not in s_ent["mc"]:
+                    s_ent["mc"].append([gi, ri])
+
     data["linkMap"] = link
 
     pyq = []
@@ -1073,6 +1165,99 @@ def update_index_html():
 
     new_data_line = "const DATA = " + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + ";"
     new_text = text[:m.start()] + new_data_line + text[m.end():]
+
+    # 1. Update CSS for checkable .subrow items in the Today Focus Card
+    old_css = ".sublist{display:flex;flex-direction:column;gap:7px;margin-top:10px}\n.subrow{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1.45;color:var(--muted)}"
+    new_css = (
+        ".sublist{display:flex;flex-direction:column;gap:2px;margin-top:10px}\n"
+        ".subrow{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.45;color:var(--ink);padding:6px 4px;border-bottom:1px dashed var(--line2);cursor:pointer}\n"
+        ".subrow:last-child{border-bottom:none}\n"
+        ".subrow input.t{margin-top:3px;flex-shrink:0}\n"
+        ".subrow .subtxt{flex:1}\n"
+        ".subrow.done .subtxt{text-decoration:line-through;color:var(--muted)}"
+    )
+    new_text = new_text.replace(old_css, new_css).replace(old_css.replace("\n", "\r\n"), new_css)
+
+    # 2. Add subKey helper right after togKey
+    old_helper = 'const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;\nconst togKey=(date,ti)=>date+"|T"+ti;'
+    new_helper = 'const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;\nconst togKey=(date,ti)=>date+"|T"+ti;\nconst subKey=(date,si)=>date+"|S|"+si;'
+    if 'const subKey=' not in new_text:
+        new_text = new_text.replace(old_helper, new_helper).replace(old_helper.replace("\n", "\r\n"), new_helper)
+
+    # 3. Make each Today Focus Card item checkable with a done counter in the card header
+    old_focus = """  const subRows=[...regular, ...focus].map(it=>{
+    const inCS=csSet.has(it), inDA=daSet.has(it);
+    const tag=(inCS&&inDA)?"Both":(inCS?"CS":"DA");
+    const cls=tag==="Both"?"sp-both":(tag==="CS"?"sp-cs":"sp-da");
+    return `<div class="subrow"><span>• ${esc(it)}</span><span class="spill ${cls}">${tag}</span></div>`;
+  }).join("");
+  const titleText=(d.cs&&d.da&&d.cs!==d.da)?`${d.cs} · ${d.da}`:(d.cs||d.da||"—");
+  const focusHtml=`<div class="card pad">
+    <div style="font-size:16.5px;font-weight:700">${esc(titleText)}</div>
+    <div class="sublist">${subRows}</div>
+  </div>`;"""
+    new_focus = """  const allSubItems=[...regular, ...focus];
+  const subDoneCount=allSubItems.filter((_,si)=>store.d[subKey(d.date,si)]).length;
+  const subRows=allSubItems.map((it,si)=>{
+    const inCS=csSet.has(it), inDA=daSet.has(it);
+    const tag=(inCS&&inDA)?"Both":(inCS?"CS":"DA");
+    const cls=tag==="Both"?"sp-both":(tag==="CS"?"sp-cs":"sp-da");
+    const sk=subKey(d.date,si), chk=!!store.d[sk];
+    return `<label class="subrow ${chk?"done":""}">
+      <input type="checkbox" class="t" data-sk="${esc(sk)}" ${chk?"checked":""}>
+      <span class="subtxt">${esc(it)}</span>
+      <span class="spill ${cls}">${tag}</span>
+    </label>`;
+  }).join("");
+  const titleText=(d.cs&&d.da&&d.cs!==d.da)?`${d.cs} · ${d.da}`:(d.cs||d.da||"—");
+  const focusHtml=`<div class="card pad">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div style="font-size:16.5px;font-weight:700">${esc(titleText)}</div>
+      ${allSubItems.length?`<span class="sub" id="today-subprog" style="font-variant-numeric:tabular-nums">${subDoneCount}/${allSubItems.length} subtopics done</span>`:""}
+    </div>
+    <div class="sublist">${subRows}</div>
+  </div>`;"""
+    new_text = new_text.replace(old_focus, new_focus).replace(old_focus.replace("\n", "\r\n"), new_focus)
+
+    # 4. Update bindChecks(scope) to handle data-sk checkboxes and live-refresh the Today progress ring/dot
+    old_bind = """function bindChecks(scope){
+  $$((scope||"")+" input[data-k]").forEach(el=>el.onchange=()=>{
+    store.d[el.dataset.k]=el.checked?1:0;save();
+    el.closest("label")?.classList.toggle("done",el.checked);updateOverall();});
+  $$((scope||"")+" input[data-tk]").forEach(el=>el.onchange=()=>{
+    store.d[el.dataset.tk]=el.checked?1:0;save();
+    el.closest(".toggle")?.classList.toggle("on",el.checked);updateOverall();
+    if(el.checked){ const parts=el.dataset.tk.split("|T"); syncToday(parts[0], +parts[1]); }});
+}"""
+    new_bind = """function bindChecks(scope){
+  const refreshTodayHeader=()=>{
+    const d=DATA.days.find(x=>x.date===curDate); if(!d) return;
+    const p=dayProgress(d), pct=Math.round(100*p.pct);
+    const ringEl=$("#t-today .daynav svg");
+    if(ringEl){
+      const c=ringEl.querySelectorAll("circle")[1], tx=ringEl.querySelector("text");
+      if(c){ c.setAttribute("stroke",pct===100?"var(--ok)":"var(--accent)"); c.setAttribute("stroke-dasharray",`${201.06*pct/100} 201.06`); }
+      if(tx) tx.textContent=pct+"%";
+    }
+    const dotEl=$(`#t-today .wpill[data-date="${d.date}"] .dot`);
+    if(dotEl){ dotEl.className="dot "+(p.pct>=1?"full":(p.done>0?"part":"")); }
+  };
+  $$((scope||"")+" input[data-sk]").forEach(el=>el.onchange=()=>{
+    store.d[el.dataset.sk]=el.checked?1:0;save();
+    el.closest("label")?.classList.toggle("done",el.checked);
+    const all=$$((scope||"")+" input[data-sk]"), dn=all.filter(x=>x.checked).length;
+    const sp=$("#today-subprog"); if(sp) sp.textContent=`${dn}/${all.length} subtopics done`;
+  });
+  $$((scope||"")+" input[data-k]").forEach(el=>el.onchange=()=>{
+    store.d[el.dataset.k]=el.checked?1:0;save();
+    el.closest("label")?.classList.toggle("done",el.checked);updateOverall();refreshTodayHeader();});
+  $$((scope||"")+" input[data-tk]").forEach(el=>el.onchange=()=>{
+    store.d[el.dataset.tk]=el.checked?1:0;save();
+    el.closest(".toggle")?.classList.toggle("on",el.checked);updateOverall();refreshTodayHeader();
+    if(el.checked){ const parts=el.dataset.tk.split("|T"); syncToday(parts[0], +parts[1]); }});
+}"""
+    new_text = new_text.replace(old_bind, new_bind).replace(old_bind.replace("\n", "\r\n"), new_bind)
+
     idx_path.write_text(new_text, encoding="utf-8")
     print(f"Updated site/index.html ({idx_path.stat().st_size / 1024:.1f} KB, {len(data['days'])} days, {len(data['topics'])} topics, {len(data['checklist']['groups'])} checklist groups)")
 
