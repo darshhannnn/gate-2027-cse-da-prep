@@ -102,23 +102,36 @@ label.act.done span{color:var(--muted);text-decoration:line-through;text-decorat
 .wpill .dot.full{background:var(--ok)}
 .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:760px){.twocol{grid-template-columns:1fr}}
-.sublist{display:flex;flex-direction:column;gap:4px;margin-top:12px}
-.subrow{display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5;color:var(--ink);padding:9px 10px;border-radius:10px;border:1px solid var(--line2);background:color-mix(in srgb,var(--bg) 55%,var(--card));cursor:pointer;transition:border-color .15s,background .15s}
+.sublist{display:flex;flex-direction:column;gap:5px;margin-top:12px}
+.subrow{display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5;color:var(--ink);padding:9px 11px;border-radius:10px;border:1px solid var(--line2);background:color-mix(in srgb,var(--bg) 55%,var(--card));cursor:pointer;transition:border-color .15s,background .15s}
 .subrow:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
 .subrow input.t{margin-top:3px;flex-shrink:0}
 .subrow .subtxt{flex:1;min-width:0}
-.subrow.done{opacity:.72;background:transparent}
+.subrow.done{opacity:.68;background:transparent}
 .subrow.done .submain{text-decoration:line-through;color:var(--muted)}
 .subhead-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 7px;border-radius:5px;margin-right:6px;vertical-align:baseline}
 .submain{font-weight:500;color:var(--ink)}
-.sec-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.sec-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center}
+.sec-more{display:contents}
+.sec-more[hidden]{display:none}
 .sec-chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;line-height:1.3;padding:2px 7px;border-radius:6px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-variant-numeric:tabular-nums}
 .sec-chip b{color:var(--accent);font-weight:700}
 .sec-chip em{font-style:normal;color:var(--muted);font-size:11px;font-weight:600}
+.sec-toggle{cursor:pointer;background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,transparent);font-weight:700}
+.sec-toggle:hover{background:color-mix(in srgb,var(--accent) 20%,var(--card))}
 .act-block{display:flex;flex-direction:column;gap:5px;width:100%}
 .act-src{font-size:11.5px;font-weight:700;color:var(--muted);margin-top:2px}
 .focus-banner{margin-top:12px;padding:10px 13px;border-radius:10px;background:color-mix(in srgb,var(--accent-soft) 55%,transparent);border-left:3px solid var(--accent);font-size:13px;color:var(--ink);line-height:1.45}
 .focus-banner b{color:var(--accent)}
+.mc-freq{color:var(--accent);font-weight:600}
+tr.tr-today td{background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}
+tr.tr-today td:first-child{border-left:3px solid var(--accent)}
+tr.tr-cur td{background:color-mix(in srgb,var(--accent-soft) 30%,transparent)}
+tr.tr-done{opacity:.72}
+.wk-toggle{cursor:pointer;user-select:none;padding:6px 10px;border-radius:10px;transition:background .15s}
+.wk-toggle:hover{background:var(--line2)}
+.wk-chev{display:inline-block;width:16px;color:var(--muted);font-weight:700;transition:transform .15s}
+.wk-collapsed .wk-chev{transform:rotate(-90deg)}
 .spill{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;
   border-radius:999px;padding:1px 9px;letter-spacing:.02em;white-space:nowrap;flex-shrink:0;border:1px solid transparent}
 .sp-cs{background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 32%,transparent)}
@@ -3593,7 +3606,19 @@ if(Date.now()<DEADLINE.getTime()){dl.hidden=false;dl.textContent="⚠ Register b
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmtDate=iso=>{const d=new Date(iso+"T00:00:00");return d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});};
-const PHASE_SHORT=p=>p.replace("Phase ","P").replace(" – ","·");
+const PHASE_MAP={
+  "Phase 1 – Fundamentals":"P1 · Math Spine",
+  "Phase 1: CSE/shared priority — programming, data structures and algorithms (Part 1)":"P1 · PDSA",
+  "Weekly catch-up":"Catch-up",
+  "Phase 2: Finish algorithms; AI search; databases/warehousing; begin Theory of Computation":"P2 · Algo, AI & DBMS",
+  "Phase 3: Theory of Computation and compilers; begin CSE systems":"P3 · TOC, CD & DL",
+  "Phase 4: Computer Organization and Operating Systems":"P4 · COA & OS",
+  "Phase 5: Finish CSE systems; DA uncertainty and Machine Learning (secondary)":"P5 · CN, AI & ML",
+  "Phase 6: Second-pass revision and targeted repair":"P6 · 2nd Pass",
+  "Phase 7: CSE mocks, DA papers/sectionals and repair":"P7 · Mocks & Repair",
+  "Phase 8: Final taper":"P8 · Final Taper"
+};
+const PHASE_SHORT=p=>PHASE_MAP[p]||p.replace("Phase ","P").replace(" – ","·").slice(0,22);
 
 /* ---------------- tracker state helpers ---------------- */
 const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;
@@ -3601,15 +3626,19 @@ const togKey=(date,ti)=>date+"|T"+ti;
 const subKey=(date,si)=>date+"|S|"+si;
 
 /* Clean visual formatters for book sections & subtopics */
-function renderSecChips(secStr){
+function renderSecChips(secStr, maxVis=6){
   const parts=secStr.split(/,\s*(?=\d+\.\d+\b)/);
   if(parts.length===1 && !/^\d+\.\d+\s/.test(parts[0].trim())) return "";
-  const chips=parts.map(p=>{
+  const makeChip=p=>{
     const m=p.trim().match(/^(\d+\.\d+)\s+(.+?)\s*\((\d+)\)(.*)$/);
     if(m) return `<span class="sec-chip"><b>${esc(m[1])}</b> ${esc(m[2])} <em>${esc(m[3])} Qs</em>${m[4]?esc(m[4]):""}</span>`;
     return `<span class="sec-chip">${esc(p.trim())}</span>`;
-  }).join("");
-  return `<div class="sec-chips">${chips}</div>`;
+  };
+  if(parts.length<=maxVis) return `<div class="sec-chips">${parts.map(makeChip).join("")}</div>`;
+  const vis=parts.slice(0,maxVis).map(makeChip).join("");
+  const hid=parts.slice(maxVis).map(makeChip).join("");
+  const rem=parts.length-maxVis;
+  return `<div class="sec-chips">${vis}<span class="sec-more" hidden>${hid}</span><button type="button" class="sec-chip sec-toggle" data-more="+${rem} more ▾" onclick="event.preventDefault();event.stopPropagation();const m=this.previousElementSibling;const h=m.hidden;m.hidden=!h;this.textContent=h?'Show less ▴':this.dataset.more">+${rem} more ▾</button></div>`;
 }
 function fmtSubItem(raw){
   const m=raw.match(/^((?:(?:Core CS|Engg Math|Discrete Math|GATE GA|Practice Book)\s+)?Ch\s*\d+[^:]*|DA\s+[^:]+):\s*(.+)$/);
@@ -3619,11 +3648,11 @@ function fmtSubItem(raw){
   if(dashIdx!==-1){
     const left=rest.slice(0,dashIdx).trim(), right=rest.slice(dashIdx+3).trim();
     if(/^\d+\.\d+\s/.test(left)){
-      return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(right)}</span>${renderSecChips(left)}`;
+      return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(right)}</span>${renderSecChips(left, 8)}`;
     }
   }
   if(/^\d+\.\d+\s/.test(rest)){
-    return `<span class="subhead-tag">${esc(prefix)}</span>${renderSecChips(rest)}`;
+    return `<span class="subhead-tag">${esc(prefix)}</span>${renderSecChips(rest, 8)}`;
   }
   return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(rest)}</span>`;
 }
@@ -3636,7 +3665,7 @@ function fmtActItem(raw){
   const html=blocks.map(b=>{
     const cm=b.match(/^([^:]+):\s*(.+)$/);
     if(cm && /^\d+\.\d+\s/.test(cm[2].trim())){
-      return `<div><div class="act-src">${esc(cm[1].trim())}</div>${renderSecChips(cm[2].trim())}</div>`;
+      return `<div><div class="act-src">${esc(cm[1].trim())}</div>${renderSecChips(cm[2].trim(), 6)}</div>`;
     }
     return `<div>${esc(b)}</div>`;
   }).join("");
@@ -3659,7 +3688,7 @@ function fmtMcSub(raw){
   const blocks=bookPart.split(/\s*\|\s*/).map(b=>{
     const cm=b.match(/^([^:]+):\s*(.+)$/);
     if(cm && /^\d+\.\d+\s/.test(cm[2].trim())){
-      return `<div style="margin-top:4px"><span class="subhead-tag">${esc(cm[1].trim())}</span>${renderSecChips(cm[2].trim())}</div>`;
+      return `<div style="margin-top:4px"><span class="subhead-tag">${esc(cm[1].trim())}</span>${renderSecChips(cm[2].trim(), 8)}</div>`;
     }
     return `<div class="act-src" style="margin-top:4px">${esc(b)}</div>`;
   }).join("");
@@ -3821,14 +3850,17 @@ function renderToday(){
     <div class="sublist">${subRows}</div>
     ${focusBanner}
   </div>`;
+  const defToday=(()=>{const iso=todayISO();if(DATA.days.some(x=>x.date===iso))return iso;const past=DATA.days.filter(x=>x.date<=iso);return past.length?past[past.length-1].date:DATA.days[0].date;})();
+  const jumpBtn=curDate!==defToday?`<button id="djump" title="Jump back to today (${defToday})" style="border-color:var(--accent);color:var(--accent);font-weight:600">↺ Today</button>`:"";
   $("#t-today").innerHTML=`
-    <div class="daynav">
-      <button id="dprev">← Prev</button>
+    <div class="daynav" style="flex-wrap:wrap">
+      <button id="dprev" title="Previous day (←)">← Prev</button>
       <span class="d">${fmtDate(d.date)} · ${d.day}</span>
-      <span class="badge okb">Week ${d.week}</span><span class="badge b2">${esc(PHASE_SHORT(d.phase))}</span>
+      <span class="badge okb">Week ${d.week}</span><span class="badge b2" title="${esc(d.phase)}">${esc(PHASE_SHORT(d.phase))}</span>
       <span class="sub">Day ${i+1} of ${DATA.days.length}</span>
+      ${jumpBtn}
       <div class="hspace"></div>${ring}
-      <button id="dnext">Next →</button>
+      <button id="dnext" title="Next day (→)">Next →</button>
     </div>
     <div class="weekstrip">${strip}</div>
     ${focusHtml}
@@ -3837,16 +3869,28 @@ function renderToday(){
       <div class="sub" style="margin-top:12px">🔗 Ticking <b>Theory / PYQ / Revision done</b> also auto-ticks the matching stages of today's topics in <b>Topics</b> and <b>Master Checklist</b> — shared CS↔DA topics credit both papers. Un-tick those stages manually in the trackers if needed.</div></div>`;
   $("#dprev").onclick=()=>{const j=Math.max(0,i-1);curDate=DATA.days[j].date;renderToday();};
   $("#dnext").onclick=()=>{const j=Math.min(DATA.days.length-1,i+1);curDate=DATA.days[j].date;renderToday();};
+  if($("#djump"))$("#djump").onclick=()=>{curDate=defToday;renderToday();};
   $$("#t-today .wpill").forEach(el=>el.onclick=()=>{curDate=el.dataset.date;renderToday();});
   bindChecks("#t-today");
 }
 
 /* ---------------- DAILY PLAN pane ---------------- */
+const collapsedWeeks=new Set();
 function renderDaily(){
   const weeks=[...new Set(DATA.days.map(d=>d.week))];
-  $("#t-daily").innerHTML=weeks.map(w=>{
+  const realIso=todayISO();
+  const toolbar=`<div class="card pad" style="margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+    <div><b>18-Week Daily Schedule</b> <span class="sub">· click any day to open in Today, or click a Week header to collapse/expand</span></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="hbtn" id="wk-cur">Jump to current week</button>
+      <button class="hbtn" id="wk-col-done">Collapse completed weeks</button>
+      <button class="hbtn" id="wk-exp-all">Expand all</button>
+    </div>
+  </div>`;
+  $("#t-daily").innerHTML=toolbar+weeks.map(w=>{
     const ds=DATA.days.filter(d=>d.week===w);
     const done=ds.filter(d=>dayProgress(d).pct>=1).length;
+    const isCol=collapsedWeeks.has(w);
     const rows=ds.map(d=>{const p=dayProgress(d);
       const hasCS=!!(d.cs||d.csT), hasDA=!!(d.da||d.daT);
       const tag=(hasCS&&hasDA)?"Both":(hasCS?"CS":"DA");
@@ -3859,19 +3903,37 @@ function renderDaily(){
       const cleanFirst=dashPos!==-1?rawFirst.slice(dashPos+3):rawFirst.replace(/^(?:(?:Core CS|Engg Math|Discrete Math)\s+)?(?:Ch\s*\d+[^:]*|DA\s+[^:]+):\s*/,"");
       const first=cleanFirst.length>58?cleanFirst.slice(0,56).replace(/\s+\S*$/,"")+"…":cleanFirst;
       const focusCell=`<span class="spill ${cls}">${tag}</span> <span class="subname">${ttl}</span>${first?` <span class="sub">— ${esc(first)}</span>`:""}`;
-      return `<tr data-date="${d.date}" style="cursor:pointer">
-        <td style="white-space:nowrap">${fmtDate(d.date)}</td>
+      const isToday=d.date===realIso, isCur=d.date===curDate&&!isToday, isDone=p.pct>=1;
+      const trCls=[isToday?"tr-today":"",isCur?"tr-cur":"",isDone?"tr-done":""].filter(Boolean).join(" ");
+      return `<tr data-date="${d.date}" class="${trCls}" style="cursor:pointer">
+        <td style="white-space:nowrap">${fmtDate(d.date)}${isToday?` <span class="spill sp-cs" style="font-size:9.5px;padding:0 5px">TODAY</span>`:""}</td>
         <td>${esc(d.day.slice(0,3))}</td>
-        <td><span class="badge b2">${esc(PHASE_SHORT(d.phase))}</span></td>
+        <td><span class="badge b2" title="${esc(d.phase)}">${esc(PHASE_SHORT(d.phase))}</span></td>
         <td>${focusCell}</td>
         <td class="c" style="min-width:90px"><div class="bar" style="width:80px;margin:0 auto"><i style="width:${Math.round(100*p.pct)}%"></i></div></td>
       </tr>`;}).join("");
-    return `<div class="subjhead"><h3>Week ${w}</h3><span class="sub">${done}/${ds.length} days complete</span>
+    return `<div class="subjhead wk-toggle ${isCol?"wk-collapsed":""}" data-wk="${w}" id="wk-head-${w}">
+      <span class="wk-chev">▾</span><h3>Week ${w}</h3><span class="sub">${done}/${ds.length} days complete</span>
       <div class="bar" style="max-width:220px"><i style="width:${Math.round(100*done/ds.length)}%"></i></div></div>
-      <div class="tw"><table><thead><tr><th>Date</th><th>Day</th><th>Phase</th><th>Today's focus</th><th class="c">Done</th></tr></thead>
+      <div class="tw" ${isCol?"hidden":""}><table><thead><tr><th>Date</th><th>Day</th><th>Phase</th><th>Today's focus</th><th class="c">Done</th></tr></thead>
       <tbody>${rows}</tbody></table></div>`;
   }).join("");
   $$("#t-daily tbody tr").forEach(tr=>tr.onclick=()=>{curDate=tr.dataset.date;setView("tracker");showPane("t-today");renderToday();});
+  $$("#t-daily .wk-toggle").forEach(el=>el.onclick=()=>{
+    const w=+el.dataset.wk;
+    if(collapsedWeeks.has(w))collapsedWeeks.delete(w);else collapsedWeeks.add(w);
+    renderDaily();
+  });
+  $("#wk-exp-all").onclick=()=>{collapsedWeeks.clear();renderDaily();};
+  $("#wk-col-done").onclick=()=>{
+    weeks.forEach(w=>{const ds=DATA.days.filter(d=>d.week===w);if(ds.every(d=>dayProgress(d).pct>=1))collapsedWeeks.add(w);});
+    renderDaily();
+  };
+  $("#wk-cur").onclick=()=>{
+    const curD=DATA.days.find(d=>d.date===curDate)||DATA.days[0];
+    collapsedWeeks.delete(curD.week);renderDaily();
+    document.getElementById("wk-head-"+curD.week)?.scrollIntoView({behavior:"smooth",block:"start"});
+  };
 }
 
 /* ---------------- TOPICS pane ---------------- */
@@ -4025,42 +4087,76 @@ const MCSTAGES=["Theory","PYQ","Revision","Mistake log"];
 const mcStageKey=(g,r,s)=>"g"+g+"r"+r+"t"+s;
 const mcSubKey=(g,r,i)=>"g"+g+"r"+r+"s"+i;
 function mcSubsDone(g,r,row){let n=0;row.subs.forEach((_,i)=>{if(store.mc[mcSubKey(g,r,i)])n++;});return n;}
+let mcFilter={q:"",tier:"all",paper:"all",status:"all"};
 function renderCheck(){
   const ck=DATA.checklist; if(!ck){$("#t-mc").innerHTML="<p class='sub'>checklist data missing</p>";return;}
-  const groups=ck.groups.map((G,gi)=>{
-    const rows=G.rows.map((R,ri)=>{
-      const done=MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length;
-      const sub=mcSubsDone(gi,ri,R);
-      return `<div class="topicrow">
-        <span class="tdot t${R.tier}"></span>
-        <span class="tt mcname" data-g="${gi}" data-r="${ri}">
-          <b>${esc(R.topic)}</b>
-          <div class="mcnote">${R.subs.length} subtopics · click for subtopics, PYQ patterns &amp; tests</div></span>
-        <span class="stages">${MCSTAGES.map((nm,s)=>
-          `<span class="stage ${store.mc[mcStageKey(gi,ri,s)]?"on":""}" data-g="${gi}" data-r="${ri}" data-s="${s}" title="${nm}">${["T","P","R","M"][s]}</span>`).join("")}</span>
-        <span class="sub subcount" id="sc-${gi}-${ri}" style="min-width:44px;text-align:right">${sub}/${R.subs.length}</span>
-      </div>`;}).join("");
-    const total=MCSTAGES.length*G.rows.length+G.rows.reduce((n,R)=>n+R.subs.length,0);
-    const dn=G.rows.reduce((n,R,ri)=>n+MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length+mcSubsDone(gi,ri,R),0);
-    return `<div class="subjhead"><h3>${esc(G.name)}</h3><span class="sub">${esc(G.note)}</span>
-        <div class="bar" style="max-width:180px"><i style="width:${Math.round(100*dn/total)}%"></i></div></div>
-      <div class="card">${rows}</div>`;
-  }).join("");
   $("#t-mc").innerHTML=`
     <div class="card pad" style="margin-bottom:6px">
-      <b>How to use:</b> <span class="sub">pick 1–3 red topics first → study theory (T) → solve their PYQs (P) → revise in the evening (R) → update the mistake log (M). Click any topic for its subtopics, topic-wise and subtopic-wise PYQs, and the tests to run. Never start a low-priority topic while reds of the same subject are weak.</span>
+      <b>How to use:</b> <span class="sub">pick 1–3 red topics first → study theory (T) → solve their PYQs (P) → revise in the evening (R) → update the mistake log (M). Click any topic for its subtopics, book section chips, PYQ patterns &amp; tests.</span>
       <div style="margin-top:6px"><span class="mpill">${esc(ck.meta.disclaimer)}</span>
       <span class="mpill">${esc(ck.meta.solveCSE)}</span><span class="mpill">${esc(ck.meta.solveDA)}</span></div>
-    </div>${groups}`;
-  $$("#t-mc .stage").forEach(el=>el.onclick=()=>{
-    const g=+el.dataset.g, r=+el.dataset.r, s=+el.dataset.s;
-    const val=store.mc[mcStageKey(g,r,s)]?0:1;
-    setMC(g,r,s,val);
-    if(val) reverseTickMC(g,r,s);
-    save();updateOverall();
-    const y=scrollY;renderCheck();scrollTo(0,y);});
-  $$("#t-mc .mcname").forEach(el=>el.onclick=()=>openMcModal(+el.dataset.g,+el.dataset.r));
-  // keep filter-free pane scroll stable; modal binding below
+      <div class="filters" style="margin-bottom:2px">
+        <select id="mc-paper"><option value="all">Both papers</option><option value="Both">Shared (Both)</option><option value="CS">GATE CS</option><option value="DA">GATE DA</option></select>
+        <select id="mc-tier"><option value="all">All tiers</option><option value="1">Tier 1 (Must Master)</option><option value="2">Tier 2 (High Priority)</option><option value="3">Tier 3 (Important)</option></select>
+        <select id="mc-status"><option value="all">Any status</option><option value="done">All 4 stages done</option><option value="progress">In progress</option><option value="todo">Not started</option></select>
+        <input id="mc-q" type="search" placeholder="Search topic, book chapter or section (e.g. 7.19, Cache, Eigen)…" style="flex:1;min-width:220px">
+      </div>
+    </div>
+    <div id="mclist"></div>`;
+  const renderMcList=()=>{
+    const f=mcFilter, q=f.q.trim().toLowerCase();
+    const groups=ck.groups.map((G,gi)=>{
+      const visRows=G.rows.map((R,ri)=>({R,ri})).filter(({R,ri})=>{
+        if(f.tier!=="all" && R.tier!==+f.tier) return false;
+        const stDone=MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length;
+        const subDone=mcSubsDone(gi,ri,R);
+        if(f.status==="done" && stDone<4) return false;
+        if(f.status==="progress" && ((stDone===0&&subDone===0)||stDone===4)) return false;
+        if(f.status==="todo" && (stDone>0||subDone>0)) return false;
+        const subText=R.subs.map(s=>s.n+" "+s.p).join(" ");
+        if(f.paper!=="all"){
+          if(f.paper==="Both" && !/\[Both\]/i.test(subText)) return false;
+          if(f.paper==="CS" && !/\[(CS|Both)\]/i.test(subText)) return false;
+          if(f.paper==="DA" && !/\[(DA|Both|DA \+ Both)\]/i.test(subText)) return false;
+        }
+        if(q && !(R.topic.toLowerCase().includes(q)||G.name.toLowerCase().includes(q)||R.freq.toLowerCase().includes(q)||subText.toLowerCase().includes(q))) return false;
+        return true;
+      });
+      if(!visRows.length) return "";
+      const rows=visRows.map(({R,ri})=>{
+        const sub=mcSubsDone(gi,ri,R);
+        return `<div class="topicrow">
+          <span class="tdot t${R.tier}"></span>
+          <span class="tt mcname" data-g="${gi}" data-r="${ri}">
+            <b>${esc(R.topic)}</b>
+            <div class="mcnote"><span class="mc-freq">${esc(R.freq)}</span> · ${R.subs.length} subtopic${R.subs.length===1?"":"s"}</div></span>
+          <span class="stages">${MCSTAGES.map((nm,s)=>
+            `<span class="stage ${store.mc[mcStageKey(gi,ri,s)]?"on":""}" data-g="${gi}" data-r="${ri}" data-s="${s}" title="${nm}">${["T","P","R","M"][s]}</span>`).join("")}</span>
+          <span class="sub subcount" id="sc-${gi}-${ri}" style="min-width:44px;text-align:right">${sub}/${R.subs.length}</span>
+        </div>`;}).join("");
+      const total=MCSTAGES.length*G.rows.length+G.rows.reduce((n,R)=>n+R.subs.length,0);
+      const dn=G.rows.reduce((n,R,ri)=>n+MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length+mcSubsDone(gi,ri,R),0);
+      return `<div class="subjhead"><h3>${esc(G.name)}</h3><span class="sub">${esc(G.note)}</span>
+          <div class="bar" style="max-width:180px"><i style="width:${Math.round(100*dn/total)}%"></i></div></div>
+        <div class="card">${rows}</div>`;
+    }).filter(Boolean).join("");
+    $("#mclist").innerHTML=groups||`<p class="sub" style="padding:20px">No checklist topics match these filters.</p>`;
+    $$("#mclist .stage").forEach(el=>el.onclick=()=>{
+      const g=+el.dataset.g, r=+el.dataset.r, s=+el.dataset.s;
+      const val=store.mc[mcStageKey(g,r,s)]?0:1;
+      setMC(g,r,s,val);
+      if(val) reverseTickMC(g,r,s);
+      save();updateOverall();
+      renderMcList();});
+    $$("#mclist .mcname").forEach(el=>el.onclick=()=>openMcModal(+el.dataset.g,+el.dataset.r));
+  };
+  $("#mc-paper").onchange=e=>{mcFilter.paper=e.target.value;renderMcList();};
+  $("#mc-tier").onchange=e=>{mcFilter.tier=e.target.value;renderMcList();};
+  $("#mc-status").onchange=e=>{mcFilter.status=e.target.value;renderMcList();};
+  $("#mc-q").oninput=e=>{mcFilter.q=e.target.value;renderMcList();};
+  $("#mc-paper").value=mcFilter.paper;$("#mc-tier").value=mcFilter.tier;
+  $("#mc-status").value=mcFilter.status;$("#mc-q").value=mcFilter.q;
+  renderMcList();
 }
 function openMcModal(gi,ri){
   const G=DATA.checklist.groups[gi], R=G.rows[ri];
@@ -4135,6 +4231,13 @@ function bindChecks(scope){
     el.closest(".toggle")?.classList.toggle("on",el.checked);updateOverall();refreshTodayHeader();
     if(el.checked){ const parts=el.dataset.tk.split("|T"); syncToday(parts[0], +parts[1]); }});
 }
+document.addEventListener("keydown",e=>{
+  if(e.target.matches("input,textarea,select")||!$("#modal").hidden) return;
+  if(document.body.dataset.view==="plan"||!$("#t-today").classList.contains("on")) return;
+  if(e.key==="ArrowLeft"){ e.preventDefault(); $("#dprev")?.click(); }
+  else if(e.key==="ArrowRight"){ e.preventDefault(); $("#dnext")?.click(); }
+  else if(e.key==="t"||e.key==="T"){ e.preventDefault(); $("#djump")?.click(); }
+});
 
 /* ---------------- plan docs (sidebar, checkboxes, spy) ---------------- */
 const tree=$("#navtree");

@@ -1166,45 +1166,79 @@ def update_index_html():
     new_data_line = "const DATA = " + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + ";"
     new_text = text[:m.start()] + new_data_line + text[m.end():]
 
-    # 1. Update CSS for clean checkable .subrow items, section chips, and focus callout
+    # 1. Update CSS for clean checkable .subrow items, section chips, collapsible weeks, and focus callout
     old_css = ".sublist{display:flex;flex-direction:column;gap:7px;margin-top:10px}\n.subrow{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1.45;color:var(--muted)}"
     new_css = (
-        ".sublist{display:flex;flex-direction:column;gap:4px;margin-top:12px}\n"
-        ".subrow{display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5;color:var(--ink);padding:9px 10px;border-radius:10px;border:1px solid var(--line2);background:color-mix(in srgb,var(--bg) 55%,var(--card));cursor:pointer;transition:border-color .15s,background .15s}\n"
+        ".sublist{display:flex;flex-direction:column;gap:5px;margin-top:12px}\n"
+        ".subrow{display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5;color:var(--ink);padding:9px 11px;border-radius:10px;border:1px solid var(--line2);background:color-mix(in srgb,var(--bg) 55%,var(--card));cursor:pointer;transition:border-color .15s,background .15s}\n"
         ".subrow:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}\n"
         ".subrow input.t{margin-top:3px;flex-shrink:0}\n"
         ".subrow .subtxt{flex:1;min-width:0}\n"
-        ".subrow.done{opacity:.72;background:transparent}\n"
+        ".subrow.done{opacity:.68;background:transparent}\n"
         ".subrow.done .submain{text-decoration:line-through;color:var(--muted)}\n"
         ".subhead-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 7px;border-radius:5px;margin-right:6px;vertical-align:baseline}\n"
         ".submain{font-weight:500;color:var(--ink)}\n"
-        ".sec-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}\n"
+        ".sec-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center}\n"
+        ".sec-more{display:contents}\n"
+        ".sec-more[hidden]{display:none}\n"
         ".sec-chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;line-height:1.3;padding:2px 7px;border-radius:6px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-variant-numeric:tabular-nums}\n"
         ".sec-chip b{color:var(--accent);font-weight:700}\n"
         ".sec-chip em{font-style:normal;color:var(--muted);font-size:11px;font-weight:600}\n"
+        ".sec-toggle{cursor:pointer;background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,transparent);font-weight:700}\n"
+        ".sec-toggle:hover{background:color-mix(in srgb,var(--accent) 20%,var(--card))}\n"
         ".act-block{display:flex;flex-direction:column;gap:5px;width:100%}\n"
         ".act-src{font-size:11.5px;font-weight:700;color:var(--muted);margin-top:2px}\n"
         ".focus-banner{margin-top:12px;padding:10px 13px;border-radius:10px;background:color-mix(in srgb,var(--accent-soft) 55%,transparent);border-left:3px solid var(--accent);font-size:13px;color:var(--ink);line-height:1.45}\n"
-        ".focus-banner b{color:var(--accent)}"
+        ".focus-banner b{color:var(--accent)}\n"
+        ".mc-freq{color:var(--accent);font-weight:600}\n"
+        "tr.tr-today td{background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}\n"
+        "tr.tr-today td:first-child{border-left:3px solid var(--accent)}\n"
+        "tr.tr-cur td{background:color-mix(in srgb,var(--accent-soft) 30%,transparent)}\n"
+        "tr.tr-done{opacity:.72}\n"
+        ".wk-toggle{cursor:pointer;user-select:none;padding:6px 10px;border-radius:10px;transition:background .15s}\n"
+        ".wk-toggle:hover{background:var(--line2)}\n"
+        ".wk-chev{display:inline-block;width:16px;color:var(--muted);font-weight:700;transition:transform .15s}\n"
+        ".wk-collapsed .wk-chev{transform:rotate(-90deg)}"
     )
     new_text = new_text.replace(old_css, new_css).replace(old_css.replace("\n", "\r\n"), new_css)
 
-    # 2. Add subKey and clean formatting helpers right after togKey
+    # 2. Replace PHASE_SHORT with clean compact phase badge mapper
+    old_phase_short = 'const PHASE_SHORT=p=>p.replace("Phase ","P").replace(" – ","·");'
+    new_phase_short = """const PHASE_MAP={
+  "Phase 1 – Fundamentals":"P1 · Math Spine",
+  "Phase 1: CSE/shared priority — programming, data structures and algorithms (Part 1)":"P1 · PDSA",
+  "Weekly catch-up":"Catch-up",
+  "Phase 2: Finish algorithms; AI search; databases/warehousing; begin Theory of Computation":"P2 · Algo, AI & DBMS",
+  "Phase 3: Theory of Computation and compilers; begin CSE systems":"P3 · TOC, CD & DL",
+  "Phase 4: Computer Organization and Operating Systems":"P4 · COA & OS",
+  "Phase 5: Finish CSE systems; DA uncertainty and Machine Learning (secondary)":"P5 · CN, AI & ML",
+  "Phase 6: Second-pass revision and targeted repair":"P6 · 2nd Pass",
+  "Phase 7: CSE mocks, DA papers/sectionals and repair":"P7 · Mocks & Repair",
+  "Phase 8: Final taper":"P8 · Final Taper"
+};
+const PHASE_SHORT=p=>PHASE_MAP[p]||p.replace("Phase ","P").replace(" – ","·").slice(0,22);"""
+    new_text = new_text.replace(old_phase_short, new_phase_short)
+
+    # 3. Add subKey and clean formatting helpers right after togKey
     old_helper = 'const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;\nconst togKey=(date,ti)=>date+"|T"+ti;'
     new_helper = """const actKey=(date,ci,li)=>date+"|"+ci+"|"+li;
 const togKey=(date,ti)=>date+"|T"+ti;
 const subKey=(date,si)=>date+"|S|"+si;
 
 /* Clean visual formatters for book sections & subtopics */
-function renderSecChips(secStr){
+function renderSecChips(secStr, maxVis=6){
   const parts=secStr.split(/,\\s*(?=\\d+\\.\\d+\\b)/);
   if(parts.length===1 && !/^\\d+\\.\\d+\\s/.test(parts[0].trim())) return "";
-  const chips=parts.map(p=>{
+  const makeChip=p=>{
     const m=p.trim().match(/^(\\d+\\.\\d+)\\s+(.+?)\\s*\\((\\d+)\\)(.*)$/);
     if(m) return `<span class="sec-chip"><b>${esc(m[1])}</b> ${esc(m[2])} <em>${esc(m[3])} Qs</em>${m[4]?esc(m[4]):""}</span>`;
     return `<span class="sec-chip">${esc(p.trim())}</span>`;
-  }).join("");
-  return `<div class="sec-chips">${chips}</div>`;
+  };
+  if(parts.length<=maxVis) return `<div class="sec-chips">${parts.map(makeChip).join("")}</div>`;
+  const vis=parts.slice(0,maxVis).map(makeChip).join("");
+  const hid=parts.slice(maxVis).map(makeChip).join("");
+  const rem=parts.length-maxVis;
+  return `<div class="sec-chips">${vis}<span class="sec-more" hidden>${hid}</span><button type="button" class="sec-chip sec-toggle" data-more="+${rem} more ▾" onclick="event.preventDefault();event.stopPropagation();const m=this.previousElementSibling;const h=m.hidden;m.hidden=!h;this.textContent=h?'Show less ▴':this.dataset.more">+${rem} more ▾</button></div>`;
 }
 function fmtSubItem(raw){
   const m=raw.match(/^((?:(?:Core CS|Engg Math|Discrete Math|GATE GA|Practice Book)\\s+)?Ch\\s*\\d+[^:]*|DA\\s+[^:]+):\\s*(.+)$/);
@@ -1214,11 +1248,11 @@ function fmtSubItem(raw){
   if(dashIdx!==-1){
     const left=rest.slice(0,dashIdx).trim(), right=rest.slice(dashIdx+3).trim();
     if(/^\\d+\\.\\d+\\s/.test(left)){
-      return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(right)}</span>${renderSecChips(left)}`;
+      return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(right)}</span>${renderSecChips(left, 8)}`;
     }
   }
   if(/^\\d+\\.\\d+\\s/.test(rest)){
-    return `<span class="subhead-tag">${esc(prefix)}</span>${renderSecChips(rest)}`;
+    return `<span class="subhead-tag">${esc(prefix)}</span>${renderSecChips(rest, 8)}`;
   }
   return `<span class="subhead-tag">${esc(prefix)}</span><span class="submain">${esc(rest)}</span>`;
 }
@@ -1231,7 +1265,7 @@ function fmtActItem(raw){
   const html=blocks.map(b=>{
     const cm=b.match(/^([^:]+):\\s*(.+)$/);
     if(cm && /^\\d+\\.\\d+\\s/.test(cm[2].trim())){
-      return `<div><div class="act-src">${esc(cm[1].trim())}</div>${renderSecChips(cm[2].trim())}</div>`;
+      return `<div><div class="act-src">${esc(cm[1].trim())}</div>${renderSecChips(cm[2].trim(), 6)}</div>`;
     }
     return `<div>${esc(b)}</div>`;
   }).join("");
@@ -1254,7 +1288,7 @@ function fmtMcSub(raw){
   const blocks=bookPart.split(/\\s*\\|\\s*/).map(b=>{
     const cm=b.match(/^([^:]+):\\s*(.+)$/);
     if(cm && /^\\d+\\.\\d+\\s/.test(cm[2].trim())){
-      return `<div style="margin-top:4px"><span class="subhead-tag">${esc(cm[1].trim())}</span>${renderSecChips(cm[2].trim())}</div>`;
+      return `<div style="margin-top:4px"><span class="subhead-tag">${esc(cm[1].trim())}</span>${renderSecChips(cm[2].trim(), 8)}</div>`;
     }
     return `<div class="act-src" style="margin-top:4px">${esc(b)}</div>`;
   }).join("");
@@ -1263,13 +1297,13 @@ function fmtMcSub(raw){
     if 'const subKey=' not in new_text:
         new_text = new_text.replace(old_helper, new_helper).replace(old_helper.replace("\n", "\r\n"), new_helper)
 
-    # 3. Use fmtActItem in actHtml in renderToday()
+    # 4. Use fmtActItem in actHtml in renderToday()
     old_act = "<span>${esc(ln)}</span></label>"
     new_act = "${fmtActItem(ln)}</label>"
     new_text = new_text.replace(old_act, new_act)
 
-    # 4. Make each regular Today Focus Card item checkable + render Session Focus as a clean banner
-    old_focus = """  const subRows=[...regular, ...focus].map(it=>{
+    # 5. Make each regular Today Focus Card item checkable + Session Focus banner + Jump to Today button
+    old_today_block = """  const subRows=[...regular, ...focus].map(it=>{
     const inCS=csSet.has(it), inDA=daSet.has(it);
     const tag=(inCS&&inDA)?"Both":(inCS?"CS":"DA");
     const cls=tag==="Both"?"sp-both":(tag==="CS"?"sp-cs":"sp-da");
@@ -1279,8 +1313,25 @@ function fmtMcSub(raw){
   const focusHtml=`<div class="card pad">
     <div style="font-size:16.5px;font-weight:700">${esc(titleText)}</div>
     <div class="sublist">${subRows}</div>
-  </div>`;"""
-    new_focus = """  const allSubItems=regular.length?regular:focus;
+  </div>`;
+  $("#t-today").innerHTML=`
+    <div class="daynav">
+      <button id="dprev">← Prev</button>
+      <span class="d">${fmtDate(d.date)} · ${d.day}</span>
+      <span class="badge okb">Week ${d.week}</span><span class="badge b2">${esc(PHASE_SHORT(d.phase))}</span>
+      <span class="sub">Day ${i+1} of ${DATA.days.length}</span>
+      <div class="hspace"></div>${ring}
+      <button id="dnext">Next →</button>
+    </div>
+    <div class="weekstrip">${strip}</div>
+    ${focusHtml}
+    <div class="actgrid">${actHtml}</div>
+    <div class="card pad" style="margin-top:14px"><div class="h2">Status</div><div class="toggles">${toggles}</div>
+      <div class="sub" style="margin-top:12px">🔗 Ticking <b>Theory / PYQ / Revision done</b> also auto-ticks the matching stages of today's topics in <b>Topics</b> and <b>Master Checklist</b> — shared CS↔DA topics credit both papers. Un-tick those stages manually in the trackers if needed.</div></div>`;
+  $("#dprev").onclick=()=>{const j=Math.max(0,i-1);curDate=DATA.days[j].date;renderToday();};
+  $("#dnext").onclick=()=>{const j=Math.min(DATA.days.length-1,i+1);curDate=DATA.days[j].date;renderToday();};"""
+
+    new_today_block = """  const allSubItems=regular.length?regular:focus;
   const subDoneCount=allSubItems.filter((_,si)=>store.d[subKey(d.date,si)]).length;
   const subRows=allSubItems.map((it,si)=>{
     const inCS=csSet.has(it), inDA=daSet.has(it);
@@ -1304,27 +1355,239 @@ function fmtMcSub(raw){
     </div>
     <div class="sublist">${subRows}</div>
     ${focusBanner}
-  </div>`;"""
-    new_text = new_text.replace(old_focus, new_focus).replace(old_focus.replace("\n", "\r\n"), new_focus)
+  </div>`;
+  const defToday=(()=>{const iso=todayISO();if(DATA.days.some(x=>x.date===iso))return iso;const past=DATA.days.filter(x=>x.date<=iso);return past.length?past[past.length-1].date:DATA.days[0].date;})();
+  const jumpBtn=curDate!==defToday?`<button id="djump" title="Jump back to today (${defToday})" style="border-color:var(--accent);color:var(--accent);font-weight:600">↺ Today</button>`:"";
+  $("#t-today").innerHTML=`
+    <div class="daynav" style="flex-wrap:wrap">
+      <button id="dprev" title="Previous day (←)">← Prev</button>
+      <span class="d">${fmtDate(d.date)} · ${d.day}</span>
+      <span class="badge okb">Week ${d.week}</span><span class="badge b2" title="${esc(d.phase)}">${esc(PHASE_SHORT(d.phase))}</span>
+      <span class="sub">Day ${i+1} of ${DATA.days.length}</span>
+      ${jumpBtn}
+      <div class="hspace"></div>${ring}
+      <button id="dnext" title="Next day (→)">Next →</button>
+    </div>
+    <div class="weekstrip">${strip}</div>
+    ${focusHtml}
+    <div class="actgrid">${actHtml}</div>
+    <div class="card pad" style="margin-top:14px"><div class="h2">Status</div><div class="toggles">${toggles}</div>
+      <div class="sub" style="margin-top:12px">🔗 Ticking <b>Theory / PYQ / Revision done</b> also auto-ticks the matching stages of today's topics in <b>Topics</b> and <b>Master Checklist</b> — shared CS↔DA topics credit both papers. Un-tick those stages manually in the trackers if needed.</div></div>`;
+  $("#dprev").onclick=()=>{const j=Math.max(0,i-1);curDate=DATA.days[j].date;renderToday();};
+  $("#dnext").onclick=()=>{const j=Math.min(DATA.days.length-1,i+1);curDate=DATA.days[j].date;renderToday();};
+  if($("#djump"))$("#djump").onclick=()=>{curDate=defToday;renderToday();};"""
+    new_text = new_text.replace(old_today_block, new_today_block).replace(old_today_block.replace("\n", "\r\n"), new_today_block)
 
-    # 5. Clean up Daily Plan preview text so it doesn't slice mid-word on book chapter prefixes
-    old_daily_first = """      const ttl=(d.cs&&d.da&&d.cs!==d.da)?`${esc(d.cs)} · ${esc(d.da)}`:esc(d.cs||d.da||"—");
-      const first=((d.csT||d.daT||"").split("\\n")[0]||"").replace(/^•\\s*/,"").slice(0,52);"""
-    new_daily_first = """      const rawTtl=(d.cs&&d.da&&d.cs!==d.da)?`${d.cs} · ${d.da}`:(d.cs||d.da||"—");
+    # 6. Upgrade renderDaily() with collapsible weeks, highlighted current day, and clean phase/topic previews
+    old_daily_fn = """/* ---------------- DAILY PLAN pane ---------------- */
+function renderDaily(){
+  const weeks=[...new Set(DATA.days.map(d=>d.week))];
+  $("#t-daily").innerHTML=weeks.map(w=>{
+    const ds=DATA.days.filter(d=>d.week===w);
+    const done=ds.filter(d=>dayProgress(d).pct>=1).length;
+    const rows=ds.map(d=>{const p=dayProgress(d);
+      const hasCS=!!(d.cs||d.csT), hasDA=!!(d.da||d.daT);
+      const tag=(hasCS&&hasDA)?"Both":(hasCS?"CS":"DA");
+      const cls=tag==="Both"?"sp-both":(tag==="CS"?"sp-cs":"sp-da");
+      const ttl=(d.cs&&d.da&&d.cs!==d.da)?`${esc(d.cs)} · ${esc(d.da)}`:esc(d.cs||d.da||"—");
+      const first=((d.csT||d.daT||"").split("\\n")[0]||"").replace(/^•\\s*/,"").slice(0,52);
+      const focusCell=`<span class="spill ${cls}">${tag}</span> <span class="subname">${ttl}</span>${first?` <span class="sub">— ${esc(first)}</span>`:""}`;
+      return `<tr data-date="${d.date}" style="cursor:pointer">
+        <td style="white-space:nowrap">${fmtDate(d.date)}</td>
+        <td>${esc(d.day.slice(0,3))}</td>
+        <td><span class="badge b2">${esc(PHASE_SHORT(d.phase))}</span></td>
+        <td>${focusCell}</td>
+        <td class="c" style="min-width:90px"><div class="bar" style="width:80px;margin:0 auto"><i style="width:${Math.round(100*p.pct)}%"></i></div></td>
+      </tr>`;}).join("");
+    return `<div class="subjhead"><h3>Week ${w}</h3><span class="sub">${done}/${ds.length} days complete</span>
+      <div class="bar" style="max-width:220px"><i style="width:${Math.round(100*done/ds.length)}%"></i></div></div>
+      <div class="tw"><table><thead><tr><th>Date</th><th>Day</th><th>Phase</th><th>Today's focus</th><th class="c">Done</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>`;
+  }).join("");
+  $$("#t-daily tbody tr").forEach(tr=>tr.onclick=()=>{curDate=tr.dataset.date;setView("tracker");showPane("t-today");renderToday();});
+}"""
+
+    new_daily_fn = """/* ---------------- DAILY PLAN pane ---------------- */
+const collapsedWeeks=new Set();
+function renderDaily(){
+  const weeks=[...new Set(DATA.days.map(d=>d.week))];
+  const realIso=todayISO();
+  const toolbar=`<div class="card pad" style="margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+    <div><b>18-Week Daily Schedule</b> <span class="sub">· click any day to open in Today, or click a Week header to collapse/expand</span></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="hbtn" id="wk-cur">Jump to current week</button>
+      <button class="hbtn" id="wk-col-done">Collapse completed weeks</button>
+      <button class="hbtn" id="wk-exp-all">Expand all</button>
+    </div>
+  </div>`;
+  $("#t-daily").innerHTML=toolbar+weeks.map(w=>{
+    const ds=DATA.days.filter(d=>d.week===w);
+    const done=ds.filter(d=>dayProgress(d).pct>=1).length;
+    const isCol=collapsedWeeks.has(w);
+    const rows=ds.map(d=>{const p=dayProgress(d);
+      const hasCS=!!(d.cs||d.csT), hasDA=!!(d.da||d.daT);
+      const tag=(hasCS&&hasDA)?"Both":(hasCS?"CS":"DA");
+      const cls=tag==="Both"?"sp-both":(tag==="CS"?"sp-cs":"sp-da");
+      const rawTtl=(d.cs&&d.da&&d.cs!==d.da)?`${d.cs} · ${d.da}`:(d.cs||d.da||"—");
       const um=rawTtl.match(/^(Unit\\s+\\d+|Second pass\\s+\\d+|Foundation diagnostic\\s+\\d+):\\s*(.+)$/i);
       const ttl=um?`<span class="subhead-tag">${esc(um[1])}</span>${esc(um[2])}`:esc(rawTtl);
       const rawFirst=((d.csT||d.daT||"").split("\\n").find(x=>!/^•?\\s*session focus:/i.test(x))||"").replace(/^•\\s*/,"");
       const dashPos=rawFirst.indexOf(" — ");
       const cleanFirst=dashPos!==-1?rawFirst.slice(dashPos+3):rawFirst.replace(/^(?:(?:Core CS|Engg Math|Discrete Math)\\s+)?(?:Ch\\s*\\d+[^:]*|DA\\s+[^:]+):\\s*/,"");
-      const first=cleanFirst.length>58?cleanFirst.slice(0,56).replace(/\\s+\\S*$/,"")+"…":cleanFirst;"""
-    new_text = new_text.replace(old_daily_first, new_daily_first).replace(old_daily_first.replace("\n", "\r\n"), new_daily_first)
+      const first=cleanFirst.length>58?cleanFirst.slice(0,56).replace(/\\s+\\S*$/,"")+"…":cleanFirst;
+      const focusCell=`<span class="spill ${cls}">${tag}</span> <span class="subname">${ttl}</span>${first?` <span class="sub">— ${esc(first)}</span>`:""}`;
+      const isToday=d.date===realIso, isCur=d.date===curDate&&!isToday, isDone=p.pct>=1;
+      const trCls=[isToday?"tr-today":"",isCur?"tr-cur":"",isDone?"tr-done":""].filter(Boolean).join(" ");
+      return `<tr data-date="${d.date}" class="${trCls}" style="cursor:pointer">
+        <td style="white-space:nowrap">${fmtDate(d.date)}${isToday?` <span class="spill sp-cs" style="font-size:9.5px;padding:0 5px">TODAY</span>`:""}</td>
+        <td>${esc(d.day.slice(0,3))}</td>
+        <td><span class="badge b2" title="${esc(d.phase)}">${esc(PHASE_SHORT(d.phase))}</span></td>
+        <td>${focusCell}</td>
+        <td class="c" style="min-width:90px"><div class="bar" style="width:80px;margin:0 auto"><i style="width:${Math.round(100*p.pct)}%"></i></div></td>
+      </tr>`;}).join("");
+    return `<div class="subjhead wk-toggle ${isCol?"wk-collapsed":""}" data-wk="${w}" id="wk-head-${w}">
+      <span class="wk-chev">▾</span><h3>Week ${w}</h3><span class="sub">${done}/${ds.length} days complete</span>
+      <div class="bar" style="max-width:220px"><i style="width:${Math.round(100*done/ds.length)}%"></i></div></div>
+      <div class="tw" ${isCol?"hidden":""}><table><thead><tr><th>Date</th><th>Day</th><th>Phase</th><th>Today's focus</th><th class="c">Done</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>`;
+  }).join("");
+  $$("#t-daily tbody tr").forEach(tr=>tr.onclick=()=>{curDate=tr.dataset.date;setView("tracker");showPane("t-today");renderToday();});
+  $$("#t-daily .wk-toggle").forEach(el=>el.onclick=()=>{
+    const w=+el.dataset.wk;
+    if(collapsedWeeks.has(w))collapsedWeeks.delete(w);else collapsedWeeks.add(w);
+    renderDaily();
+  });
+  $("#wk-exp-all").onclick=()=>{collapsedWeeks.clear();renderDaily();};
+  $("#wk-col-done").onclick=()=>{
+    weeks.forEach(w=>{const ds=DATA.days.filter(d=>d.week===w);if(ds.every(d=>dayProgress(d).pct>=1))collapsedWeeks.add(w);});
+    renderDaily();
+  };
+  $("#wk-cur").onclick=()=>{
+    const curD=DATA.days.find(d=>d.date===curDate)||DATA.days[0];
+    collapsedWeeks.delete(curD.week);renderDaily();
+    document.getElementById("wk-head-"+curD.week)?.scrollIntoView({behavior:"smooth",block:"start"});
+  };
+}"""
+    new_text = new_text.replace(old_daily_fn, new_daily_fn).replace(old_daily_fn.replace("\n", "\r\n"), new_daily_fn)
 
-    # 6. Use fmtMcSub in openMcModal() for clean Master Checklist subtopics
+    # 7. Upgrade renderCheck() with search/filter bar, inline PYQ frequency & book count badges, and fmtMcSub modal
+    old_mc_fn = """function renderCheck(){
+  const ck=DATA.checklist; if(!ck){$("#t-mc").innerHTML="<p class='sub'>checklist data missing</p>";return;}
+  const groups=ck.groups.map((G,gi)=>{
+    const rows=G.rows.map((R,ri)=>{
+      const done=MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length;
+      const sub=mcSubsDone(gi,ri,R);
+      return `<div class="topicrow">
+        <span class="tdot t${R.tier}"></span>
+        <span class="tt mcname" data-g="${gi}" data-r="${ri}">
+          <b>${esc(R.topic)}</b>
+          <div class="mcnote">${R.subs.length} subtopics · click for subtopics, PYQ patterns &amp; tests</div></span>
+        <span class="stages">${MCSTAGES.map((nm,s)=>
+          `<span class="stage ${store.mc[mcStageKey(gi,ri,s)]?"on":""}" data-g="${gi}" data-r="${ri}" data-s="${s}" title="${nm}">${["T","P","R","M"][s]}</span>`).join("")}</span>
+        <span class="sub subcount" id="sc-${gi}-${ri}" style="min-width:44px;text-align:right">${sub}/${R.subs.length}</span>
+      </div>`;}).join("");
+    const total=MCSTAGES.length*G.rows.length+G.rows.reduce((n,R)=>n+R.subs.length,0);
+    const dn=G.rows.reduce((n,R,ri)=>n+MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length+mcSubsDone(gi,ri,R),0);
+    return `<div class="subjhead"><h3>${esc(G.name)}</h3><span class="sub">${esc(G.note)}</span>
+        <div class="bar" style="max-width:180px"><i style="width:${Math.round(100*dn/total)}%"></i></div></div>
+      <div class="card">${rows}</div>`;
+  }).join("");
+  $("#t-mc").innerHTML=`
+    <div class="card pad" style="margin-bottom:6px">
+      <b>How to use:</b> <span class="sub">pick 1–3 red topics first → study theory (T) → solve their PYQs (P) → revise in the evening (R) → update the mistake log (M). Click any topic for its subtopics, topic-wise and subtopic-wise PYQs, and the tests to run. Never start a low-priority topic while reds of the same subject are weak.</span>
+      <div style="margin-top:6px"><span class="mpill">${esc(ck.meta.disclaimer)}</span>
+      <span class="mpill">${esc(ck.meta.solveCSE)}</span><span class="mpill">${esc(ck.meta.solveDA)}</span></div>
+    </div>${groups}`;
+  $$("#t-mc .stage").forEach(el=>el.onclick=()=>{
+    const g=+el.dataset.g, r=+el.dataset.r, s=+el.dataset.s;
+    const val=store.mc[mcStageKey(g,r,s)]?0:1;
+    setMC(g,r,s,val);
+    if(val) reverseTickMC(g,r,s);
+    save();updateOverall();
+    const y=scrollY;renderCheck();scrollTo(0,y);});
+  $$("#t-mc .mcname").forEach(el=>el.onclick=()=>openMcModal(+el.dataset.g,+el.dataset.r));
+  // keep filter-free pane scroll stable; modal binding below
+}"""
+
+    new_mc_fn = """let mcFilter={q:"",tier:"all",paper:"all",status:"all"};
+function renderCheck(){
+  const ck=DATA.checklist; if(!ck){$("#t-mc").innerHTML="<p class='sub'>checklist data missing</p>";return;}
+  $("#t-mc").innerHTML=`
+    <div class="card pad" style="margin-bottom:6px">
+      <b>How to use:</b> <span class="sub">pick 1–3 red topics first → study theory (T) → solve their PYQs (P) → revise in the evening (R) → update the mistake log (M). Click any topic for its subtopics, book section chips, PYQ patterns &amp; tests.</span>
+      <div style="margin-top:6px"><span class="mpill">${esc(ck.meta.disclaimer)}</span>
+      <span class="mpill">${esc(ck.meta.solveCSE)}</span><span class="mpill">${esc(ck.meta.solveDA)}</span></div>
+      <div class="filters" style="margin-bottom:2px">
+        <select id="mc-paper"><option value="all">Both papers</option><option value="Both">Shared (Both)</option><option value="CS">GATE CS</option><option value="DA">GATE DA</option></select>
+        <select id="mc-tier"><option value="all">All tiers</option><option value="1">Tier 1 (Must Master)</option><option value="2">Tier 2 (High Priority)</option><option value="3">Tier 3 (Important)</option></select>
+        <select id="mc-status"><option value="all">Any status</option><option value="done">All 4 stages done</option><option value="progress">In progress</option><option value="todo">Not started</option></select>
+        <input id="mc-q" type="search" placeholder="Search topic, book chapter or section (e.g. 7.19, Cache, Eigen)…" style="flex:1;min-width:220px">
+      </div>
+    </div>
+    <div id="mclist"></div>`;
+  const renderMcList=()=>{
+    const f=mcFilter, q=f.q.trim().toLowerCase();
+    const groups=ck.groups.map((G,gi)=>{
+      const visRows=G.rows.map((R,ri)=>({R,ri})).filter(({R,ri})=>{
+        if(f.tier!=="all" && R.tier!==+f.tier) return false;
+        const stDone=MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length;
+        const subDone=mcSubsDone(gi,ri,R);
+        if(f.status==="done" && stDone<4) return false;
+        if(f.status==="progress" && ((stDone===0&&subDone===0)||stDone===4)) return false;
+        if(f.status==="todo" && (stDone>0||subDone>0)) return false;
+        const subText=R.subs.map(s=>s.n+" "+s.p).join(" ");
+        if(f.paper!=="all"){
+          if(f.paper==="Both" && !/\\[Both\\]/i.test(subText)) return false;
+          if(f.paper==="CS" && !/\\[(CS|Both)\\]/i.test(subText)) return false;
+          if(f.paper==="DA" && !/\\[(DA|Both|DA \\+ Both)\\]/i.test(subText)) return false;
+        }
+        if(q && !(R.topic.toLowerCase().includes(q)||G.name.toLowerCase().includes(q)||R.freq.toLowerCase().includes(q)||subText.toLowerCase().includes(q))) return false;
+        return true;
+      });
+      if(!visRows.length) return "";
+      const rows=visRows.map(({R,ri})=>{
+        const sub=mcSubsDone(gi,ri,R);
+        return `<div class="topicrow">
+          <span class="tdot t${R.tier}"></span>
+          <span class="tt mcname" data-g="${gi}" data-r="${ri}">
+            <b>${esc(R.topic)}</b>
+            <div class="mcnote"><span class="mc-freq">${esc(R.freq)}</span> · ${R.subs.length} subtopic${R.subs.length===1?"":"s"}</div></span>
+          <span class="stages">${MCSTAGES.map((nm,s)=>
+            `<span class="stage ${store.mc[mcStageKey(gi,ri,s)]?"on":""}" data-g="${gi}" data-r="${ri}" data-s="${s}" title="${nm}">${["T","P","R","M"][s]}</span>`).join("")}</span>
+          <span class="sub subcount" id="sc-${gi}-${ri}" style="min-width:44px;text-align:right">${sub}/${R.subs.length}</span>
+        </div>`;}).join("");
+      const total=MCSTAGES.length*G.rows.length+G.rows.reduce((n,R)=>n+R.subs.length,0);
+      const dn=G.rows.reduce((n,R,ri)=>n+MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length+mcSubsDone(gi,ri,R),0);
+      return `<div class="subjhead"><h3>${esc(G.name)}</h3><span class="sub">${esc(G.note)}</span>
+          <div class="bar" style="max-width:180px"><i style="width:${Math.round(100*dn/total)}%"></i></div></div>
+        <div class="card">${rows}</div>`;
+    }).filter(Boolean).join("");
+    $("#mclist").innerHTML=groups||`<p class="sub" style="padding:20px">No checklist topics match these filters.</p>`;
+    $$("#mclist .stage").forEach(el=>el.onclick=()=>{
+      const g=+el.dataset.g, r=+el.dataset.r, s=+el.dataset.s;
+      const val=store.mc[mcStageKey(g,r,s)]?0:1;
+      setMC(g,r,s,val);
+      if(val) reverseTickMC(g,r,s);
+      save();updateOverall();
+      renderMcList();});
+    $$("#mclist .mcname").forEach(el=>el.onclick=()=>openMcModal(+el.dataset.g,+el.dataset.r));
+  };
+  $("#mc-paper").onchange=e=>{mcFilter.paper=e.target.value;renderMcList();};
+  $("#mc-tier").onchange=e=>{mcFilter.tier=e.target.value;renderMcList();};
+  $("#mc-status").onchange=e=>{mcFilter.status=e.target.value;renderMcList();};
+  $("#mc-q").oninput=e=>{mcFilter.q=e.target.value;renderMcList();};
+  $("#mc-paper").value=mcFilter.paper;$("#mc-tier").value=mcFilter.tier;
+  $("#mc-status").value=mcFilter.status;$("#mc-q").value=mcFilter.q;
+  renderMcList();
+}"""
+    new_text = new_text.replace(old_mc_fn, new_mc_fn).replace(old_mc_fn.replace("\n", "\r\n"), new_mc_fn)
+
+    # 8. Use fmtMcSub in openMcModal() for clean Master Checklist subtopics
     old_mc_modal = '<input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}><span>${esc(s.n)}</span></label>'
     new_mc_modal = '<input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}>${fmtMcSub(s.n)}</label>'
     new_text = new_text.replace(old_mc_modal, new_mc_modal)
 
-    # 7. Update bindChecks(scope) to handle data-sk checkboxes and live-refresh the Today progress ring/dot
+    # 9. Update bindChecks(scope) + add keyboard shortcuts (← / → / T) for Today navigation
     old_bind = """function bindChecks(scope){
   $$((scope||"")+" input[data-k]").forEach(el=>el.onchange=()=>{
     store.d[el.dataset.k]=el.checked?1:0;save();
@@ -1360,7 +1623,14 @@ function fmtMcSub(raw){
     store.d[el.dataset.tk]=el.checked?1:0;save();
     el.closest(".toggle")?.classList.toggle("on",el.checked);updateOverall();refreshTodayHeader();
     if(el.checked){ const parts=el.dataset.tk.split("|T"); syncToday(parts[0], +parts[1]); }});
-}"""
+}
+document.addEventListener("keydown",e=>{
+  if(e.target.matches("input,textarea,select")||!$("#modal").hidden) return;
+  if(document.body.dataset.view==="plan"||!$("#t-today").classList.contains("on")) return;
+  if(e.key==="ArrowLeft"){ e.preventDefault(); $("#dprev")?.click(); }
+  else if(e.key==="ArrowRight"){ e.preventDefault(); $("#dnext")?.click(); }
+  else if(e.key==="t"||e.key==="T"){ e.preventDefault(); $("#djump")?.click(); }
+});"""
     new_text = new_text.replace(old_bind, new_bind).replace(old_bind.replace("\n", "\r\n"), new_bind)
 
     idx_path.write_text(new_text, encoding="utf-8")
