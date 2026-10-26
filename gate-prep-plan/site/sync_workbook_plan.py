@@ -1166,7 +1166,7 @@ def update_index_html():
     new_data_line = "const DATA = " + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + ";"
     new_text = text[:m.start()] + new_data_line + text[m.end():]
 
-    # 1. Update CSS for clean checkable .subrow items, section chips, collapsible weeks, and focus callout
+    # 1. Update CSS for clean checkable .subrow items, section chips, collapsible weeks/subjects, date-chips, and focus callout
     old_css = ".sublist{display:flex;flex-direction:column;gap:7px;margin-top:10px}\n.subrow{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1.45;color:var(--muted)}"
     new_css = (
         ".sublist{display:flex;flex-direction:column;gap:5px;margin-top:12px}\n"
@@ -1191,6 +1191,9 @@ def update_index_html():
         ".focus-banner{margin-top:12px;padding:10px 13px;border-radius:10px;background:color-mix(in srgb,var(--accent-soft) 55%,transparent);border-left:3px solid var(--accent);font-size:13px;color:var(--ink);line-height:1.45}\n"
         ".focus-banner b{color:var(--accent)}\n"
         ".mc-freq{color:var(--accent);font-weight:600}\n"
+        ".date-chip{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--muted);cursor:pointer;white-space:nowrap;font-variant-numeric:tabular-nums;transition:border-color .15s,color .15s,background .15s}\n"
+        ".date-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}\n"
+        ".date-chip small{font-size:9.5px;color:var(--accent);font-weight:700}\n"
         "tr.tr-today td{background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}\n"
         "tr.tr-today td:first-child{border-left:3px solid var(--accent)}\n"
         "tr.tr-cur td{background:color-mix(in srgb,var(--accent-soft) 30%,transparent)}\n"
@@ -1297,13 +1300,70 @@ function fmtMcSub(raw){
     if 'const subKey=' not in new_text:
         new_text = new_text.replace(old_helper, new_helper).replace(old_helper.replace("\n", "\r\n"), new_helper)
 
+    # 3b. Add date-chip jump helpers and include subtopics in dayProgress(d)
+    old_dayprog = """const dayActs=d=>d.act.reduce((n,a)=>n+a.length,0);
+function dayProgress(d){
+  let total=dayActs(d)+5, done=0;
+  d.act.forEach((lines,ci)=>lines.forEach((_,li)=>{if(store.d[actKey(d.date,ci,li)])done++;}));
+  for(let ti=0;ti<5;ti++) if(store.d[togKey(d.date,ti)])done++;
+  return {done,total,pct:total?done/total:0};
+}"""
+    new_dayprog = """const uniqDates=ds=>[...new Set(ds||[])].sort();
+const fmtShortDate=iso=>{const d=new Date(iso+"T00:00:00");return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"});};
+function jumpToDate(iso){
+  if(!iso) return;
+  if(!$("#modal").hidden) closeMcModal();
+  curDate=iso; setView("tracker"); showPane("t-today"); renderToday(); scrollTo({top:0,behavior:"smooth"});
+}
+function renderDateChip(ds){
+  const u=uniqDates(ds); if(!u.length) return "";
+  const d0=u[0];
+  const tip=u.length>1?`Scheduled: ${u.map(fmtShortDate).join(", ")} — click to open ${fmtShortDate(d0)} in Today`:`Scheduled on ${fmtDate(d0)} — click to open in Today`;
+  const more=u.length>1?`<small>+${u.length-1}</small>`:"";
+  return `<button type="button" class="date-chip" data-jdate="${d0}" title="${esc(tip)}">📅 ${fmtShortDate(d0)}${more}</button>`;
+}
+function daySubItems(d){
+  const cleanLines=s=>String(s||"").split("\\n").map(x=>x.replace(/^•\\s*/,"").trim()).filter(Boolean);
+  const csItems=cleanLines(d.csT), daItems=cleanLines(d.daT);
+  const csSet=new Set(csItems), daSet=new Set(daItems);
+  const seen=new Set(), regular=[], focus=[];
+  [...csItems, ...daItems].forEach(it=>{
+    if(seen.has(it)) return;
+    seen.add(it);
+    if(/^session focus:/i.test(it)) focus.push(it);
+    else regular.push(it);
+  });
+  const allSubItems=regular.length?regular:focus;
+  return {csSet, daSet, regular, focus, allSubItems};
+}
+const dayActs=d=>d.act.reduce((n,a)=>n+a.length,0);
+function dayProgress(d){
+  const subs=daySubItems(d).allSubItems;
+  let total=dayActs(d)+5+subs.length, done=0;
+  d.act.forEach((lines,ci)=>lines.forEach((_,li)=>{if(store.d[actKey(d.date,ci,li)])done++;}));
+  for(let ti=0;ti<5;ti++) if(store.d[togKey(d.date,ti)])done++;
+  subs.forEach((_,si)=>{if(store.d[subKey(d.date,si)])done++;});
+  return {done,total,pct:total?done/total:0};
+}"""
+    new_text = new_text.replace(old_dayprog, new_dayprog).replace(old_dayprog.replace("\n", "\r\n"), new_dayprog)
+
     # 4. Use fmtActItem in actHtml in renderToday()
     old_act = "<span>${esc(ln)}</span></label>"
     new_act = "${fmtActItem(ln)}</label>"
     new_text = new_text.replace(old_act, new_act)
 
-    # 5. Make each regular Today Focus Card item checkable + Session Focus banner + Jump to Today button
-    old_today_block = """  const subRows=[...regular, ...focus].map(it=>{
+    # 5. Make each regular Today Focus Card item checkable + Tick all button + Session Focus banner + Jump to Today button
+    old_today_block = """  const cleanLines=s=>String(s||"").split("\\n").map(x=>x.replace(/^•\\s*/,"").trim()).filter(Boolean);
+  const csItems=cleanLines(d.csT), daItems=cleanLines(d.daT);
+  const csSet=new Set(csItems), daSet=new Set(daItems);
+  const seen=new Set(), regular=[], focus=[];
+  [...csItems, ...daItems].forEach(it=>{
+    if(seen.has(it)) return;
+    seen.add(it);
+    if(/^session focus:/i.test(it)) focus.push(it);
+    else regular.push(it);
+  });
+  const subRows=[...regular, ...focus].map(it=>{
     const inCS=csSet.has(it), inDA=daSet.has(it);
     const tag=(inCS&&inDA)?"Both":(inCS?"CS":"DA");
     const cls=tag==="Both"?"sp-both":(tag==="CS"?"sp-cs":"sp-da");
@@ -1331,7 +1391,7 @@ function fmtMcSub(raw){
   $("#dprev").onclick=()=>{const j=Math.max(0,i-1);curDate=DATA.days[j].date;renderToday();};
   $("#dnext").onclick=()=>{const j=Math.min(DATA.days.length-1,i+1);curDate=DATA.days[j].date;renderToday();};"""
 
-    new_today_block = """  const allSubItems=regular.length?regular:focus;
+    new_today_block = """  const {csSet, daSet, regular, focus, allSubItems}=daySubItems(d);
   const subDoneCount=allSubItems.filter((_,si)=>store.d[subKey(d.date,si)]).length;
   const subRows=allSubItems.map((it,si)=>{
     const inCS=csSet.has(it), inDA=daSet.has(it);
@@ -1351,7 +1411,10 @@ function fmtMcSub(raw){
   const focusHtml=`<div class="card pad">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
       <div style="font-size:16.5px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap">${titleHtml}</div>
-      ${allSubItems.length?`<span class="badge okb" id="today-subprog" style="font-variant-numeric:tabular-nums">${subDoneCount}/${allSubItems.length} subtopics done</span>`:""}
+      ${allSubItems.length?`<div style="display:flex;align-items:center;gap:6px">
+        <span class="badge okb" id="today-subprog" style="font-variant-numeric:tabular-nums">${subDoneCount}/${allSubItems.length} subtopics done</span>
+        <button type="button" class="hbtn" id="today-tickall" style="font-size:11.5px;padding:2px 9px">${subDoneCount===allSubItems.length?"↺ Untick all":"✓ Tick all"}</button>
+      </div>`:""}
     </div>
     <div class="sublist">${subRows}</div>
     ${focusBanner}
@@ -1375,7 +1438,12 @@ function fmtMcSub(raw){
       <div class="sub" style="margin-top:12px">🔗 Ticking <b>Theory / PYQ / Revision done</b> also auto-ticks the matching stages of today's topics in <b>Topics</b> and <b>Master Checklist</b> — shared CS↔DA topics credit both papers. Un-tick those stages manually in the trackers if needed.</div></div>`;
   $("#dprev").onclick=()=>{const j=Math.max(0,i-1);curDate=DATA.days[j].date;renderToday();};
   $("#dnext").onclick=()=>{const j=Math.min(DATA.days.length-1,i+1);curDate=DATA.days[j].date;renderToday();};
-  if($("#djump"))$("#djump").onclick=()=>{curDate=defToday;renderToday();};"""
+  if($("#djump"))$("#djump").onclick=()=>{curDate=defToday;renderToday();};
+  if($("#today-tickall"))$("#today-tickall").onclick=()=>{
+    const target=allSubItems.every((_,si)=>store.d[subKey(d.date,si)])?0:1;
+    allSubItems.forEach((_,si)=>{store.d[subKey(d.date,si)]=target;});
+    save();updateOverall();renderToday();
+  };"""
     new_text = new_text.replace(old_today_block, new_today_block).replace(old_today_block.replace("\n", "\r\n"), new_today_block)
 
     # 6. Upgrade renderDaily() with collapsible weeks, highlighted current day, and clean phase/topic previews
@@ -1470,7 +1538,146 @@ function renderDaily(){
 }"""
     new_text = new_text.replace(old_daily_fn, new_daily_fn).replace(old_daily_fn.replace("\n", "\r\n"), new_daily_fn)
 
-    # 7. Upgrade renderCheck() with search/filter bar, inline PYQ frequency & book count badges, and fmtMcSub modal
+    # 6b. Upgrade renderTopics() with T/P/R/M/★ stage buttons, collapsible subject headers, and date-chip jump buttons
+    old_topics_fn = """/* ---------------- TOPICS pane ---------------- */
+const STAGES=["Theory","PYQ","2nd pass","Mistakes","Mastered"];
+let topicFilter={exam:"all",subject:"all",tier:"all",q:"",status:"all"};
+function topicState(t){return store.t[topicKey(t)]||[0,0,0,0,0];}
+function renderTopics(){
+  const subjects=[...new Set(DATA.topics.map(t=>t.subject))].sort();
+  $("#t-topics").innerHTML=`
+    <div class="card pad" style="margin-bottom:6px">
+      <div class="h2">Complete Topic Checklist <span class="sub">(${DATA.topics.length} topics · tick a stage when done; Mastered only after all four)</span></div>
+      <div class="filters">
+        <select id="f-exam"><option value="all">Both papers</option><option value="CS">GATE CS</option><option value="DA">GATE DA</option></select>
+        <select id="f-subject"><option value="all">All subjects</option>${subjects.map(s=>`<option>${esc(s)}</option>`).join("")}</select>
+        <select id="f-tier"><option value="all">All tiers</option><option value="1">Tier 1</option><option value="2">Tier 2</option><option value="3">Tier 3</option><option value="4">Tier 4</option></select>
+        <select id="f-status"><option value="all">Any status</option><option value="done">Mastered</option><option value="progress">In progress</option><option value="todo">Not started</option></select>
+        <input id="f-q" type="search" placeholder="Search topic…">
+      </div>
+    </div>
+    <div id="topiclist"></div>`;
+  const renderList=()=>{
+    const f=topicFilter;
+    const vis=DATA.topics.filter(t=>
+      (f.exam==="all"||t.exam===f.exam)&&(f.subject==="all"||t.subject===f.subject)&&(f.tier==="all"||t.tier===+f.tier)&&
+      (!f.q||t.topic.toLowerCase().includes(f.q.toLowerCase()))&&
+      (f.status==="all"||(f.status==="done"?topicState(t)[4]===1:f.status==="progress"?(topicState(t).some(v=>v)&&!topicState(t)[4]):!topicState(t).some(v=>v))));
+    const bySub={};vis.forEach(t=>{(bySub[t.subject+"|"+t.exam] ||= []).push(t);});
+    $("#topiclist").innerHTML=Object.entries(bySub).sort().map(([key,list])=>{
+      const [sub,exam]=key.split("|");
+      const mastered=topicProgress(list);
+      return `<div class="subjhead"><span class="badge ${exam==="CS"?"b2":"b3"}">${exam}</span><h3>${esc(sub)}</h3>
+        <span class="sub">${mastered}/${list.length} mastered</span>
+        <div class="bar" style="max-width:200px"><i style="width:${Math.round(100*mastered/list.length)}%"></i></div></div>
+      <div class="card">${list.map(t=>{const s=topicState(t),k=topicKey(t);
+        return `<div class="topicrow">
+          <span class="badge b${t.tier}">T${t.tier}</span>
+          ${TWIN[k]?'<span class="badge okb" title="shared CS↔DA topic — stages mirror to the other paper" style="font-size:10px">⇄</span>':""}
+          <span class="tt">${esc(t.topic)}</span>
+          <span class="stages">${STAGES.map((nm,si)=>`<span class="stage ${s[si]?"on":""}" data-tk="${esc(k)}" data-si="${si}" title="${nm}">${si+1}</span>`).join("")}</span>
+        </div>`;}).join("")}</div>`;
+    }).join("")||`<p class="sub" style="padding:20px">No topics match these filters.</p>`;
+    $$("#topiclist .stage").forEach(el=>el.onclick=()=>{
+      const k=el.dataset.tk, si=+el.dataset.si;
+      const t=DATA.topics.find(x=>topicKey(x)===k);
+      const s=store.t[k]||(store.t[k]=[0,0,0,0,0]);
+      const nv=s[si]?0:1;
+      setT307(k, si, nv);
+      if(nv) reverseTick(k, si);
+      save();renderTopics();
+    });
+  };
+  $("#f-exam").onchange=e=>{topicFilter.exam=e.target.value;renderList();};
+  $("#f-subject").onchange=e=>{topicFilter.subject=e.target.value;renderList();};
+  $("#f-tier").onchange=e=>{topicFilter.tier=e.target.value;renderList();};
+  $("#f-status").onchange=e=>{topicFilter.status=e.target.value;renderList();};
+  $("#f-q").oninput=e=>{topicFilter.q=e.target.value;renderList();};
+  $("#f-exam").value=topicFilter.exam;$("#f-subject").value=topicFilter.subject;
+  $("#f-tier").value=topicFilter.tier;$("#f-status").value=topicFilter.status;$("#f-q").value=topicFilter.q;
+  renderList();
+}"""
+
+    new_topics_fn = """/* ---------------- TOPICS pane ---------------- */
+const STAGES=["Theory","PYQ","2nd pass (Revision)","Mistakes re-solved","Mastered"];
+const STAGE_SHORT=["T","P","R","M","★"];
+const collapsedTopicSubs=new Set();
+let topicFilter={exam:"all",subject:"all",tier:"all",q:"",status:"all"};
+function topicState(t){return store.t[topicKey(t)]||[0,0,0,0,0];}
+function renderTopics(){
+  const subjects=[...new Set(DATA.topics.map(t=>t.subject))].sort();
+  $("#t-topics").innerHTML=`
+    <div class="card pad" style="margin-bottom:6px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+        <div class="h2" style="margin:0">Complete Topic Checklist <span class="sub">(${DATA.topics.length} topics · T = Theory, P = PYQ, R = Revision, M = Mistakes, ★ = Mastered)</span></div>
+        <div style="display:flex;gap:6px">
+          <button class="hbtn" id="tp-col-all" style="font-size:12px;padding:3px 9px">Collapse all</button>
+          <button class="hbtn" id="tp-exp-all" style="font-size:12px;padding:3px 9px">Expand all</button>
+        </div>
+      </div>
+      <div class="filters" style="margin-bottom:2px">
+        <select id="f-exam"><option value="all">Both papers</option><option value="CS">GATE CS</option><option value="DA">GATE DA</option></select>
+        <select id="f-subject"><option value="all">All subjects</option>${subjects.map(s=>`<option>${esc(s)}</option>`).join("")}</select>
+        <select id="f-tier"><option value="all">All tiers</option><option value="1">Tier 1</option><option value="2">Tier 2</option><option value="3">Tier 3</option><option value="4">Tier 4</option></select>
+        <select id="f-status"><option value="all">Any status</option><option value="done">Mastered (★)</option><option value="progress">In progress</option><option value="todo">Not started</option></select>
+        <input id="f-q" type="search" placeholder="Search topic…" style="flex:1;min-width:180px">
+      </div>
+    </div>
+    <div id="topiclist"></div>`;
+  const renderList=()=>{
+    const f=topicFilter;
+    const vis=DATA.topics.filter(t=>
+      (f.exam==="all"||t.exam===f.exam)&&(f.subject==="all"||t.subject===f.subject)&&(f.tier==="all"||t.tier===+f.tier)&&
+      (!f.q||t.topic.toLowerCase().includes(f.q.toLowerCase()))&&
+      (f.status==="all"||(f.status==="done"?topicState(t)[4]===1:f.status==="progress"?(topicState(t).some(v=>v)&&!topicState(t)[4]):!topicState(t).some(v=>v))));
+    const bySub={};vis.forEach(t=>{(bySub[t.subject+"|"+t.exam] ||= []).push(t);});
+    const entries=Object.entries(bySub).sort();
+    $("#topiclist").innerHTML=entries.map(([key,list])=>{
+      const [sub,exam]=key.split("|");
+      const mastered=topicProgress(list);
+      const isCol=collapsedTopicSubs.has(key);
+      return `<div class="subjhead wk-toggle ${isCol?"wk-collapsed":""}" data-subk="${esc(key)}">
+        <span class="wk-chev">▾</span><span class="badge ${exam==="CS"?"b2":"b3"}">${exam}</span><h3>${esc(sub)}</h3>
+        <span class="sub">${mastered}/${list.length} mastered</span>
+        <div class="bar" style="max-width:200px"><i style="width:${Math.round(100*mastered/list.length)}%"></i></div></div>
+      <div class="card" ${isCol?"hidden":""}>${list.map(t=>{const s=topicState(t),k=topicKey(t);
+        return `<div class="topicrow">
+          <span class="badge b${t.tier}">T${t.tier}</span>
+          ${TWIN[k]?'<span class="badge okb" title="shared CS↔DA topic — stages mirror to the other paper" style="font-size:10px">⇄</span>':""}
+          <span class="tt">${esc(t.topic)}</span>
+          ${renderDateChip(REV.t[k])}
+          <span class="stages">${STAGES.map((nm,si)=>`<span class="stage ${s[si]?"on":""}" data-tk="${esc(k)}" data-si="${si}" title="${nm}">${STAGE_SHORT[si]}</span>`).join("")}</span>
+        </div>`;}).join("")}</div>`;
+    }).join("")||`<p class="sub" style="padding:20px">No topics match these filters.</p>`;
+    $$("#topiclist .wk-toggle").forEach(el=>el.onclick=()=>{
+      const k=el.dataset.subk;
+      if(collapsedTopicSubs.has(k))collapsedTopicSubs.delete(k);else collapsedTopicSubs.add(k);
+      renderList();
+    });
+    $$("#topiclist .date-chip").forEach(el=>el.onclick=e=>{e.stopPropagation();jumpToDate(el.dataset.jdate);});
+    $$("#topiclist .stage").forEach(el=>el.onclick=()=>{
+      const k=el.dataset.tk, si=+el.dataset.si;
+      const s=store.t[k]||(store.t[k]=[0,0,0,0,0]);
+      const nv=s[si]?0:1;
+      setT307(k, si, nv);
+      if(nv) reverseTick(k, si);
+      save();updateOverall();renderList();
+    });
+  };
+  $("#tp-exp-all").onclick=()=>{collapsedTopicSubs.clear();renderList();};
+  $("#tp-col-all").onclick=()=>{DATA.topics.forEach(t=>collapsedTopicSubs.add(t.subject+"|"+t.exam));renderList();};
+  $("#f-exam").onchange=e=>{topicFilter.exam=e.target.value;renderList();};
+  $("#f-subject").onchange=e=>{topicFilter.subject=e.target.value;renderList();};
+  $("#f-tier").onchange=e=>{topicFilter.tier=e.target.value;renderList();};
+  $("#f-status").onchange=e=>{topicFilter.status=e.target.value;renderList();};
+  $("#f-q").oninput=e=>{topicFilter.q=e.target.value;renderList();};
+  $("#f-exam").value=topicFilter.exam;$("#f-subject").value=topicFilter.subject;
+  $("#f-tier").value=topicFilter.tier;$("#f-status").value=topicFilter.status;$("#f-q").value=topicFilter.q;
+  renderList();
+}"""
+    new_text = new_text.replace(old_topics_fn, new_topics_fn).replace(old_topics_fn.replace("\n", "\r\n"), new_topics_fn)
+
+    # 7. Upgrade renderCheck() with search/filter bar, collapsible subjects, date-chip jump buttons, and PYQ frequency badges
     old_mc_fn = """function renderCheck(){
   const ck=DATA.checklist; if(!ck){$("#t-mc").innerHTML="<p class='sub'>checklist data missing</p>";return;}
   const groups=ck.groups.map((G,gi)=>{
@@ -1509,12 +1716,19 @@ function renderDaily(){
   // keep filter-free pane scroll stable; modal binding below
 }"""
 
-    new_mc_fn = """let mcFilter={q:"",tier:"all",paper:"all",status:"all"};
+    new_mc_fn = """const collapsedMcGroups=new Set();
+let mcFilter={q:"",tier:"all",paper:"all",status:"all"};
 function renderCheck(){
   const ck=DATA.checklist; if(!ck){$("#t-mc").innerHTML="<p class='sub'>checklist data missing</p>";return;}
   $("#t-mc").innerHTML=`
     <div class="card pad" style="margin-bottom:6px">
-      <b>How to use:</b> <span class="sub">pick 1–3 red topics first → study theory (T) → solve their PYQs (P) → revise in the evening (R) → update the mistake log (M). Click any topic for its subtopics, book section chips, PYQ patterns &amp; tests.</span>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+        <div><b>How to use:</b> <span class="sub">pick 1–3 red topics first → study theory (T) → solve their PYQs (P) → revise in the evening (R) → update the mistake log (M). Click any topic for subtopics &amp; book chips.</span></div>
+        <div style="display:flex;gap:6px">
+          <button class="hbtn" id="mc-col-all" style="font-size:12px;padding:3px 9px">Collapse all</button>
+          <button class="hbtn" id="mc-exp-all" style="font-size:12px;padding:3px 9px">Expand all</button>
+        </div>
+      </div>
       <div style="margin-top:6px"><span class="mpill">${esc(ck.meta.disclaimer)}</span>
       <span class="mpill">${esc(ck.meta.solveCSE)}</span><span class="mpill">${esc(ck.meta.solveDA)}</span></div>
       <div class="filters" style="margin-bottom:2px">
@@ -1545,6 +1759,7 @@ function renderCheck(){
         return true;
       });
       if(!visRows.length) return "";
+      const isCol=collapsedMcGroups.has(gi);
       const rows=visRows.map(({R,ri})=>{
         const sub=mcSubsDone(gi,ri,R);
         return `<div class="topicrow">
@@ -1552,17 +1767,25 @@ function renderCheck(){
           <span class="tt mcname" data-g="${gi}" data-r="${ri}">
             <b>${esc(R.topic)}</b>
             <div class="mcnote"><span class="mc-freq">${esc(R.freq)}</span> · ${R.subs.length} subtopic${R.subs.length===1?"":"s"}</div></span>
+          ${renderDateChip(REV.mc[gi+":"+ri])}
           <span class="stages">${MCSTAGES.map((nm,s)=>
             `<span class="stage ${store.mc[mcStageKey(gi,ri,s)]?"on":""}" data-g="${gi}" data-r="${ri}" data-s="${s}" title="${nm}">${["T","P","R","M"][s]}</span>`).join("")}</span>
           <span class="sub subcount" id="sc-${gi}-${ri}" style="min-width:44px;text-align:right">${sub}/${R.subs.length}</span>
         </div>`;}).join("");
       const total=MCSTAGES.length*G.rows.length+G.rows.reduce((n,R)=>n+R.subs.length,0);
       const dn=G.rows.reduce((n,R,ri)=>n+MCSTAGES.filter((_,s)=>store.mc[mcStageKey(gi,ri,s)]).length+mcSubsDone(gi,ri,R),0);
-      return `<div class="subjhead"><h3>${esc(G.name)}</h3><span class="sub">${esc(G.note)}</span>
+      return `<div class="subjhead wk-toggle ${isCol?"wk-collapsed":""}" data-mcgi="${gi}">
+          <span class="wk-chev">▾</span><h3>${esc(G.name)}</h3><span class="sub">${esc(G.note)}</span>
           <div class="bar" style="max-width:180px"><i style="width:${Math.round(100*dn/total)}%"></i></div></div>
-        <div class="card">${rows}</div>`;
+        <div class="card" ${isCol?"hidden":""}>${rows}</div>`;
     }).filter(Boolean).join("");
     $("#mclist").innerHTML=groups||`<p class="sub" style="padding:20px">No checklist topics match these filters.</p>`;
+    $$("#mclist .wk-toggle").forEach(el=>el.onclick=()=>{
+      const gi=+el.dataset.mcgi;
+      if(collapsedMcGroups.has(gi))collapsedMcGroups.delete(gi);else collapsedMcGroups.add(gi);
+      renderMcList();
+    });
+    $$("#mclist .date-chip").forEach(el=>el.onclick=e=>{e.stopPropagation();jumpToDate(el.dataset.jdate);});
     $$("#mclist .stage").forEach(el=>el.onclick=()=>{
       const g=+el.dataset.g, r=+el.dataset.r, s=+el.dataset.s;
       const val=store.mc[mcStageKey(g,r,s)]?0:1;
@@ -1572,6 +1795,8 @@ function renderCheck(){
       renderMcList();});
     $$("#mclist .mcname").forEach(el=>el.onclick=()=>openMcModal(+el.dataset.g,+el.dataset.r));
   };
+  $("#mc-exp-all").onclick=()=>{collapsedMcGroups.clear();renderMcList();};
+  $("#mc-col-all").onclick=()=>{ck.groups.forEach((_,gi)=>collapsedMcGroups.add(gi));renderMcList();};
   $("#mc-paper").onchange=e=>{mcFilter.paper=e.target.value;renderMcList();};
   $("#mc-tier").onchange=e=>{mcFilter.tier=e.target.value;renderMcList();};
   $("#mc-status").onchange=e=>{mcFilter.status=e.target.value;renderMcList();};
@@ -1582,12 +1807,32 @@ function renderCheck(){
 }"""
     new_text = new_text.replace(old_mc_fn, new_mc_fn).replace(old_mc_fn.replace("\n", "\r\n"), new_mc_fn)
 
-    # 8. Use fmtMcSub in openMcModal() for clean Master Checklist subtopics
-    old_mc_modal = '<input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}><span>${esc(s.n)}</span></label>'
-    new_mc_modal = '<input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}>${fmtMcSub(s.n)}</label>'
-    new_text = new_text.replace(old_mc_modal, new_mc_modal)
+    # 8. Use fmtMcSub and show clickable scheduled dates inside openMcModal()
+    old_mc_modal = """function openMcModal(gi,ri){
+  const G=DATA.checklist.groups[gi], R=G.rows[ri];
+  const subs=R.subs.map((s,i)=>`<div><label class="act ${store.mc[mcSubKey(gi,ri,i)]?"done":""}">
+      <input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}><span>${esc(s.n)}</span></label>
+      <div class="mnote">PYQ: ${esc(s.p)}</div></div>`).join("");
+  $("#mhead").innerHTML=`<span class="badge b${R.tier}">Tier ${R.tier}</span>
+    <div><div style="font-size:17px;font-weight:700">${esc(R.topic)}</div>
+    <div class="sub">${esc(G.name)}</div></div><button class="mx" title="close">✕</button>`;"""
+    new_mc_modal = """function openMcModal(gi,ri){
+  const G=DATA.checklist.groups[gi], R=G.rows[ri];
+  const subs=R.subs.map((s,i)=>`<div><label class="act ${store.mc[mcSubKey(gi,ri,i)]?"done":""}">
+      <input type="checkbox" class="t" data-mcs="${i}" ${store.mc[mcSubKey(gi,ri,i)]?"checked":""}>${fmtMcSub(s.n)}</label>
+      <div class="mnote">PYQ: ${esc(s.p)}</div></div>`).join("");
+  const schedDates=uniqDates(REV.mc[gi+":"+ri]).map(iso=>`<button type="button" class="date-chip" data-jdate="${iso}" title="Open ${fmtDate(iso)} in Today">📅 ${fmtDate(iso)}</button>`).join(" ");
+  $("#mhead").innerHTML=`<span class="badge b${R.tier}">Tier ${R.tier}</span>
+    <div><div style="font-size:17px;font-weight:700">${esc(R.topic)}</div>
+    <div class="sub" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px"><span>${esc(G.name)}</span>${schedDates}</div></div><button class="mx" title="close">✕</button>`;"""
+    new_text = new_text.replace(old_mc_modal, new_mc_modal).replace(old_mc_modal.replace("\n", "\r\n"), new_mc_modal)
 
-    # 9. Update bindChecks(scope) + add keyboard shortcuts (← / → / T) for Today navigation
+    new_text = new_text.replace(
+        '  $$("#mbody input[data-mcs]").forEach(el=>el.onchange=()=>{',
+        '  $$("#mhead .date-chip").forEach(el=>el.onclick=()=>jumpToDate(el.dataset.jdate));\n  $$("#mbody input[data-mcs]").forEach(el=>el.onchange()=>{'
+    ).replace('el.onchange()=>{', 'el.onchange=()=>{')
+
+    # 9. Update bindChecks(scope) so subtopic checkboxes update the progress ring & Day Complete auto-ticks subtopics
     old_bind = """function bindChecks(scope){
   $$((scope||"")+" input[data-k]").forEach(el=>el.onchange=()=>{
     store.d[el.dataset.k]=el.checked?1:0;save();
@@ -1615,14 +1860,28 @@ function renderCheck(){
     el.closest("label")?.classList.toggle("done",el.checked);
     const all=$$((scope||"")+" input[data-sk]"), dn=all.filter(x=>x.checked).length;
     const sp=$("#today-subprog"); if(sp) sp.textContent=`${dn}/${all.length} subtopics done`;
+    const ta=$("#today-tickall"); if(ta) ta.textContent=dn===all.length?"↺ Untick all":"✓ Tick all";
+    updateOverall();refreshTodayHeader();
   });
   $$((scope||"")+" input[data-k]").forEach(el=>el.onchange=()=>{
     store.d[el.dataset.k]=el.checked?1:0;save();
     el.closest("label")?.classList.toggle("done",el.checked);updateOverall();refreshTodayHeader();});
   $$((scope||"")+" input[data-tk]").forEach(el=>el.onchange=()=>{
-    store.d[el.dataset.tk]=el.checked?1:0;save();
+    store.d[el.dataset.tk]=el.checked?1:0;
+    const parts=el.dataset.tk.split("|T"), date=parts[0], ti=+parts[1];
+    if(el.checked && ti===4){
+      const d=DATA.days.find(x=>x.date===date);
+      if(d){
+        daySubItems(d).allSubItems.forEach((_,si)=>{store.d[subKey(date,si)]=1;});
+        $$((scope||"")+" input[data-sk]").forEach(inp=>{inp.checked=true;inp.closest("label")?.classList.add("done");});
+        const all=$$((scope||"")+" input[data-sk]");
+        const sp=$("#today-subprog"); if(sp) sp.textContent=`${all.length}/${all.length} subtopics done`;
+        const ta=$("#today-tickall"); if(ta) ta.textContent="↺ Untick all";
+      }
+    }
+    save();
     el.closest(".toggle")?.classList.toggle("on",el.checked);updateOverall();refreshTodayHeader();
-    if(el.checked){ const parts=el.dataset.tk.split("|T"); syncToday(parts[0], +parts[1]); }});
+    if(el.checked){ syncToday(date, ti); }});
 }
 document.addEventListener("keydown",e=>{
   if(e.target.matches("input,textarea,select")||!$("#modal").hidden) return;
